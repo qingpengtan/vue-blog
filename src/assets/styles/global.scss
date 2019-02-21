@@ -1,0 +1,14 @@
+@import './reset.scss';
+@import './normalize.scss';
+
+
+$ratio:375 / 10;
+
+@function px2rem($px){
+    @return $px/$ratio + rem;
+}
+
+$fontSize: 24px;
+@mixin color {
+    font-style: italic
+  }

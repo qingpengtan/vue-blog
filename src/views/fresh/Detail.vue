@@ -1,0 +1,151 @@
+<template>
+  <div class="home">
+    <NavMenu class="nav-menu"></NavMenu>
+    <div class="layout">
+      <div id="back" class="align-c hover article-back" @click="goBack()">
+        <svg-icon style="width:20px;height:16px;margin-right:5px" icon-class="back"/>
+        <span>Back</span>
+      </div>
+
+      <div id="article">
+        <div class="article-nums">
+          <span>文章阅读量:</span>
+          <span>957</span>
+        </div>
+        <article class="article-content cf">
+          <a href="#" target="_blank" aria-label="Github" class="github-corner github">
+            <svg-icon style="width:100%;height:100%" icon-class="git"/>
+          </a>
+          <h1>{{article.articleTitle}}</h1>
+          <div class="ql-snow">
+            <div class="ql-editor" style="padding:0">
+              <div
+                id="content"
+                v-html="article.content"
+                v-highlight
+                style="    line-height: 1.6;
+    word-wrap: break-word;"
+              ></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <version class="version"></version>
+  </div>
+</template>
+
+<script>
+import Version from "@/components/fresh/Version.vue";
+import NavMenu from "@/components/fresh/NavMenu.vue";
+import api from "@/api/article";
+
+export default {
+  name: "home",
+  components: {
+    // HelloWorld
+    NavMenu,
+    Version
+  },
+  data() {
+    return {
+      article: {}
+    };
+  },
+  created() {
+    api.getDetails({ articleId: this.$route.params.id }).then(res => {
+      this.article = res.data;
+    });
+  },
+  mounted() {},
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.home {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background: hsla(40, 33%, 60%, 0.3);
+  .layout {
+    width: 900px;
+    margin: 0 auto;
+    #back {
+      padding: 20px 0;
+      color: #bba477;
+      cursor: pointer;
+      display: inline-block;
+      &.article-back {
+        margin-top: 80px;
+        margin-left: 2%;
+      }
+    }
+    #article {
+      width: 96%;
+      margin: 0 auto;
+      max-width: 1000px;
+      background: #f8f9f3;
+      padding: 10px;
+      .github {
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: rgb(74, 183, 189);
+        cursor: pointer;
+        width: 80px;
+        height: 80px;
+        border: 0;
+      }
+      .article-nums {
+        line-height: 40px;
+        font-size: 14px;
+        color: #555;
+      }
+      .article-content {
+        padding: 30px 60px;
+        border: 1px dashed #c9c9c7;
+        position: relative;
+        h1 {
+          font-weight: 600;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .version {
+    position: absolute;
+    top: 5px;
+    right: 150px;
+    color: #c1866a;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .home {
+    .nav-menu {
+      display: none;
+    }
+    .layout {
+      width: 100%;
+      #back.article-back {
+        margin-top: 0;
+      }
+      #article .article-content {
+        padding: 10px;
+      }
+    }
+    .version {
+      right: 20px;
+    }
+  }
+}
+</style>
+
+
+
+
