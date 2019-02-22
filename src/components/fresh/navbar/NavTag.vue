@@ -3,6 +3,7 @@
     <div id="sidebar" class="sidebar">
       <div class="tags-title border-1px-b">Tags</div>
       <Tags :tags=tags style="margin-top:10px"></Tags>
+      <version class="vers"></version>
     </div>
   </div>
 </template>
@@ -11,6 +12,7 @@
 import store from "@/store";
 import Tags from "@/components/fresh/Tags.vue";
 import api from "@/api/article";
+import Version from "@/components/fresh/Version.vue";
 export default {
   data(){
     return{
@@ -18,7 +20,8 @@ export default {
     }
   },
   components:{
-    Tags
+    Tags,
+    Version
   },
   created() {
         api.getArticleTag().then(res => {
@@ -63,6 +66,13 @@ export default {
       font-family: Georgia;
       line-height: 2.2;
       border-bottom: 1px solid #dfcba3;
+    }
+
+    .vers{
+      position: absolute;
+      bottom: 10px;
+      line-height: 1.5;
+      color: #c1866a;
     }
   }
 }

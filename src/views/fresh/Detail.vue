@@ -171,7 +171,8 @@ export default {
       }
     }
     .version {
-      right: 20px;
+      right: 10px;
+      display: none;
     }
     .footer {
       width: 100%;

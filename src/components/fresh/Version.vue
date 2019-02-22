@@ -1,8 +1,10 @@
 <template>
   <ul class="version">
     <li>欢迎您，{{user}}大牛</li>
-    <li><a href="http://119.29.230.48/blog/normal/">普通版</a></li>
-    <li style="color:rgb(185, 69, 14)">清新版</li>
+    <li>
+      <a href="http://www.zhiroad.cn/blog/normal/">普通版</a>
+    </li>
+    <li style="    color: rgb(185,69,14);">清新版</li>
     <li>炫酷版</li>
   </ul>
 </template>
@@ -32,8 +34,16 @@ export default {
   padding: 0 10px;
   cursor: pointer;
   border-right: 1px solid;
+  color: inherit;
   &:last-child {
     border-right: none;
+  }
+  a {
+    color: inherit;
+  }
+
+  &:hover:not(:first-child) {
+    color: rgb(185, 69, 14);
   }
 }
 .version {

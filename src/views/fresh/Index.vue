@@ -126,6 +126,7 @@ export default {
     }
     .version {
       right: 10px;
+      display: none;
     }
   }
 }
