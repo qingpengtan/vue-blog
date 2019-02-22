@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <NavMenu class="nav-menu"></NavMenu>
+    <NavBtn class="nav-menu"></NavBtn>
+    <NavMenu></NavMenu>
+    <FixNav class="fix-nav"></FixNav>
+
     <div class="layout">
       <div id="back" class="align-c hover article-back" @click="goBack()">
         <svg-icon style="width:20px;height:16px;margin-right:5px" icon-class="back"/>
@@ -32,12 +35,17 @@
       </div>
     </div>
     <version class="version"></version>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
 <script>
+import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
+import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
+import FixNav from "@/components/fresh/navbar/FixNav.vue";
+import Tags from "@/components/fresh/Tags.vue";
 import Version from "@/components/fresh/Version.vue";
-import NavMenu from "@/components/fresh/NavMenu.vue";
+import Footer from "@/components/fresh/Footer.vue";
 import api from "@/api/article";
 
 export default {
@@ -45,7 +53,10 @@ export default {
   components: {
     // HelloWorld
     NavMenu,
-    Version
+    Version,
+    NavBtn,
+    FixNav,
+    Footer
   },
   data() {
     return {
@@ -72,6 +83,14 @@ export default {
   height: 100%;
   overflow-y: scroll;
   background: hsla(40, 33%, 60%, 0.3);
+  .nav-menu {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+  }
+  .fix-nav {
+    display: none;
+  }
   .layout {
     width: 900px;
     margin: 0 auto;
@@ -123,6 +142,14 @@ export default {
     right: 150px;
     color: #c1866a;
   }
+  .footer {
+    width: 800px;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #c1866a;
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 481px) {
@@ -130,17 +157,24 @@ export default {
     .nav-menu {
       display: none;
     }
+    .fix-nav {
+      display: block;
+    }
     .layout {
       width: 100%;
       #back.article-back {
-        margin-top: 0;
+        margin-top: 60px;
       }
       #article .article-content {
         padding: 10px;
+        min-height: 200px;
       }
     }
     .version {
       right: 20px;
+    }
+    .footer {
+      width: 100%;
     }
   }
 }

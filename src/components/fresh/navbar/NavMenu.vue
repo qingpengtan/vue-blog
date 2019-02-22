@@ -1,16 +1,5 @@
 <template>
   <div class="nav">
-    <ul :class="{ active: isActive}" class="nav-btn" @click="navBtnClk">
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-      <li :class="{ active: isActive}"></li>
-    </ul>
     <transition name="fade">
       <div class="mask" @click="navBtnClk" v-show="isActive">
         <ul class="nav-menu" :class="{ active: isActive}">
@@ -70,17 +59,17 @@
 </template>
 
 <script>
+import store from "@/store";
 export default {
   name: "nav-menu",
-  data() {
-    return {
-      isActive: false
-    };
+  computed: {
+    isActive() {
+      return this.$store.getters.isActive; //需要监听的数据
+    }
   },
-  created() {},
   methods: {
     navBtnClk() {
-      this.isActive = !this.isActive;
+      store.dispatch("IsActive",  !this.$store.getters.isActive);
     }
   }
 };
@@ -88,41 +77,13 @@ export default {
 
 
 <style lang="scss" scoped>
-.nav-btn {
-  width: 30px;
-  height: 30px;
-  margin: 30px;
-  position: absolute;
-  transition: all 0.3s;
-  cursor: pointer;
-  li {
-    width: 4px;
-    height: 4px;
-    background: #c1866a;
-    float: left;
-    margin: 3px;
-    transition: all 0.3s;
-    &.active {
-      margin: 1px;
-      background: #ccc;
-    }
-    .menu-icon {
-      height: 80px;
-    }
-  }
-  &.active {
-    width: 21px;
-    height: 21px;
-  }
-}
-
 .mask {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   .nav-menu {
     position: absolute;
@@ -152,11 +113,11 @@ export default {
 }
 
 @media only screen and (max-width: 481px) {
-  .mask .nav-menu{
+  .mask .nav-menu {
     &.active {
       width: 100%;
     }
-    li.active{
+    li.active {
       width: 31%;
       margin: 1%;
     }
