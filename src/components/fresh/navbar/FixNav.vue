@@ -2,7 +2,7 @@
   <div>
     <div class="slide-nav df-sb">
       <NavBtn></NavBtn>
-      <span class="slide-text">博客列表</span>
+      <span class="slide-text">{{title}}</span>
       <svg-icon @click.native="navTagClk" icon-class="nav" style="width:33px;height:33px"/>
     </div>
     <NavMenu></NavMenu>
@@ -17,6 +17,7 @@ import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import NavTag from "@/components/fresh/navbar/NavTag.vue";
 
 export default {
+  props:['title'],
   components: {
     NavBtn,
     NavMenu,

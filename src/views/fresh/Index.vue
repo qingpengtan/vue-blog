@@ -2,7 +2,7 @@
   <div class="home">
     <NavBtn class="menu"></NavBtn>
     <NavMenu></NavMenu>
-    <FixNav class="fix-nav"></FixNav>
+    <FixNav class="fix-nav" :title="'博客列表'"></FixNav>
     <div class="layout">
       <tags class="tags" :tags="tags"></tags>
       <div class="content">

@@ -2,10 +2,10 @@
   <ul class="version">
     <li>欢迎您，{{user}}大牛</li>
     <li>
-      <a href="http://www.zhiroad.cn/blog/normal/">普通版</a>
+      <a href="http://www.zhiroad.cn/blog/normal/" title="普通版">普通版</a>
     </li>
-    <li style="    color: rgb(185,69,14);">清新版</li>
-    <li @click="tip">炫酷版</li>
+    <li style="color: rgb(185,69,14);" title="清新版">清新版</li>
+    <li @click="tip" title="炫酷版">炫酷版</li>
   </ul>
 </template>
 

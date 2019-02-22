@@ -2,8 +2,7 @@
   <div class="home">
     <NavBtn class="nav-menu"></NavBtn>
     <NavMenu></NavMenu>
-    <FixNav class="fix-nav"></FixNav>
-
+    <FixNav class="fix-nav" :title="'博客详情'"></FixNav>
     <div class="layout">
       <div id="back" class="align-c hover article-back" @click="goBack()">
         <svg-icon style="width:20px;height:16px;margin-right:5px" icon-class="back"/>
