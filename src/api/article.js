@@ -3,10 +3,11 @@ import qs from 'qs';
 
 export default {
     
-    getArticleList () {
+    getArticleList (data) {
       return request({
         url: '/api/list',
-        method: 'post'
+        method: 'post',
+        data:qs.stringify(data)
       })
     },
         
@@ -36,6 +37,9 @@ export default {
       return request({
         url: '/api/userInfo',
         method: 'post',
+        headers:{
+          token:localStorage.getItem('x_token')
+        }
       })
     },
 

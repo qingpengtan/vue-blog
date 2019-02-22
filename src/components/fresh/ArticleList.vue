@@ -18,7 +18,7 @@
           <div class="bubble">4</div>
           <div class="reply">回复</div>
         </div>
-        <tags class="tags" :tags="[{articleTag:item.articleTag}]"></tags>
+        <tags class="tags" :tags="[{articleTag:item.articleTagName}]"></tags>
       </div>
     </section>
   </div>

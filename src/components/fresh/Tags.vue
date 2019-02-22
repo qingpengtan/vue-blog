@@ -1,7 +1,12 @@
 <template>
   <div class="tag">
-    <div class="tag-box" v-for="(item,key) in tags" :key="key">
-      <i></i>
+    <div
+      class="tag-box"
+      v-for="(item,key) in tags"
+      :key="key"
+      :style="'background:'+getColor(item.articleTag)"
+    >
+      <i :style="'border-right-color:'+getColor(item.articleTag)"></i>
       {{item.articleTag}}
     </div>
   </div>
@@ -9,14 +14,34 @@
 
 <script>
 export default {
-  props: ["tags"]
+  props: ["tags"],
+  methods: {
+    getColor(value) {
+      if (value == "Java") {
+        return "rgb(219, 86, 64)";
+      } else if (value == "Web开发") {
+        return "rgb(94, 123, 167)";
+      } else if (value == "NodeJS") {
+        return "rgb(101, 179, 185)";
+      } else if (value == "Go语言") {
+        return "rgb(24, 144, 255)";
+      } else if (value == "大数据") {
+        return "rgb(76, 174, 76)";
+      } else if (value == "Python") {
+        return "rgb(120, 109, 93)";
+      } else if (value == "杂谈笔录") {
+        return "rgb(135, 180, 78)";
+      } else {
+        return "rgb(230, 188, 60)";
+      }
+    }
+  }
 };
 </script>
 
 
 <style lang="scss" scoped>
 .tag {
-  width: 200px;
   position: absolute;
   .tag-box {
     text-decoration: none;
@@ -41,54 +66,6 @@ export default {
       top: 7px;
       left: 2px;
     }
-    &:first-child {
-      background-color: rgb(219, 86, 64);
-      i {
-        border-right-color: rgb(219, 86, 64);
-      }
-    }
-    &:nth-child(2) {
-      background-color: rgb(94, 123, 167);
-      i {
-        border-right-color: rgb(94, 123, 167);
-      }
-    }
-    &:nth-child(3) {
-      background-color: rgb(183, 235, 143);
-      i {
-        border-right-color: rgb(183, 235, 143);
-      }
-    }
-    &:nth-child(4) {
-      background-color: rgb(24, 144, 255);
-      i {
-        border-right-color: rgb(24, 144, 255);
-      }
-    }
-    &:nth-child(5) {
-      background-color: rgb(76, 174, 76);
-      i {
-        border-right-color: rgb(76, 174, 76);
-      }
-    }
-    &:nth-child(6) {
-      background-color: rgb(120, 109, 93);
-      i {
-        border-right-color: rgb(120, 109, 93);
-      }
-    }
-    &:nth-child(7) {
-      background-color: rgb(230, 188, 60);
-      i {
-        border-right-color: rgb(230, 188, 60);
-      }
-    }
-    &:nth-child(8) {
-      background-color: rgb(135, 180, 78);
-      i {
-        border-right-color: rgb(135, 180, 78);
-      }
-    }
     &:nth-child(9) {
       background-color: rgb(101, 179, 185);
       i {
@@ -112,7 +89,5 @@ export default {
 }
 
 @media only screen and (max-width: 481px) {
-
-  
 }
 </style>

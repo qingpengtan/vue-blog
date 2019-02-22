@@ -163,7 +163,7 @@ export default {
     .layout {
       width: 100%;
       #back.article-back {
-        margin-top: 60px;
+        margin-top: 50px;
       }
       #article .article-content {
         padding: 10px;

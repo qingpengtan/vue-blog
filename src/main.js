@@ -15,6 +15,7 @@ import 'quill/dist/quill.bubble.css'
 import hljs from 'highlight.js/lib/highlight';
 import 'highlight.js/styles/atom-one-dark.css';
 import 'highlight.js/lib';
+import * as filters from './filter' // global filters
 
 Vue.use(VueQuillEditor, /* { default global options } */)
 
@@ -28,6 +29,12 @@ Vue.directive('highlight',function (el) {
       hljs.highlightBlock(block)
   })
 });
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 new Vue({
   router,
   store,

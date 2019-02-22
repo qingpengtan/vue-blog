@@ -39,7 +39,7 @@ export default {
   z-index: 99;
   width: 100%;
   margin: 0 auto;
-  height: 66px;
+  height: 56px;
   max-height: 100px;
   padding: 0 12px;
   -webkit-transition: all 0.5s;

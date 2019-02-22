@@ -79,6 +79,7 @@ export default {
     display: flex;
     .tags {
       margin-top: 40px;
+      width: 200px;
     }
     .content {
       width: 560px;

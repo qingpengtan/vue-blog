@@ -2,14 +2,29 @@
   <div class="tag-mask" v-show="isTagActive" @click="navTagClk">
     <div id="sidebar" class="sidebar">
       <div class="tags-title border-1px-b">Tags</div>
-      <ul></ul>
+      <Tags :tags=tags style="margin-top:10px"></Tags>
     </div>
   </div>
 </template>
 
 <script>
 import store from "@/store";
+import Tags from "@/components/fresh/Tags.vue";
+import api from "@/api/article";
 export default {
+  data(){
+    return{
+      tags: []
+    }
+  },
+  components:{
+    Tags
+  },
+  created() {
+        api.getArticleTag().then(res => {
+      this.tags = res.data;
+    });
+  },
   computed: {
     isTagActive() {
       return this.$store.getters.isTagActive; //需要监听的数据
