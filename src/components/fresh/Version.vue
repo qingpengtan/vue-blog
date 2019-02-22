@@ -5,7 +5,7 @@
       <a href="http://www.zhiroad.cn/blog/normal/">普通版</a>
     </li>
     <li style="    color: rgb(185,69,14);">清新版</li>
-    <li>炫酷版</li>
+    <li @click="tip">炫酷版</li>
   </ul>
 </template>
 
@@ -23,7 +23,12 @@ export default {
     api.getUserInfo().then(res => {
       this.user = res.data;
     });
-  }
+  },
+  methods: {
+    tip(){
+      alert("正在努力开发中...")
+    }
+  },
 };
 </script>
 

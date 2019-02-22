@@ -4,7 +4,8 @@
       class="tag-box"
       v-for="(item,key) in tags"
       :key="key"
-      :style="'background:'+getColor(item.articleTag)"
+      :title="item.articleTag"
+      :style="'background:'+getColor(item.articleTag) "
     >
       <i :style="'border-right-color:'+getColor(item.articleTag)"></i>
       {{item.articleTag}}
@@ -54,6 +55,7 @@ export default {
     padding: 0 5px 0 10px;
     position: relative;
     border-radius: 0 5px 5px 0;
+    cursor: pointer;
     margin: 10px 18px 10px 8px;
     &::before {
       content: " ";

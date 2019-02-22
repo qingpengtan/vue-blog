@@ -12,7 +12,7 @@
         <time class="time">{{item.createTime}}</time>
         <div class="desc">
           {{item.articleBrief}}
-          <span class="look-more hover">查看更多</span>
+          <span class="look-more hover" @click="details(item.articleId)">查看更多</span>
         </div>
         <div class="comment hover">
           <div class="bubble">4</div>

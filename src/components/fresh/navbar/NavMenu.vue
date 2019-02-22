@@ -3,12 +3,12 @@
     <transition name="fade">
       <div class="mask" @click="navBtnClk" v-show="isActive">
         <ul class="nav-menu" :class="{ active: isActive}">
-          <li :class="{ active: isActive}">
+          <router-link tag="li" to="/" :class="{ active: isActive}" title="Home">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="home" style="width:40%;height:80px"/>
             </div>Home
-          </li>
-          <li :class="{ active: isActive}">
+          </router-link>
+          <router-link tag="li" to="/" :class="{ active: isActive}" title="Blog">
             <div class="menu-icon">
               <svg-icon
                 class="svg-icons"
@@ -16,38 +16,38 @@
                 style="width:60%;height:65px;margin-left:15px;margin-top:15px;"
               />
             </div>Blog
-          </li>
-          <li :class="{ active: isActive}">
+          </router-link>
+          <li :class="{ active: isActive}" title="Music">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Music" style="width:35%;height:80px"/>
             </div>Music
           </li>
-          <li :class="{ active: isActive}">
+          <li :class="{ active: isActive}" title="Message">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="message" style="width:35%;height:80px"/>
             </div>Message
           </li>
-          <li :class="{ active: isActive}">
+          <li :class="{ active: isActive}" title="Resource">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Resources" style="width:35%;height:80px"/>
             </div>Resource
           </li>
-          <li :class="{ active: isActive}">
+          <li :class="{ active: isActive}" title="Me">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="me" style="width:35%;height:80px"/>
             </div>Me
           </li>
-          <li :class="{ active: isActive}">
+          <li :class="{ active: isActive}" title="Example">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="example" style="width:35%;height:80px"/>
             </div>Example
           </li>
-          <li :class="{ active: isActive}">
+          <li :class="{ active: isActive}" title="Github">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Gits" style="width:35%;height:80px"/>
             </div>Github
           </li>
-          <li :class="{ active: isActive}">
+          <li :class="{ active: isActive}" title="Juejin">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="juejin" style="width:35%;height:80px"/>
             </div>Juejin
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     navBtnClk() {
-      store.dispatch("IsActive",  !this.$store.getters.isActive);
+      store.dispatch("IsActive", !this.$store.getters.isActive);
     }
   }
 };
@@ -103,6 +103,7 @@ export default {
       float: left;
       margin: 5px 8px;
       color: #bcbcbc;
+      cursor: pointer;
       transition: all 0.3s;
       &.active {
         width: 120px;
