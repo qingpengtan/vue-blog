@@ -10,6 +10,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'http://119.29.230.48', //对应自己的接口
+        // target: 'http://localhost:8080', //对应自己的接口
         changeOrigin: true,
         ws: true,
         pathRewrite: {

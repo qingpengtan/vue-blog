@@ -2,19 +2,19 @@
   <div class="blog-comment" id="blog-comment">
     <div class="total" id="aaa">
       <span>最新评论：</span>
-      <span class="num">3</span>
+      <span class="num">{{items.length}}</span>
     </div>
     <ul>
-      <li id="comment-item-1130" class="comment-item">
+      <li id="comment-item-1130" class="comment-item" v-for="(item,key) in items" :key="key">
         <div class="cm-avatar">
           <a target="_blank" rel="external nofollow noopener" href="http://www.timrchen.site">
-            <img alt="timrchen" src="../../assets/logo.png">
+            <img  :src=item.userPic>
           </a>
         </div>
         <div class="cm-body">
           <div class="cm-header">
-            <span class="user-name">Timrchen</span>
-            <span class="os">
+            <span class="user-name">{{item.userName}}</span>
+            <!-- <span class="os">
               <span class="os_mac">
                 <i class="iconfont icon-mac"></i>Mac OS X
               </span>
@@ -23,15 +23,14 @@
               <span class="ua_chrome">
                 <i class="iconfont icon-chrome"></i>Chrome | 72
               </span>
-            </span>
-            <span class="flool">#1130</span>
+            </span>-->
+            <span class="flool">#{{items.length - key}}</span>
           </div>
           <div class="cm-content">
-            <!---->
-            <p>真好</p>
+            {{item.comment}}            
           </div>
           <div class="cm-footer">
-            <span class="create_at">3 天前</span>
+            <span class="create_at">{{item.createTime}}</span>
             <span class="reply">
               <span>回复</span>
             </span>
@@ -42,7 +41,7 @@
           </div>
         </div>
       </li>
-      <li class="comment-item zero-item">沙发留给你....</li>
+      <li class="comment-item zero-item" v-if="items == 0">孤独的只剩下沙发....</li>
     </ul>
 
     <div class="editor-box">
@@ -55,6 +54,25 @@
     </div>
   </div>
 </template>
+
+<script>
+import api from "@/api/article";
+export default {
+  props: ["id"],
+  data() {
+    return {
+      items:[]
+    };
+  },
+  created() {
+    console.log(this.id)
+    api.getCommentList({ articleId: this.$route.params.id }).then(res => {
+      this.items = res.data;
+    });
+  }
+};
+</script>
+
 
 <style lang="scss" scoped>
 .blog-comment {
@@ -74,15 +92,17 @@
     .cm-avatar {
       position: absolute;
       left: 0;
-      top: 28px;
+      top: 24px;
       a {
         display: block;
-        border: 4px solid #fff;
         width: 47px;
         height: 47px;
+        background: #fff;
+        border-radius: 50%;
         img {
           width: 100%;
           height: 100%;
+          border-radius: 50%;
         }
       }
     }
@@ -105,7 +125,6 @@
         .flool {
           font-weight: 900;
           font-size: 10px;
-          line-height: 1.5;
           float: right;
         }
       }
@@ -141,16 +160,37 @@
         margin-bottom: 7px;
         width: 43px;
         height: 43px;
+        border-radius: 50%;
+        background: #fff;
         img {
           width: 100%;
           height: 100%;
+          border-radius: 50%;
         }
       }
     }
     .editor {
       flex-grow: 1;
-      height: 100px;
+      height: 80px;
       border: 1px solid;
+    }
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .blog-comment {
+    .editor-box .user .gravatar {
+      width: 36px;
+      height: 36px;
+    }
+    .comment-item {
+      .cm-body {
+        padding-left: 35px;
+      }
+      .cm-avatar a {
+        width: 42px;
+        height: 42px;
+      }
     }
   }
 }

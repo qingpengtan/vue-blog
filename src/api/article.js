@@ -43,4 +43,20 @@ export default {
       })
     },
 
+    getCommentList (data) {
+      return request({
+        url: '/api/commentList',
+        method: 'post',
+        data:qs.stringify(data)
+      })
+    },
+
+    pushComment (data) {
+      return request({
+        url: '/api/comment',
+        method: 'post',
+        data:qs.stringify(data)
+      })
+    },
+
   }

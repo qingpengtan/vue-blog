@@ -32,7 +32,7 @@
           </div>
         </article>
       </div>
-      <Comment></Comment>
+      <Comment :id.sync="article.articleId"></Comment>
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
