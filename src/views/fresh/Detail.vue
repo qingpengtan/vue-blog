@@ -32,12 +32,7 @@
           </div>
         </article>
       </div>
-      <div class="blog-comment" id="blog-comment">
-        <div class="total" id="aaa">
-          <span>最新评论：</span>
-          <span class="num">3</span>
-        </div>
-      </div>
+      <Comment></Comment>
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
@@ -49,6 +44,7 @@ import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import FixNav from "@/components/fresh/navbar/FixNav.vue";
 import Tags from "@/components/fresh/Tags.vue";
+import Comment from "@/components/fresh/Comment.vue";
 import Version from "@/components/fresh/Version.vue";
 import Footer from "@/components/fresh/Footer.vue";
 import api from "@/api/article";
@@ -61,6 +57,7 @@ export default {
     Version,
     NavBtn,
     FixNav,
+    Comment,
     Footer
   },
   data() {
@@ -139,17 +136,6 @@ export default {
           font-weight: 600;
           text-align: center;
         }
-      }
-    }
-    .blog-comment {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      margin-top: 40px;
-      color: #bba477;
-      .total {
-        line-height: 40px;
-        border-bottom: 1px dashed;
       }
     }
   }

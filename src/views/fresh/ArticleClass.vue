@@ -2,7 +2,7 @@
   <div class="home">
     <NavBtn class="menu"></NavBtn>
     <NavMenu></NavMenu>
-    <FixNav class="fix-nav" :title=articleTag></FixNav>
+    <FixNav class="fix-nav" :title="articleTag"></FixNav>
     <div class="layout">
       <tags class="tags" :tags="tags"></tags>
       <div class="content">
@@ -42,7 +42,7 @@ export default {
     return {
       list: [],
       tags: [],
-      articleTag:''
+      articleTag: ""
     };
   },
   created() {
@@ -66,6 +66,9 @@ export default {
   methods: {
     getTag(id) {
       switch (id) {
+        case "1":
+          document.title = this.articleTag = "杂谈笔录";
+          break;
         case "2":
           document.title = this.articleTag = "Java";
           break;
