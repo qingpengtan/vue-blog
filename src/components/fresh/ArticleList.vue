@@ -15,7 +15,7 @@
           <span class="look-more hover" @click="details(item.articleId)">查看更多</span>
         </div>
         <div class="comment hover">
-          <div class="bubble">4</div>
+          <router-link tag="div" :to="{ path: '/detail/'+item.articleId+'#aaa' }" class="bubble">4</router-link>
           <div class="reply">回复</div>
         </div>
         <tags class="tags" :tags="[{articleTag:item.articleTagName,articleTagId:item.articleTag}]"></tags>
@@ -27,7 +27,7 @@
         <div class="end-line">The end</div>
       </div>
     </div>
-    <div class="zero" v-if="List.length == 0">
+    <div class="zero" v-if="List.length == 0" v-show="zero">
       <svg-icon style="width:80px" icon-class="zero"/>
       <div style="padding:20px">没有更多文章啦 ︿(￣︶￣)︿</div>
     </div>
@@ -43,15 +43,16 @@ export default {
   },
   data() {
     return {
-      tags: [
-        { articleTag: "react" },
-        { articleTag: "vue" },
-        { articleTag: "vue" },
-        { articleTag: "vue" },
-        { articleTag: "vue" },
-        { articleTag: "vue" }
-      ]
+      tags: [],
+      zero: false
     };
+  },
+  watch: {
+    List() {
+      if (this.List.length == 0) {
+        this.zero = true;
+      }
+    }
   },
   methods: {
     details(id) {
@@ -170,6 +171,7 @@ export default {
         font-size: 12px;
         &:hover {
           cursor: pointer;
+          text-decoration: underline;
         }
       }
     }
@@ -189,6 +191,9 @@ export default {
       font-weight: 600;
       background: #b2b2ae;
       border-radius: 50%;
+      &:hover {
+        background: rgb(219, 86, 64);
+      }
     }
     .reply {
       color: #b2b2ae;

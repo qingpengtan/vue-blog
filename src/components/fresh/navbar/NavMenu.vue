@@ -105,6 +105,9 @@ export default {
       color: #bcbcbc;
       cursor: pointer;
       transition: all 0.3s;
+      &:hover{
+        color: #ab9e9e;
+      }
       &.active {
         width: 120px;
         height: 120px;

@@ -32,6 +32,12 @@
           </div>
         </article>
       </div>
+      <div class="blog-comment" id="blog-comment">
+        <div class="total" id="aaa">
+          <span>最新评论：</span>
+          <span class="num">3</span>
+        </div>
+      </div>
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
@@ -135,6 +141,17 @@ export default {
         }
       }
     }
+    .blog-comment {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 40px;
+      color: #bba477;
+      .total {
+        line-height: 40px;
+        border-bottom: 1px dashed;
+      }
+    }
   }
   .version {
     position: absolute;
@@ -168,6 +185,9 @@ export default {
       #article .article-content {
         padding: 10px;
         min-height: 200px;
+      }
+      .blog-comment {
+        width: 90%;
       }
     }
     .version {
