@@ -1,6 +1,8 @@
 <template>
   <div class="tag">
-    <div
+    <router-link
+      tag="div"
+      :to="{path:'/tags/'+item.articleTagId}"
       class="tag-box"
       v-for="(item,key) in tags"
       :key="key"
@@ -9,7 +11,7 @@
     >
       <i :style="'border-right-color:'+getColor(item.articleTag)"></i>
       {{item.articleTag}}
-    </div>
+    </router-link>
   </div>
 </template>
 

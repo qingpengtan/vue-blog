@@ -2,7 +2,7 @@
   <div class="home">
     <NavBtn class="menu"></NavBtn>
     <NavMenu></NavMenu>
-    <FixNav class="fix-nav" :title="'博客列表'"></FixNav>
+    <FixNav class="fix-nav" :title=articleTag></FixNav>
     <div class="layout">
       <tags class="tags" :tags="tags"></tags>
       <div class="content">
@@ -11,7 +11,6 @@
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
-
   </div>
 </template>
 
@@ -28,7 +27,7 @@ import ArticleList from "@/components/fresh/ArticleList.vue";
 import api from "@/api/article";
 
 export default {
-  name: "home",
+  name: "article-class",
   components: {
     // HelloWorld
     Tags,
@@ -42,20 +41,55 @@ export default {
   data() {
     return {
       list: [],
-      tags: []
+      tags: [],
+      articleTag:''
     };
   },
   created() {
-    api.getArticleList().then(res => {
+    api.getArticleList({ articleTagId: this.$route.params.id }).then(res => {
       this.list = res.data.articleList;
     });
 
     api.getArticleTag().then(res => {
       this.tags = res.data;
     });
-     document.title = "ZHIROAD博客";
+    this.getTag(this.$route.params.id);
   },
-  methods: {}
+  watch: {
+    $route(to, from) {
+      api.getArticleList({ articleTagId: this.$route.params.id }).then(res => {
+        this.list = res.data.articleList;
+      });
+      this.getTag(this.$route.params.id);
+    }
+  },
+  methods: {
+    getTag(id) {
+      switch (id) {
+        case "2":
+          document.title = this.articleTag = "Java";
+          break;
+        case "3":
+          document.title = this.articleTag = "Web开发";
+          break;
+        case "8":
+          document.title = this.articleTag = "NodeJS";
+          break;
+        case "4":
+          document.title = this.articleTag = "Go语言";
+          break;
+        case "5":
+          document.title = this.articleTag = "大数据";
+          break;
+        case "6":
+          document.title = this.articleTag = "Python";
+          break;
+        default:
+          document.title = this.articleTag = "其他";
+          break;
+      }
+    }
+  }
 };
 </script>
 

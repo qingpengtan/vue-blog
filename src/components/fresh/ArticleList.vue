@@ -18,9 +18,19 @@
           <div class="bubble">4</div>
           <div class="reply">回复</div>
         </div>
-        <tags class="tags" :tags="[{articleTag:item.articleTagName}]"></tags>
+        <tags class="tags" :tags="[{articleTag:item.articleTagName,articleTagId:item.articleTag}]"></tags>
       </div>
     </section>
+
+    <div class="pull-load-footer" v-if="List.length != 0">
+      <div class="end-box">
+        <div class="end-line">The end</div>
+      </div>
+    </div>
+    <div class="zero" v-if="List.length == 0">
+      <svg-icon style="width:80px" icon-class="zero"/>
+      <div style="padding:20px">没有更多文章啦 ︿(￣︶￣)︿</div>
+    </div>
   </div>
 </template>
 
@@ -56,6 +66,32 @@ export default {
   padding: 0 20px;
   padding-top: 80px;
   box-sizing: border-box;
+  .end-box {
+    text-align: center;
+    margin-bottom: 20px;
+    .end-line {
+      color: #bba477;
+      position: relative;
+      display: inline-block;
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background: #bba477;
+        top: 50%;
+        right: calc(100% + 10px);
+      }
+      &::after {
+        left: calc(100% + 10px);
+      }
+    }
+  }
+  .zero {
+    text-align: center;
+    color: #bba477;
+  }
 }
 .blog-article {
   width: 100%;

@@ -36,6 +36,11 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import( /* webpackChunkName: "detail" */ './views/fresh/Detail.vue')
+    },
+    {
+      path: '/tags/:id',
+      name: 'article-class',
+      component: () => import( /* webpackChunkName: "article-class" */ './views/fresh/ArticleClass.vue')
     }
   ]
 })

@@ -65,6 +65,7 @@ export default {
   created() {
     api.getDetails({ articleId: this.$route.params.id }).then(res => {
       this.article = res.data;
+      document.title = res.data.articleTitle;
     });
   },
   mounted() {},
