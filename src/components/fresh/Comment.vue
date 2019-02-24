@@ -8,7 +8,7 @@
       <li id="comment-item-1130" class="comment-item" v-for="(item,key) in items" :key="key">
         <div class="cm-avatar">
           <a target="_blank" rel="external nofollow noopener" href="http://www.timrchen.site">
-            <img  :src=item.userPic>
+            <img :src="item.userPic">
           </a>
         </div>
         <div class="cm-body">
@@ -26,9 +26,7 @@
             </span>-->
             <span class="flool">#{{items.length - key}}</span>
           </div>
-          <div class="cm-content">
-            {{item.comment}}            
-          </div>
+          <div class="cm-content">{{item.comment}}</div>
           <div class="cm-footer">
             <span class="create_at">{{item.createTime}}</span>
             <span class="reply">
@@ -50,7 +48,8 @@
           <img alt="匿名用户" src="../../assets/logo.png">
         </div>
       </div>
-      <div class="editor"></div>
+      <textarea class="editor"></textarea>
+      <button class="send">发送</button>
     </div>
   </div>
 </template>
@@ -61,11 +60,11 @@ export default {
   props: ["id"],
   data() {
     return {
-      items:[]
+      items: []
     };
   },
   created() {
-    console.log(this.id)
+    console.log(this.id);
     api.getCommentList({ articleId: this.$route.params.id }).then(res => {
       this.items = res.data;
     });
@@ -95,8 +94,8 @@ export default {
       top: 24px;
       a {
         display: block;
-        width: 47px;
-        height: 47px;
+        width: 42px;
+        height: 42px;
         background: #fff;
         border-radius: 50%;
         img {
@@ -109,27 +108,29 @@ export default {
     .cm-body {
       width: 100%;
       height: 100%;
-      padding: 8px 8px 8px 44px;
+      padding: 8px 8px 8px 36px;
       .cm-header {
         position: relative;
         .user-name {
           font-weight: 700;
           margin-right: 0.8em;
+          color: #c1866a;
+          font-size: 15px;
         }
         .ua,
         .os {
           color: #999;
-          font-size: 10px;
+          font-size: 11px;
           margin-right: 10px;
         }
         .flool {
           font-weight: 900;
-          font-size: 10px;
+          font-size: 11px;
           float: right;
         }
       }
       .cm-content {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 2;
         margin: 7px 0;
         word-wrap: break-word;
@@ -139,7 +140,7 @@ export default {
         .create_at,
         .reply,
         .like {
-          font-size: 10px;
+          font-size: 11px;
           margin-right: 11px;
         }
       }
@@ -158,8 +159,8 @@ export default {
       margin-right: 14px;
       .gravatar {
         margin-bottom: 7px;
-        width: 43px;
-        height: 43px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         background: #fff;
         img {
@@ -171,8 +172,32 @@ export default {
     }
     .editor {
       flex-grow: 1;
-      height: 80px;
-      border: 1px solid;
+      padding: 8px;
+      background: rgba(187, 164, 119, 0.3);
+      border:1px solid #c1866a;
+      font-size: 14px;
+      color: #c1866a;
+      border-radius: 5px;
+    }
+
+    .send {
+      width: 70px;
+      height: 30px;
+      vertical-align: bottom;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 15px;
+      color: #fff;
+      background: -webkit-linear-gradient(
+        left,
+        hsla(40, 33%, 60%, 0.99),
+        #c1866a 100%
+      );
+      margin: 0 auto;
+      margin-top: 30px;
+      margin-left: 8px;
+      font-size: 14px;
+      cursor: pointer;
     }
   }
 }
@@ -180,16 +205,16 @@ export default {
 @media only screen and (max-width: 481px) {
   .blog-comment {
     .editor-box .user .gravatar {
-      width: 36px;
-      height: 36px;
+      width: 33px;
+      height: 33px;
     }
     .comment-item {
       .cm-body {
-        padding-left: 35px;
+        padding-left: 32px;
       }
       .cm-avatar a {
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
       }
     }
   }

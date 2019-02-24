@@ -113,6 +113,7 @@ export default {
 
   .layout {
     width: 800px;
+    min-height: calc(100% - 56px);
     margin: 0 auto;
     display: flex;
     .tags {
@@ -144,7 +145,7 @@ export default {
   .home {
     .layout {
       width: 100%;
-
+      min-height: calc(100% - 70px);
       .content {
         width: 100%;
         margin: 0;

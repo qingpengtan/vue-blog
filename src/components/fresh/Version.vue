@@ -11,6 +11,7 @@
 
 <script>
 import api from "@/api/article";
+import swal from 'sweetalert';
 
 export default {
   props: ["select"],
@@ -26,7 +27,7 @@ export default {
   },
   methods: {
     tip(){
-      alert("正在努力开发中...")
+      swal("正在努力开发中...")
     }
   },
 };

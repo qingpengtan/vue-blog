@@ -96,6 +96,7 @@ export default {
   }
   .layout {
     width: 900px;
+    min-height: calc(100% - 66px);
     margin: 0 auto;
     #back {
       padding: 20px 0;
@@ -165,6 +166,7 @@ export default {
     }
     .layout {
       width: 100%;
+      min-height: calc(100% - 85px);
       #back.article-back {
         margin-top: 50px;
       }
