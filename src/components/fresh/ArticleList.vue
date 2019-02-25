@@ -68,6 +68,7 @@ export default {
   padding-top: 80px;
   box-sizing: border-box;
   .end-box {
+    display: block;
     text-align: center;
     margin-bottom: 20px;
     .end-line {
@@ -211,9 +212,17 @@ export default {
 @media only screen and (max-width: 481px) {
   .article-list {
     padding: 80px 2% 0 2%;
+    .end-box {
+      display: none;
+    }
   }
-  .blog-article .box {
-    padding: 10px;
+  .blog-article {
+    &:nth-last-child(2) {
+      margin-bottom: 0;
+      .box {
+        padding: 10px;
+      }
+    }
   }
 }
 @keyframes line-in {

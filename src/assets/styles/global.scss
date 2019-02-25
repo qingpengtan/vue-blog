@@ -4,11 +4,16 @@
 
 $ratio:375 / 10;
 
-@function px2rem($px){
-    @return $px/$ratio + rem;
+@function px2rem($px) {
+    @return $px/$ratio+rem;
 }
 
 $fontSize: 24px;
+
 @mixin color {
     font-style: italic
-  }
+}
+
+.mescroll-totop {
+    border-radius: 0 !important;
+}

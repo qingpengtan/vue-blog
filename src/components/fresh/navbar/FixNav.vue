@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     navTagClk() {
-      console.log(this.$store.state)
       store.dispatch("IsTagActive", !this.$store.getters.isTagActive);
     }
   }

@@ -64,7 +64,6 @@ export default {
     };
   },
   created() {
-    console.log(this.id);
     api.getCommentList({ articleId: this.$route.params.id }).then(res => {
       this.items = res.data;
     });
@@ -161,12 +160,11 @@ export default {
         margin-bottom: 7px;
         width: 36px;
         height: 36px;
-        border-radius: 50%;
-        background: #fff;
+        border-radius: 5px;
         img {
           width: 100%;
           height: 100%;
-          border-radius: 50%;
+          border-radius: 5px;
         }
       }
     }
@@ -174,7 +172,7 @@ export default {
       flex-grow: 1;
       padding: 8px;
       background: rgba(187, 164, 119, 0.3);
-      border:1px solid #c1866a;
+      border: 1px solid #c1866a;
       font-size: 14px;
       color: #c1866a;
       border-radius: 5px;
