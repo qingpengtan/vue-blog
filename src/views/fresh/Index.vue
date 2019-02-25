@@ -59,10 +59,6 @@ export default {
         // 上拉加载的配置.
         callback: this.upCallback, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
         //以下是一些常用的配置,当然不写也可以的.
-        page: {
-          num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
-          size: 10 //每页数据条数,默认10
-        },
         htmlNodata: '<p class="upwarp-nodata">-- THE END --</p>',
         noMoreSize: 5, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
         toTop: {
@@ -146,7 +142,7 @@ export default {
         this.list = this.list.concat(arr);
         // 数据渲染成功后,隐藏下拉刷新的状态
         this.$nextTick(() => {
-          mescroll.endSuccess(arr.length);
+          this.mescroll.endSuccess(arr.length);
         });
       });
     }

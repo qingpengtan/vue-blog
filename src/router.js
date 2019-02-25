@@ -26,6 +26,9 @@ export default new Router({
   routes: [{
       path: '/',
       name: 'home',
+      meta: {
+        keepAlive: true
+      },
       component: () => import( /* webpackChunkName: "home" */ './views/fresh/Index.vue')
       // component: () => import( /* webpackChunkName: "home" */ './views/Home.vue')
     },

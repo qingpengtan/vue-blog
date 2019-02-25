@@ -50,7 +50,7 @@ import Footer from "@/components/fresh/Footer.vue";
 import api from "@/api/article";
 
 export default {
-  name: "home",
+  name: "detail",
   components: {
     // HelloWorld
     NavMenu,

@@ -5,9 +5,9 @@
     <FixNav class="fix-nav" :title="articleTag"></FixNav>
     <div class="layout">
       <tags class="tags" :tags="tags"></tags>
-      <div class="content" ref="content">
+      <div class="content" ref="content" >
         <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit">
-          <article-list :List="list"></article-list>
+          <article-list :List="list" id="dataList"></article-list>
         </mescroll-vue>
       </div>
     </div>
@@ -49,13 +49,15 @@ export default {
       articleTag: "",
       page: 0,
       mescroll: null, // mescroll实例对象
-      mescrollDown: {}, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
+      mescrollDown: {
+        use:false
+      }, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
       mescrollUp: {
         // 上拉加载的配置.
         callback: this.upCallback, // 上拉回调,此处简写; 相当于 callback: function(page, mescroll) { }
         //以下是一些常用的配置,当然不写也可以的.
         htmlNodata: '<p class="upwarp-nodata">-- THE END --</p>',
-        noMoreSize: 1, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
+        noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
         toTop: {
           //回到顶部按钮
           src: require("../../assets/logo.png"), //图片路径,默认null,支持网络图
@@ -63,7 +65,8 @@ export default {
         },
         empty: {
           //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
-          icon: "./static/mescroll/mescroll-empty.png", //图标,默认null,支持网络图
+          wrapId:'dataList',
+          icon:  require("../../assets/logo.png"), //图标,默认null,支持网络图
           tip: "暂无相关数据~" //提示
         }
       }
@@ -150,10 +153,15 @@ export default {
           if (this.page.num === 1) this.list = [];
           // 把请求到的数据添加到列表
           this.list = this.list.concat(arr);
-          // 数据渲染成功后,隐藏下拉刷新的状态
+          // 数据渲染成功后,隐藏下拉刷新的状态h
+          if(this.list.length == 0){
+           this.mescroll.endUpScroll(false);
+           this.mescroll.showEmpty();
+          }else{
           this.$nextTick(() => {
-            mescroll.endSuccess(arr.length);
+            this.mescroll.endSuccess(arr.length);
           });
+          }
         });
     },
     getTag(id) {

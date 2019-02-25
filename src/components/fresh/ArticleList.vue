@@ -11,8 +11,8 @@
         </h2>
         <time class="time">{{item.createTime}}</time>
         <div class="desc">
-          {{item.articleBrief}}
-          <span class="look-more hover" @click="details(item.articleId)">查看更多</span>
+          <span class="test">{{item.articleBrief}}</span>
+          <!-- <span class="look-more hover" @click="details(item.articleId)">查看更多</span> -->
         </div>
         <div class="comment hover">
           <router-link tag="div" :to="{ path: '/detail/'+item.articleId+'#aaa' }" class="bubble">4</router-link>
@@ -174,6 +174,13 @@ export default {
           cursor: pointer;
           text-decoration: underline;
         }
+      }
+      .test {
+        word-break: break-all;
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
     }
   }
