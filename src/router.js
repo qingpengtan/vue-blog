@@ -43,6 +43,9 @@ export default new Router({
     {
       path: '/tags/:id',
       name: 'article-class',
+      meta: {
+        keepAlive: true
+      },
       component: () => import( /* webpackChunkName: "article-class" */ './views/fresh/ArticleClass.vue')
     }
   ]

@@ -28,8 +28,7 @@ import Footer from "@/components/fresh/Footer.vue";
 import ArticleList from "@/components/fresh/ArticleList.vue";
 import api from "@/api/article";
 import MescrollVue from "mescroll.js/mescroll.vue";
-import { clearTimeout } from "timers";
-import { resolve } from "path";
+import store from "@/store";
 
 export default {
   name: "home",
@@ -53,7 +52,7 @@ export default {
       tags: [],
       mescroll: null, // mescroll实例对象
       mescrollDown: {
-        use:false
+        use: false
       }, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
       mescrollUp: {
         // 上拉加载的配置.
@@ -78,6 +77,7 @@ export default {
   mounted() {
     let $html = this.$refs.home;
     $html.addEventListener("scroll", () => {
+      store.dispatch("IndexScroll", $html.scrollTop);
       if (
         this.$refs.content.clientHeight - $html.clientHeight - 50 <
           $html.scrollTop &&
@@ -112,18 +112,9 @@ export default {
     });
     document.title = "ZHIROAD博客";
   },
-  beforeRouteEnter(to, from, next) {
-    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
-    next(vm => {
-      // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
-      vm.$refs.mescroll && vm.$refs.mescroll.beforeRouteEnter(); // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
-    });
-  },
-  beforeRouteLeave(to, from, next) {
-    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
-    // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
-    this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave(); // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
-    next();
+  activated() {
+       let $html = this.$refs.home;
+       $html.scrollTop = store.getters.indexScroll;
   },
   methods: {
     // mescroll组件初始化的回调,可获取到mescroll对象
@@ -146,6 +137,19 @@ export default {
         });
       });
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
+    next(vm => {
+      // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
+      vm.$refs.mescroll && vm.$refs.mescroll.beforeRouteEnter(); // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
+    // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
+    this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave(); // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
+    next();
   }
 };
 </script>

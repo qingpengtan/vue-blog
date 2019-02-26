@@ -5,7 +5,7 @@
     <FixNav class="fix-nav" :title="articleTag"></FixNav>
     <div class="layout">
       <tags class="tags" :tags="tags"></tags>
-      <div class="content" ref="content" >
+      <div class="content" ref="content">
         <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit">
           <article-list :List="list" id="dataList"></article-list>
         </mescroll-vue>
@@ -28,6 +28,7 @@ import Footer from "@/components/fresh/Footer.vue";
 import ArticleList from "@/components/fresh/ArticleList.vue";
 import api from "@/api/article";
 import MescrollVue from "mescroll.js/mescroll.vue";
+import store from "@/store";
 
 export default {
   name: "article-class",
@@ -50,7 +51,7 @@ export default {
       page: 0,
       mescroll: null, // mescroll实例对象
       mescrollDown: {
-        use:false
+        use: false
       }, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
       mescrollUp: {
         // 上拉加载的配置.
@@ -65,8 +66,8 @@ export default {
         },
         empty: {
           //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
-          wrapId:'dataList',
-          icon:  require("../../assets/logo.png"), //图标,默认null,支持网络图
+          wrapId: "dataList",
+          icon: require("../../assets/logo.png"), //图标,默认null,支持网络图
           tip: "暂无相关数据~" //提示
         }
       }
@@ -81,6 +82,7 @@ export default {
   mounted() {
     let $html = this.$refs.home;
     $html.addEventListener("scroll", () => {
+      store.dispatch("ClassScroll", $html.scrollTop);
       if (
         this.$refs.content.clientHeight - $html.clientHeight - 50 <
           $html.scrollTop &&
@@ -113,26 +115,23 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.list = [];
-      this.page = 0;
-      this.mescroll.resetUpScroll();
-      this.getTag(this.$route.params.id);
+      if (
+        from.path.indexOf("detail") != -1 ||
+        to.path.indexOf("detail") != -1
+      ) {
+      } else {
+        this.list = [];
+        this.page = 0;
+        this.mescroll.resetUpScroll();
+        this.getTag(this.$route.params.id);
+      }
     }
   },
+  activated() {
+    let $html = this.$refs.home;
+    $html.scrollTop = store.getters.classScrll;
+  },
 
-  beforeRouteEnter(to, from, next) {
-    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
-    next(vm => {
-      // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
-      vm.$refs.mescroll && vm.$refs.mescroll.beforeRouteEnter(); // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
-    });
-  },
-  beforeRouteLeave(to, from, next) {
-    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
-    // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
-    this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave(); // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
-    next();
-  },
   methods: {
     // mescroll组件初始化的回调,可获取到mescroll对象
     mescrollInit(mescroll) {
@@ -154,13 +153,13 @@ export default {
           // 把请求到的数据添加到列表
           this.list = this.list.concat(arr);
           // 数据渲染成功后,隐藏下拉刷新的状态h
-          if(this.list.length == 0){
-           this.mescroll.endUpScroll(false);
-           this.mescroll.showEmpty();
-          }else{
-          this.$nextTick(() => {
-            this.mescroll.endSuccess(arr.length);
-          });
+          if (this.list.length == 0) {
+            this.mescroll.endUpScroll(false);
+            this.mescroll.showEmpty();
+          } else {
+            this.$nextTick(() => {
+              this.mescroll.endSuccess(arr.length);
+            });
           }
         });
     },
@@ -192,6 +191,19 @@ export default {
           break;
       }
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
+    next(vm => {
+      // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
+      vm.$refs.mescroll && vm.$refs.mescroll.beforeRouteEnter(); // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
+    // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
+    this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave(); // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
+    next();
   }
 };
 </script>
