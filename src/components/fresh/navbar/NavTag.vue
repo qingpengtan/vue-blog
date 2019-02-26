@@ -1,11 +1,18 @@
 <template>
+    <transition
+      name="fade"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
   <div class="tag-mask" v-show="isTagActive" @click="navTagClk">
     <div id="sidebar" class="sidebar">
       <div class="tags-title border-1px-b">Tags</div>
-      <Tags :tags=tags style="margin-top:10px"></Tags>
+      <Tags :tags="tags" style="margin-top:10px"></Tags>
       <version class="vers"></version>
+      <Footer class="footer" :show="false"></Footer>
     </div>
   </div>
+    </transition>
 </template>
 
 <script>
@@ -13,18 +20,20 @@ import store from "@/store";
 import Tags from "@/components/fresh/Tags.vue";
 import api from "@/api/article";
 import Version from "@/components/fresh/Version.vue";
+import Footer from "@/components/fresh/Footer.vue";
 export default {
-  data(){
-    return{
+  data() {
+    return {
       tags: []
-    }
+    };
   },
-  components:{
+  components: {
     Tags,
+    Footer,
     Version
   },
   created() {
-        api.getArticleTag().then(res => {
+    api.getArticleTag().then(res => {
       this.tags = res.data;
     });
   },
@@ -68,11 +77,21 @@ export default {
       border-bottom: 1px solid #dfcba3;
     }
 
-    .vers{
+    .vers {
       position: absolute;
       bottom: 10px;
       line-height: 1.5;
       color: #c1866a;
+    }
+    .footer {
+      position: absolute;
+      bottom: 60px;
+      padding: 0 10px;
+      text-align: left;
+      margin: 0 auto;
+      line-height: 1.5;
+      color: #c1866a;
+      font-size: 13px;
     }
   }
 }

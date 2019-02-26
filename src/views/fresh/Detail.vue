@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="home">
     <NavBtn class="nav-menu"></NavBtn>
     <NavMenu></NavMenu>
     <FixNav class="fix-nav" :title="'博客详情'"></FixNav>
@@ -8,34 +8,36 @@
         <svg-icon style="width:20px;height:16px;margin-right:5px" icon-class="back"/>
         <span>Back</span>
       </div>
-
-      <div id="article">
-        <div class="article-nums">
-          <span>文章阅读量:</span>
-          <span>957</span>
-        </div>
-        <article class="article-content cf">
-          <a href="#" target="_blank" aria-label="Github" class="github-corner github">
-            <svg-icon style="width:100%;height:100%" icon-class="git"/>
-          </a>
-          <h1>{{article.articleTitle}}</h1>
-          <div class="ql-snow">
-            <div class="ql-editor" style="padding:0">
-              <div
-                id="content"
-                v-html="article.content"
-                v-highlight
-                style="    line-height: 1.6;
-    word-wrap: break-word;"
-              ></div>
-            </div>
+      <transition name="fade" enter-active-class="animated fadeIn">
+        <div id="article" v-show="fadeIn">
+          <div class="article-nums">
+            <span>文章阅读量:</span>
+            <span>957</span>
           </div>
-        </article>
-      </div>
+          <article class="article-content cf">
+            <a href="#" target="_blank" aria-label="Github" class="github-corner github">
+              <svg-icon style="width:100%;height:100%" icon-class="git"/>
+            </a>
+            <h1>{{article.articleTitle}}</h1>
+            <div class="ql-snow">
+              <div class="ql-editor" style="padding:0">
+                <div
+                  id="content"
+                  v-html="article.content"
+                  v-highlight
+                  style="    line-height: 1.6;
+    word-wrap: break-word;"
+                ></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </transition>
       <Comment :id.sync="article.articleId"></Comment>
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
+    <back-top v-if="toTop" :html="html"></back-top>
   </div>
 </template>
 
@@ -47,6 +49,7 @@ import Tags from "@/components/fresh/Tags.vue";
 import Comment from "@/components/fresh/Comment.vue";
 import Version from "@/components/fresh/Version.vue";
 import Footer from "@/components/fresh/Footer.vue";
+import BackTop from "@/components/fresh/BackTop.vue";
 import api from "@/api/article";
 
 export default {
@@ -58,11 +61,15 @@ export default {
     NavBtn,
     FixNav,
     Comment,
+    BackTop,
     Footer
   },
   data() {
     return {
-      article: {}
+      article: {},
+      fadeIn: false,
+      toTop: false,
+      html: ""
     };
   },
   created() {
@@ -71,7 +78,18 @@ export default {
       document.title = res.data.articleTitle;
     });
   },
-  mounted() {},
+  mounted() {
+    this.fadeIn = true;
+    let $html = this.$refs.home;
+    this.html = $html;
+    $html.addEventListener("scroll", () => {
+      if ($html.scrollTop > 1000) {
+        this.toTop = true;
+      } else {
+        this.toTop = false;
+      }
+    });
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
@@ -184,6 +202,10 @@ export default {
     }
     .footer {
       width: 100%;
+    }
+    /deep/ .to-top {
+      display: inline !important;
+      right: 15px !important;
     }
   }
 }

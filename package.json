@@ -17,6 +17,7 @@
     "new:view": "node ./src/scripts/generateView"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "highlight.js": "^9.14.2",
     "mescroll.js": "^1.4.0",
     "qs": "^6.6.0",

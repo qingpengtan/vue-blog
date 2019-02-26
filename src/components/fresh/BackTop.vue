@@ -28,7 +28,7 @@ export default {
   position: fixed;
   right: 200px;
   bottom: 50px;
-  z-index: 10000;
+  z-index: 100;
   cursor: pointer;
 }
 @media only screen and (max-width: 481px) {

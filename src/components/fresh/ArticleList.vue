@@ -1,26 +1,33 @@
 <template>
   <div class="article-list">
-    <section class="blog-article animated fadeInDown" v-for="(item,key) in List" :key="key">
-      <div class="box">
-        <a href="#" target="_blank" aria-label="Github" class="github-corner github">
-          <svg-icon style="width:100%;height:100%" icon-class="git"/>
-        </a>
+    <transition-group
+      enter-active-class="animated zoomIn"
+    >
+      <section class="blog-article" v-for="(item,key) in List" :key="key">
+        <div class="box">
+          <a href="#" target="_blank" aria-label="Github" class="github-corner github">
+            <svg-icon style="width:100%;height:100%" icon-class="git"/>
+          </a>
 
-        <h2 class="hover">
-          <span @click="details(item.articleId)">{{item.articleTitle}}</span>
-        </h2>
-        <time class="time">{{item.createTime}}</time>
-        <div class="desc">
-          <span class="test">{{item.articleBrief}}</span>
-          <!-- <span class="look-more hover" @click="details(item.articleId)">查看更多</span> -->
+          <h2 class="hover">
+            <span @click="details(item.articleId)">{{item.articleTitle}}</span>
+          </h2>
+          <time class="time">{{item.createTime}}</time>
+          <div class="desc">
+            <span class="test">{{item.articleBrief}}</span>
+            <!-- <span class="look-more hover" @click="details(item.articleId)">查看更多</span> -->
+          </div>
+          <div class="comment hover">
+            <router-link tag="div" :to="{ path: '/detail/'+item.articleId+'#aaa' }" class="bubble">4</router-link>
+            <div class="reply">回复</div>
+          </div>
+          <tags
+            class="tags"
+            :tags="[{articleTag:item.articleTagName,articleTagId:item.articleTag}]"
+          ></tags>
         </div>
-        <div class="comment hover">
-          <router-link tag="div" :to="{ path: '/detail/'+item.articleId+'#aaa' }" class="bubble">4</router-link>
-          <div class="reply">回复</div>
-        </div>
-        <tags class="tags" :tags="[{articleTag:item.articleTagName,articleTagId:item.articleTag}]"></tags>
-      </div>
-    </section>
+      </section>
+    </transition-group>
 
     <div class="pull-load-footer" v-if="List.length != 0">
       <div class="end-box">

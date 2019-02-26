@@ -17,7 +17,7 @@ import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import NavTag from "@/components/fresh/navbar/NavTag.vue";
 
 export default {
-  props:['title'],
+  props: ["title"],
   components: {
     NavBtn,
     NavMenu,
