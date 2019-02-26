@@ -13,6 +13,7 @@
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
+    <back-top v-if="toTop" :html='html'></back-top>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import FixNav from "@/components/fresh/navbar/FixNav.vue";
 import Tags from "@/components/fresh/Tags.vue";
 import Version from "@/components/fresh/Version.vue";
 import Footer from "@/components/fresh/Footer.vue";
+import BackTop from "@/components/fresh/BackTop.vue";
 import ArticleList from "@/components/fresh/ArticleList.vue";
 import api from "@/api/article";
 import MescrollVue from "mescroll.js/mescroll.vue";
@@ -41,10 +43,13 @@ export default {
     ArticleList,
     Footer,
     FixNav,
-    MescrollVue
+    MescrollVue,
+    BackTop
   },
   data() {
     return {
+      toTop:false,
+      html:"",
       list: [],
       tags: [],
       articleTag: "",
@@ -61,7 +66,7 @@ export default {
         noMoreSize: 0, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;
         toTop: {
           //回到顶部按钮
-          src: require("../../assets/logo.png"), //图片路径,默认null,支持网络图
+          src: require("../../assets/to-top.png"), //图片路径,默认null,支持网络图
           offset: 1000 //列表滚动1000px才显示回到顶部按钮
         },
         empty: {
@@ -81,8 +86,14 @@ export default {
   },
   mounted() {
     let $html = this.$refs.home;
+    this.html = $html;
     $html.addEventListener("scroll", () => {
       store.dispatch("ClassScroll", $html.scrollTop);
+      if($html.scrollTop > 1000){
+        this.toTop = true;
+      }else{
+        this.toTop = false;
+      }
       if (
         this.$refs.content.clientHeight - $html.clientHeight - 50 <
           $html.scrollTop &&
