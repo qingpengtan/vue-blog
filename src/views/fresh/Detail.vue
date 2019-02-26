@@ -12,7 +12,7 @@
         <div id="article" v-show="fadeIn">
           <div class="article-nums">
             <span>文章阅读量:</span>
-            <span>957</span>
+            <span>{{article.viewNum}}</span>
           </div>
           <article class="article-content cf">
             <a href="#" target="_blank" aria-label="Github" class="github-corner github">
@@ -76,7 +76,7 @@ export default {
     api.getDetails({ articleId: this.$route.params.id }).then(res => {
       this.article = res.data;
       document.title = res.data.articleTitle;
-    });
+    })
   },
   mounted() {
     this.fadeIn = true;

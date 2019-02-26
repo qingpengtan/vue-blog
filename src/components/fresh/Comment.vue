@@ -48,8 +48,8 @@
           <img alt="匿名用户" src="../../assets/logo.png">
         </div>
       </div>
-      <textarea class="editor"></textarea>
-      <button class="send">发送</button>
+      <textarea v-model="content" class="editor"></textarea>
+      <button class="send" @click="sendComment">发送</button>
     </div>
   </div>
 </template>
@@ -60,13 +60,29 @@ export default {
   props: ["id"],
   data() {
     return {
-      items: []
+      items: [],
+      content: ""
     };
   },
   created() {
     api.getCommentList({ articleId: this.$route.params.id }).then(res => {
       this.items = res.data;
     });
+  },
+  methods: {
+    sendComment() {
+      api
+        .pushComment({
+          articleId: this.$route.params.id,
+          comment: this.content
+        })
+        .then(() => {
+          this.content = '';
+          api.getCommentList({ articleId: this.$route.params.id }).then(res => {
+            this.items = res.data;
+          });
+        });
+    }
   }
 };
 </script>

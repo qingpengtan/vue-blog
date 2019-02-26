@@ -16,7 +16,7 @@
             <!-- <span class="look-more hover" @click="details(item.articleId)">查看更多</span> -->
           </div>
           <div class="comment hover">
-            <router-link tag="div" :to="{ path: '/detail/'+item.articleId+'#aaa' }" class="bubble">4</router-link>
+            <router-link tag="div" :to="{ path: '/detail/'+item.articleId+'#aaa' }" class="bubble">{{item.commentNum == null ? 0 : item.commentNum}}</router-link>
             <div class="reply">回复</div>
           </div>
           <tags
