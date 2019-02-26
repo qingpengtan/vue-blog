@@ -1,9 +1,7 @@
 <template>
   <div class="article-list">
-    <transition-group
-      enter-active-class="animated zoomIn"
-    >
-      <section class="blog-article" v-for="(item,key) in List" :key="key">
+    <transition-group enter-active-class="animated zoomIn">
+      <section class="blog-article" v-for="item in List" :key="item.articleId">
         <div class="box">
           <a href="#" target="_blank" aria-label="Github" class="github-corner github">
             <svg-icon style="width:100%;height:100%" icon-class="git"/>

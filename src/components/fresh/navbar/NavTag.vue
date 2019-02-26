@@ -1,18 +1,16 @@
 <template>
-    <transition
-      name="fade"
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-    >
-  <div class="tag-mask" v-show="isTagActive" @click="navTagClk">
-    <div id="sidebar" class="sidebar">
-      <div class="tags-title border-1px-b">Tags</div>
-      <Tags :tags="tags" style="margin-top:10px"></Tags>
-      <version class="vers"></version>
-      <Footer class="footer" :show="false"></Footer>
+  <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <div class="tag-mask" v-show="isTagActive" @click="navTagClk">
+      <transition enter-active-class="animated slideInDown" leave-active-class="animated slideOutDown">
+        <div id="sidebar" class="sidebar" v-show="isTagActive">
+          <div class="tags-title border-1px-b">Tags</div>
+          <Tags :tags="tags" style="margin-top:10px"></Tags>
+          <version class="vers"></version>
+          <Footer class="footer" :show="false"></Footer>
+        </div>
+      </transition>
     </div>
-  </div>
-    </transition>
+  </transition>
 </template>
 
 <script>
