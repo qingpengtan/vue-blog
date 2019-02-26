@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import swal from 'sweetalert';
 
 // 创建axios 实例
 const service = axios.create({
@@ -35,6 +36,13 @@ service.interceptors.response.use(
     // 这里处理一些response 正常放回时的逻辑
 
     // loading - 1
+    if (res.code != 1) {
+      swal(res.msg, {
+        buttons: false,
+        timer: 2000,
+        icon:'error'
+      });
+    }
     store.dispatch('SetLoading', false)
 
     return res

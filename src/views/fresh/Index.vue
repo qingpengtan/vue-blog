@@ -157,6 +157,12 @@ export default {
     });
   },
   beforeRouteLeave(to, from, next) {
+    // if (to.path.indexOf("detail") != -1) {
+    //   from.meta.keepAlive = true;
+    // } else {
+    //   from.meta.keepAlive = false;
+    //   this.$destroy();
+    // }
     // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
     // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
     this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave(); // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置

@@ -47,6 +47,14 @@ export default new Router({
         keepAlive: true
       },
       component: () => import( /* webpackChunkName: "article-class" */ './views/fresh/ArticleClass.vue')
-    }
+    },
+    {
+      path: '*',
+      name: '404',
+      meta: {
+        title: '404'
+      },
+      component: () => import( /* webpackChunkName: "no-page" */ './views/fresh/404.vue')
+  }
   ]
 })

@@ -32,7 +32,7 @@
         <div class="end-line">The end</div>
       </div>
     </div>
-    <div class="zero" v-if="List.length == 0" v-show="zero">
+    <div class="zero" v-if="zero">
       <svg-icon style="width:80px" icon-class="zero"/>
       <div style="padding:20px">没有更多文章啦 ︿(￣︶￣)︿</div>
     </div>
@@ -42,7 +42,12 @@
 <script>
 import Tags from "@/components/fresh/Tags.vue";
 export default {
-  props: ["List"],
+  props: {
+    List: {
+      type: Array,
+      default: []
+    }
+  },
   components: {
     Tags
   },
@@ -56,7 +61,12 @@ export default {
     List() {
       if (this.List.length == 0) {
         this.zero = true;
+      } else {
+        this.zero = false;
       }
+    },
+    $route(to, from) {
+      this.zero = false;
     }
   },
   methods: {
@@ -229,7 +239,7 @@ export default {
     }
   }
   .blog-article {
-    &:nth-last-child(2) {
+    &:nth-last-child(1) {
       margin-bottom: 0;
       .box {
         padding: 10px;
