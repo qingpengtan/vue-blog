@@ -48,7 +48,7 @@
           <img alt="匿名用户" src="../../assets/logo.png">
         </div>
       </div>
-      <textarea v-model="content" class="editor"></textarea>
+      <textarea v-model="content" class="editor" placeholder="留下足迹..."></textarea>
       <button class="send" @click="sendComment">发送</button>
     </div>
   </div>
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     sendComment() {
-      if(this.content.trim() == ''){
+      if (this.content.trim() == "") {
         return;
       }
       api
@@ -80,7 +80,7 @@ export default {
           comment: this.content
         })
         .then(() => {
-          this.content = '';
+          this.content = "";
           api.getCommentList({ articleId: this.$route.params.id }).then(res => {
             this.items = res.data;
           });
@@ -216,6 +216,22 @@ export default {
       font-size: 14px;
       cursor: pointer;
     }
+  }
+
+  textarea::-webkit-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea:-webkit-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea::-moz-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea:-webkit-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea:-ms-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
   }
 }
 

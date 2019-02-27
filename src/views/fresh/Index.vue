@@ -7,7 +7,7 @@
       <tags class="tags" :tags="tags"></tags>
       <div class="content" ref="content">
         <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit">
-          <article-list :List="list"></article-list>
+          <article-list :List="list" :end="end"></article-list>
         </mescroll-vue>
       </div>
     </div>
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       toTop: false,
+      end: false,
       html: "",
       page: 0,
       isLoading: true,
@@ -99,6 +100,7 @@ export default {
         // 联网请求
         api.getArticleList({ page: this.page }).then(res => {
           let arr = res.data.articleList;
+          this.end = (res.data.current >= res.data.totalPage) ? true : false;
           // 如果是第一页需手动制空列表
           if (this.page.num === 1) this.list = [];
           // 把请求到的数据添加到列表

@@ -33,7 +33,10 @@
 
     <div class="pull-load-footer" v-if="List.length != 0">
       <div class="end-box">
-        <div class="end-line">The end</div>
+        <div class="end-line">
+          <svg-icon icon-class="loading" v-if="!end"/>
+          <span v-else>The End</span>
+        </div>
       </div>
     </div>
     <div class="zero" v-if="zero">
@@ -50,6 +53,10 @@ export default {
     List: {
       type: Array,
       default: []
+    },
+    end: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -68,6 +75,9 @@ export default {
       } else {
         this.zero = false;
       }
+    },
+    end(){
+console.log(this.end)
     },
     $route(to, from) {
       this.zero = false;

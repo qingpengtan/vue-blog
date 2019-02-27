@@ -17,37 +17,67 @@
               />
             </div>Blog
           </router-link>
-          <li :class="{ active: isActive}" title="Music">
+          <li
+            :class="{ active: isActive}"
+            title="Music"
+            class="disab"
+            v-on:click.stop.prevent="tip"
+          >
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Music" style="width:35%;height:80px"/>
             </div>Music
           </li>
-          <li :class="{ active: isActive}" title="Message">
+          <li
+            :class="{ active: isActive}"
+            title="Message"
+            class="disab"
+            v-on:click.stop.prevent="tip"
+          >
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="message" style="width:35%;height:80px"/>
             </div>Message
           </li>
-          <li :class="{ active: isActive}" title="Resource">
+          <li
+            :class="{ active: isActive}"
+            title="Resource"
+            class="disab"
+            v-on:click.stop.prevent="tip"
+          >
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Resources" style="width:35%;height:80px"/>
             </div>Resource
           </li>
-          <li :class="{ active: isActive}" title="Me">
+          <router-link tag="li" to="/about" :class="{ active: isActive}" title="Me">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="me" style="width:35%;height:80px"/>
             </div>Me
-          </li>
-          <li :class="{ active: isActive}" title="Example">
+          </router-link>
+          <li
+            :class="{ active: isActive}"
+            title="Example"
+            class="disab"
+            v-on:click.stop.prevent="tip"
+          >
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="example" style="width:35%;height:80px"/>
             </div>Example
           </li>
-          <li :class="{ active: isActive}" title="Github">
+          <li
+            :class="{ active: isActive}"
+            title="Github"
+            class="disab"
+            v-on:click.stop.prevent="tip"
+          >
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Gits" style="width:35%;height:80px"/>
             </div>Github
           </li>
-          <li :class="{ active: isActive}" title="Juejin">
+          <li
+            :class="{ active: isActive}"
+            title="Juejin"
+            class="disab"
+            v-on:click.stop.prevent="tip"
+          >
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="juejin" style="width:35%;height:80px"/>
             </div>Juejin
@@ -60,6 +90,7 @@
 
 <script>
 import store from "@/store";
+import swal from "sweetalert";
 export default {
   name: "nav-menu",
   computed: {
@@ -70,6 +101,13 @@ export default {
   methods: {
     navBtnClk() {
       store.dispatch("IsActive", !this.$store.getters.isActive);
+    },
+    tip() {
+      swal('别着急，正在努力开发中...', {
+        buttons: false,
+        timer: 2000,
+        icon: "warning"
+      });
     }
   }
 };
@@ -84,7 +122,7 @@ export default {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 9991;
   .nav-menu {
     position: absolute;
     width: 240px;
@@ -105,7 +143,10 @@ export default {
       color: #bcbcbc;
       cursor: pointer;
       transition: all 0.3s;
-      &:hover{
+      &.disab {
+        color: #999;
+      }
+      &:hover {
         color: #ab9e9e;
       }
       &.active {
@@ -124,6 +165,9 @@ export default {
     li.active {
       width: 31%;
       margin: 1%;
+      &.disab {
+        color: #666;
+      }
     }
   }
 }
@@ -132,10 +176,12 @@ export default {
 .fade-leave-active {
   transition: opacity 0.3s;
 }
-.fade-enter, .fade-leave-to  {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
-.fade-enter-to, .fade-leave  {
+.fade-enter-to,
+.fade-leave {
   opacity: 1;
 }
 </style>

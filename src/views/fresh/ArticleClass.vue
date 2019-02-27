@@ -7,13 +7,13 @@
       <tags class="tags" :tags="tags"></tags>
       <div class="content" ref="content">
         <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit">
-          <article-list :List="list" id="dataList"></article-list>
+          <article-list :List="list" id="dataList" :end="end"></article-list>
         </mescroll-vue>
       </div>
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
-    <back-top v-if="toTop" :html='html'></back-top>
+    <back-top v-if="toTop" :html="html"></back-top>
   </div>
 </template>
 
@@ -48,8 +48,9 @@ export default {
   },
   data() {
     return {
-      toTop:false,
-      html:"",
+      toTop: false,
+      end: false,
+      html: "",
       list: [],
       tags: [],
       articleTag: "",
@@ -89,9 +90,9 @@ export default {
     this.html = $html;
     $html.addEventListener("scroll", () => {
       store.dispatch("ClassScroll", $html.scrollTop);
-      if($html.scrollTop > 1000){
+      if ($html.scrollTop > 1000) {
         this.toTop = true;
-      }else{
+      } else {
         this.toTop = false;
       }
       if (
@@ -110,6 +111,7 @@ export default {
           .then(res => {
             let arr = res.data.articleList;
             // 如果是第一页需手动制空列表
+            this.end = res.data.current >= res.data.totalPage ? true : false;
             if (this.page.num === 1) this.list = [];
             // 把请求到的数据添加到列表
             this.list = this.list.concat(arr);
@@ -161,6 +163,7 @@ export default {
           let arr = res.data.articleList;
           // 如果是第一页需手动制空列表
           if (this.page.num === 1) this.list = [];
+          this.end = res.data.current >= res.data.totalPage ? true : false;
           // 把请求到的数据添加到列表
           this.list = this.list.concat(arr);
           // 数据渲染成功后,隐藏下拉刷新的状态h

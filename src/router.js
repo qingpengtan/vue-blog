@@ -49,7 +49,7 @@ export default new Router({
       component: () => import( /* webpackChunkName: "article-class" */ './views/fresh/ArticleClass.vue')
     },
     {
-      path: '/me',
+      path: '/about',
       name: 'me',
       meta: {
         keepAlive: true

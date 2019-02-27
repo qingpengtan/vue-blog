@@ -55,6 +55,9 @@ export default {
       return request({
         url: '/api/comment',
         method: 'post',
+        headers:{
+          token:localStorage.getItem('x_token')
+        },
         data:qs.stringify(data)
       })
     },
