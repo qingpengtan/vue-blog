@@ -17,3 +17,19 @@ $fontSize: 24px;
 .mescroll-totop {
     border-radius: 0 !important;
 }
+
+textarea::-webkit-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea:-webkit-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea::-moz-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea:-webkit-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }
+  textarea:-ms-input-placeholder {
+    color: hsla(40, 33%, 60%, 0.5);
+  }

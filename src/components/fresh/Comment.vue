@@ -217,22 +217,6 @@ export default {
       cursor: pointer;
     }
   }
-
-  textarea::-webkit-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea:-webkit-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea::-moz-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea:-webkit-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea:-ms-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
 }
 
 @media only screen and (max-width: 481px) {

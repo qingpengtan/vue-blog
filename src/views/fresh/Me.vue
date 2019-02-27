@@ -4,7 +4,7 @@
     <NavMenu></NavMenu>
     <div class="aside">
       <div class="info">
-        <img src="../../assets/logo.png" alt>
+        <img src="http://119.29.230.48/upload/image/youke.jpg" alt>
         <div style="margin:15px">作为菜鸟我也不知道该说些什么...</div>
         <div class="icon">
           <svg-icon class="svg" icon-class="Gits"/>
@@ -25,6 +25,59 @@
       <div class="divider">
         <span class="divider-inner-text">关于我</span>
       </div>
+
+      <ul class="tecno">
+        <li>姓名：唐</li>
+        <li>学历：本科</li>
+        <li>联系方式：tang1994year@163.com</li>
+        <li>坐标：福建</li>
+        <li>技能：</li>
+        <li>
+          <ul class="child">
+            <li>
+              JavaScript
+              <span class="star">
+                <input type="radio" name="item01" id="item01" disabled checked>
+                <!--这里设置checked初始状态-->
+                <label class="star-item" for="item01"></label>
+                <input type="radio" name="item01" id="item02" disabled>
+                <label class="star-item" for="item02"></label>
+                <input type="radio" name="item01" id="item03" disabled>
+                <label class="star-item" for="item03"></label>
+                <input type="radio" name="item01" id="item04" disabled>
+                <label class="star-item" for="item04"></label>
+                <input type="radio" name="item01" id="item05" disabled>
+                <label class="star-item" for="item05"></label>
+              </span>
+            </li>
+            <li>
+              JavaScript
+              <span class="star">
+                <input type="radio" name="item02" id="item01" disabled>
+                <!--这里设置checked初始状态-->
+                <label class="star-item" for="item01"></label>
+                <input type="radio" name="item02" id="item02" disabled>
+                <label class="star-item" for="item02"></label>
+                <input type="radio" name="item02" id="item03" disabled checked>
+                <label class="star-item" for="item03"></label>
+                <input type="radio" name="item02" id="item04" disabled>
+                <label class="star-item" for="item04"></label>
+                <input type="radio" name="item02" id="item05" disabled>
+                <label class="star-item" for="item05"></label>
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="msgs">
+        <a>30</a>&nbsp;条留言
+      </div>
+      <div class="msg-edit">
+        <textarea rows="3" placeholder="留下足迹，文明讨论..." v-model="content"></textarea>
+        <br>
+        <button class="send" @click="send">留言</button>
+      </div>
     </div>
   </div>
 </template>
@@ -32,11 +85,38 @@
 <script>
 import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
+import marked from "marked";
 export default {
   name: "me",
+  data() {
+    return {
+      content: ""
+    };
+  },
   components: {
     NavBtn,
     NavMenu
+  },
+  mounted() {
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false
+    });
+  },
+  methods: {
+    send() {
+      if(this.content.trim() == ''){
+        return;
+      }
+      console.log(marked(this.content, { sanitize: true }));
+      this.content = '';
+    }
   }
 };
 </script>
@@ -69,7 +149,7 @@ export default {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, -90%);
       text-align: center;
       img {
         width: 130px;
@@ -116,9 +196,90 @@ export default {
         padding: 0 10px;
       }
     }
-    p {
+
+    p,
+    .tecno {
       font-size: 15px;
       line-height: 2;
+      li {
+        width: 100%;
+        word-break: break-all;
+        .star {
+          display: inline-block;
+          font-size: 0;
+          position: relative;
+          top: 4px;
+          left: 20px;
+        }
+        .child {
+          padding-left: 15px;
+          li {
+            list-style-type: disc;
+          }
+        }
+        .star-item {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+          background: url("../../assets/star.png") center top no-repeat;
+        }
+        input[type="radio"] {
+          position: absolute;
+          clip: rect(0, 0, 0, 0);
+        }
+        input[type="radio"]:checked + .star-item ~ .star-item {
+          background-position: center bottom;
+        }
+
+        .star-item:after {
+          position: absolute;
+          width: 100px;
+          font-size: 14px;
+          height: 20px;
+          line-height: 20px;
+          right: 0;
+          margin-right: -105px;
+          color: #666;
+        }
+      }
+    }
+    .msgs {
+      padding: 20px 0 10px 10px;
+      border-bottom: 1px solid #c1866a61;
+    }
+    .msg-edit {
+      width: 100%;
+      margin-top: 20px;
+      textarea {
+        width: 100%;
+        padding: 8px;
+        background: rgba(187, 164, 119, 0.3);
+        border: 1px solid #c1866a;
+        font-size: 14px;
+        color: #c1866a;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+      .send {
+        width: 70px;
+        height: 30px;
+        float: right;
+        vertical-align: bottom;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 15px;
+        color: #fff;
+        background: -webkit-linear-gradient(
+          left,
+          hsla(40, 33%, 60%, 0.99),
+          #c1866a 100%
+        );
+        margin: 8px;
+        margin-right: 0;
+        font-size: 14px;
+        cursor: pointer;
+      }
     }
     a {
       color: #1592c2;
@@ -139,7 +300,7 @@ export default {
       width: 100%;
       height: 287px;
       .info {
-        transform: translate(-50%, -70%);
+        transform: translate(-50%, -50%);
       }
     }
     .content {
