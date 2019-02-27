@@ -76,9 +76,6 @@ export default {
         this.zero = false;
       }
     },
-    end(){
-console.log(this.end)
-    },
     $route(to, from) {
       this.zero = false;
     }
@@ -161,6 +158,11 @@ console.log(this.end)
       font-weight: 600;
       span {
         position: relative;
+        // width: 100%;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        white-space: nowrap;
+        // display: inline-block;
         &::after {
           content: "";
           display: inline-block;
@@ -258,6 +260,15 @@ console.log(this.end)
     }
     .box {
       padding: 15px;
+      h2 {
+        span {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: inline-block;
+        }
+      }
     }
   }
 }
