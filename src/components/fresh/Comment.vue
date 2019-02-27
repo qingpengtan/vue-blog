@@ -7,7 +7,7 @@
     <ul>
       <li id="comment-item-1130" class="comment-item" v-for="(item,key) in items" :key="key">
         <div class="cm-avatar">
-          <a target="_blank" rel="external nofollow noopener" href="http://www.timrchen.site">
+          <a>
             <img :src="item.userPic">
           </a>
         </div>
@@ -71,6 +71,9 @@ export default {
   },
   methods: {
     sendComment() {
+      if(this.content.trim() == ''){
+        return;
+      }
       api
         .pushComment({
           articleId: this.$route.params.id,

@@ -12,7 +12,7 @@
 import FixNav from "@/components/fresh/navbar/FixNav.vue";
 
 export default {
-  name:'no-page',
+  name: "no-page",
   components: {
     FixNav
   },
@@ -21,7 +21,11 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.go(-1);
+      if (window.history.length == 0) {
+        this.$router.push({ path: "/" });
+      } else {
+        this.$router.go(-1);
+      }
     }
   }
 };
