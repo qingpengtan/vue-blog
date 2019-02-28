@@ -74,9 +74,15 @@
         <a>30</a>&nbsp;条留言
       </div>
       <div class="msg-edit">
-        <textarea rows="3" placeholder="留下足迹，文明讨论..." v-model="content"></textarea>
-        <br>
+        <div style="display:flex">
+          <svg-icon style="width:50px;height:50px;margin-right:10px" icon-class="Gits"/>
+          <textarea rows="5" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
+        </div>
         <button class="send" @click="send">留言</button>
+        <span class="login" @click="confirmLogin()">登录回复？</span>
+        <div class="comment-area">
+          <comment-list :items="items"></comment-list>
+        </div>
       </div>
     </div>
   </div>
@@ -85,17 +91,21 @@
 <script>
 import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
+import CommentList from "@/components/fresh/CommentList.vue";
+import swal from "sweetalert";
 import marked from "marked";
 export default {
   name: "me",
   data() {
     return {
-      content: ""
+      content: "",
+      items: []
     };
   },
   components: {
     NavBtn,
-    NavMenu
+    NavMenu,
+    CommentList
   },
   mounted() {
     marked.setOptions({
@@ -111,11 +121,24 @@ export default {
   },
   methods: {
     send() {
-      if(this.content.trim() == ''){
+      if (this.content.trim() == "") {
         return;
       }
       console.log(marked(this.content, { sanitize: true }));
-      this.content = '';
+      this.content = "";
+    },
+    confirmLogin() {
+      swal("是否前往登录？", {
+        buttons: {
+          cancel: "取消",
+          confirm: "确认"
+        },
+        icon: "info"
+      }).then(function(isConfirm) {
+        if (isConfirm) {
+          window.location.href = "http://www.zhiroad.cn/blog/normal/";
+        }
+      });
     }
   }
 };
@@ -169,7 +192,7 @@ export default {
   .content {
     margin-left: 40px;
     margin-top: 5px;
-    width: calc(85% - 310px);
+    width: calc(75% - 310px);
     color: #c1866a;
     .divider {
       display: table;
@@ -208,7 +231,7 @@ export default {
           display: inline-block;
           font-size: 0;
           position: relative;
-          top: 4px;
+          top: 5px;
           left: 20px;
         }
         .child {
@@ -261,6 +284,20 @@ export default {
         box-sizing: border-box;
         border-radius: 5px;
       }
+      .login {
+        width: 70px;
+        height: 30px;
+        float: right;
+        vertical-align: bottom;
+        text-align: center;
+        line-height: 48px;
+        font-size: 14px;
+        font-size: 14px;
+        &:hover {
+          color: #c1866a;
+          cursor: pointer;
+        }
+      }
       .send {
         width: 70px;
         height: 30px;
@@ -280,6 +317,10 @@ export default {
         font-size: 14px;
         cursor: pointer;
       }
+    }
+    .comment-area {
+      margin: 0 50px;
+      clear: both;
     }
     a {
       color: #1592c2;
@@ -306,6 +347,12 @@ export default {
     .content {
       margin: 0px 15px;
       width: 100%;
+      .comment-area {
+        margin: 0;
+        /deep/ .zero-item {
+          padding-top: 10px;
+        }
+      }
     }
   }
 }
