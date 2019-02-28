@@ -10,7 +10,7 @@
           <h2 class="hover">
             <span @click="details(item.articleId)">{{item.articleTitle}}</span>
           </h2>
-          <time class="time">{{item.createTime}}</time>
+          <time class="time">{{item.createTime | filterTime}}</time>
           <div class="desc">
             <span class="test">{{item.articleBrief}}</span>
             <!-- <span class="look-more hover" @click="details(item.articleId)">查看更多</span> -->

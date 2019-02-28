@@ -23,14 +23,14 @@
         </div>
         <div class="cm-content">{{item.comment}}</div>
         <div class="cm-footer">
-          <span class="create_at">{{item.createTime}}</span>
-          <span class="reply">
+          <span class="create_at">{{item.createTime | filterTime}}</span>
+          <span class="reply" v-if="item.userId != 1">
             <span>回复</span>
           </span>
-          <span class="like">
+          <!-- <span class="like">
             <span>顶</span>
             <span>&nbsp;(0)</span>
-          </span>
+          </span> -->
         </div>
       </div>
     </li>

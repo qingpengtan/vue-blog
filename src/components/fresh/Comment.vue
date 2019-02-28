@@ -10,8 +10,8 @@
         <svg-icon class="avter" icon-class="Gits"/>
         <textarea rows="3" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
       </div>
-      <button class="send" @click="sendComment">留言</button>
-      <span class="login" @click="confirmLogin()">登录回复？</span>
+      <button class="send" @click="sendComment">评论</button>
+      <span class="login" @click="confirmLogin()">登录评论？</span>
       <div style="clear:both"></div>
     </div>
   </div>

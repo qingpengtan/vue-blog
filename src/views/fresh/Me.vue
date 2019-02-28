@@ -18,9 +18,9 @@
       </div>
       <p>UI设计：借鉴他人
         <br>相关技术：Vue-Cli3 + Vue2.5 + Spring-Boot + Mysql
-        <br>源码地址为
+        <br>状态：正在开发中 &nbsp;&nbsp;源码地址：
         <!-- https://github.com/qingpengtan/vue-blog -->
-        <a href target="_blank">github</a>，仅供参考！
+        <a href target="_blank">github</a>
       </p>
       <div class="divider">
         <span class="divider-inner-text">关于我</span>
@@ -71,18 +71,19 @@
       </ul>
 
       <div class="msgs">
-        <a>30</a>&nbsp;条留言
+        <a>{{items.length}}</a>&nbsp;条留言
       </div>
       <div class="msg-edit">
         <div style="display:flex">
-          <svg-icon style="width:50px;height:50px;margin-right:10px" icon-class="Gits"/>
+          <svg-icon class="avatar" icon-class="Gits"/>
           <textarea rows="5" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
         </div>
         <button class="send" @click="send">留言</button>
-        <span class="login" @click="confirmLogin()">登录回复？</span>
+        <span class="login" @click="confirmLogin()">登录留言？</span>
         <div class="comment-area">
           <comment-list :items="items"></comment-list>
         </div>
+
       </div>
     </div>
   </div>
@@ -94,6 +95,7 @@ import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import CommentList from "@/components/fresh/CommentList.vue";
 import swal from "sweetalert";
 import marked from "marked";
+import api from "@/api/article";
 export default {
   name: "me",
   data() {
@@ -119,13 +121,28 @@ export default {
       smartypants: false
     });
   },
+  created() {
+    api.getCommentList({ articleId: 1 }).then(res => {
+      this.items = res.data;
+    });
+  },
   methods: {
     send() {
       if (this.content.trim() == "") {
         return;
       }
       console.log(marked(this.content, { sanitize: true }));
-      this.content = "";
+      api
+        .pushComment({
+          articleId: 1,
+          comment: this.content
+        })
+        .then(() => {
+          this.content = "";
+          api.getCommentList({ articleId: 1 }).then(res => {
+            this.items = res.data;
+          });
+        });
     },
     confirmLogin() {
       swal("是否前往登录？", {
@@ -166,7 +183,7 @@ export default {
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    position: relative;
+    position: fixed;
     .info {
       width: 100%;
       position: absolute;
@@ -190,9 +207,13 @@ export default {
     }
   }
   .content {
-    margin-left: 40px;
-    margin-top: 5px;
-    width: calc(75% - 310px);
+    position: relative;
+    left: 350px;
+    background: white;
+    margin-top: 20px;
+    padding: 30px 20px;
+    width: 830px;
+    border-radius: 10px;
     color: #c1866a;
     .divider {
       display: table;
@@ -274,6 +295,11 @@ export default {
     .msg-edit {
       width: 100%;
       margin-top: 20px;
+      .avatar {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      }
       textarea {
         width: 100%;
         padding: 8px;
@@ -340,13 +366,22 @@ export default {
     .aside {
       width: 100%;
       height: 287px;
+      position: relative;
       .info {
         transform: translate(-50%, -50%);
       }
     }
     .content {
-      margin: 0px 15px;
+      margin: 0;
+      left: 0px;
+      padding: 12px;
       width: 100%;
+      border-radius: 0px;
+      .msg-edit .avatar {
+        margin-right: 4px;
+        width: 45px;
+        height: 45px;
+      }
       .comment-area {
         margin: 0;
         /deep/ .zero-item {

@@ -140,7 +140,7 @@ export default {
       border: 1px solid hsla(0, 0%, 86%, 0.1);
       float: left;
       margin: 5px 8px;
-      color: #bcbcbc;
+      color: #cdcdcd;
       cursor: pointer;
       transition: all 0.3s;
       &.disab {
