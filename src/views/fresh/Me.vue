@@ -18,7 +18,7 @@
       </div>
       <p>UI设计：借鉴他人
         <br>相关技术：Vue-Cli3 + Vue2.5 + Spring-Boot + Mysql
-        <br>状态：正在开发中 &nbsp;&nbsp;源码地址：
+        <br>源码地址：
         <!-- https://github.com/qingpengtan/vue-blog -->
         <a href target="_blank">github</a>
       </p>
@@ -27,7 +27,7 @@
       </div>
 
       <ul class="tecno">
-        <li>姓名：唐</li>
+        <li>姓名：唐<a href="http://www.zhiroad.cn/res/jianli" v-if="jianli">（简历）</a></li>
         <li>学历：本科</li>
         <li>联系方式：tang1994year@163.com</li>
         <li>坐标：福建</li>
@@ -101,7 +101,8 @@ export default {
   data() {
     return {
       content: "",
-      items: []
+      items: [],
+      jianli:false
     };
   },
   components: {
@@ -122,6 +123,9 @@ export default {
     });
   },
   created() {
+    if(this.$route.query.jianli != undefined){
+      this.jianli = true;
+    }
     api.getCommentList({ articleId: 1 }).then(res => {
       this.items = res.data;
     });
@@ -303,7 +307,6 @@ export default {
       textarea {
         width: 100%;
         padding: 8px;
-        background: rgba(187, 164, 119, 0.3);
         border: 1px solid #c1866a;
         font-size: 14px;
         color: #c1866a;

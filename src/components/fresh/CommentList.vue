@@ -24,13 +24,21 @@
         <div class="cm-content">{{item.comment}}</div>
         <div class="cm-footer">
           <span class="create_at">{{item.createTime | filterTime}}</span>
-          <span class="reply" v-if="item.userId != 1">
+          <span class="reply" v-if="item.roleId != 4" @click="showReply">
             <span>回复</span>
           </span>
           <!-- <span class="like">
             <span>顶</span>
             <span>&nbsp;(0)</span>
-          </span> -->
+          </span>-->
+        </div>
+        <div class="reply-area">
+          <textarea rows="1" placeholder="留下足迹，文明交流..." @focus="replyF"></textarea>
+          <div class="btn">
+            <span class="cancel" @click="cancel">取消</span>
+            <span class="confirm" @click="confirm">确认发送</span>
+          </div>
+          <div style="clear:both"></div>
         </div>
       </div>
     </li>
@@ -44,6 +52,23 @@ export default {
     items: {
       type: Array,
       default: []
+    }
+  },
+  methods: {
+    showReply(el) {
+      el.target.parentNode.parentNode.nextSibling.style.display = "block";
+    },
+    replyF(el) {
+      el.target.setAttribute("rows", 3);
+    },
+    cancel(el) {
+      el.target.parentNode.parentNode.style.display = "none";
+    },
+    confirm(el) {
+      let node = el.target.parentNode;
+      node.parentNode.style.display = "none";
+      alert(node.previousSibling.value);
+      node.previousSibling.value = "";
     }
   }
 };
@@ -108,6 +133,35 @@ export default {
       .like {
         font-size: 11px;
         margin-right: 11px;
+        cursor: pointer;
+      }
+    }
+    .reply-area {
+      margin-top: 10px;
+      display: none;
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #c1866a;
+        font-size: 14px;
+        color: #c1866a;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+      .btn {
+        float: right;
+        font-size: 13px;
+        padding-top: 5px;
+        span {
+          margin-left: 10px;
+          cursor: pointer;
+          &.cancel {
+            color: #999;
+          }
+          &:hover {
+            color: #bd5625;
+          }
+        }
       }
     }
   }
