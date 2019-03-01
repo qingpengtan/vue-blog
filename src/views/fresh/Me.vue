@@ -86,7 +86,7 @@
         <div class="emoji" v-if="emoji">
           <weibo-emoji
             :weiboIcon="weiboIcon"
-            @changeEmoji="selsctEmoji = arguments[0].phrase"
+            @changeEmoji="selsctEmoji = arguments[0].url"
             ref="emoji"
           ></weibo-emoji>
         </div>
@@ -136,6 +136,7 @@ export default {
     });
   },
   created() {
+    document.title = '我的'
     if (this.$route.query.jianli != undefined) {
       this.jianli = true;
     }
