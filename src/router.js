@@ -63,6 +63,6 @@ export default new Router({
         title: '404'
       },
       component: () => import( /* webpackChunkName: "no-page" */ './views/fresh/404.vue')
-  }
+    }
   ]
 })

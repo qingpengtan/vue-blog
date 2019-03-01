@@ -1,7 +1,7 @@
 <template>
   <div class="reply-area" :data-id="item.comId" v-if="item.roleId != 4" ref="reply">
-    <textarea rows="1" placeholder="留下足迹，文明交流..." @focus="replyF" v-model="content"></textarea>
-    <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
+    <textarea rows="1" placeholder="说点什么..." @focus="replyF" v-model="content"></textarea>
+    <!-- <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/> -->
     <div class="emoji" v-if="emoji">
       <weibo-emoji
         :weiboIcon="weiboIcon"
@@ -136,6 +136,15 @@ export default {
       .ej {
         height: 32px;
       }
+    }
+  }
+}
+@media only screen and (max-width: 481px) {
+  .reply-area .emoji {
+    left: -50px;
+    top: 70px;
+    /deep/ .emoji_box {
+      width: 100%;
     }
   }
 }

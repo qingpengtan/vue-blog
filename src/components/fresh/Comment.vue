@@ -8,11 +8,11 @@
     <div class="msg-edit">
       <div style="display:flex">
         <svg-icon class="avter" icon-class="Gits"/>
-        <textarea rows="3" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
+        <textarea rows="3" placeholder="说点什么..." v-model="content"></textarea>
       </div>
       <button class="send" @click="sendComment">评论</button>
       <span class="login" @click="confirmLogin()">登录评论？</span>
-      <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
+      <!-- <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/> -->
       <div class="emoji" v-if="emoji">
         <weibo-emoji
           :weiboIcon="weiboIcon"

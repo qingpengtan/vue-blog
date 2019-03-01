@@ -81,7 +81,7 @@
           <textarea rows="5" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
         </div>
         <button class="send" @click="send">留言</button>
-        <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
+        <!-- <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/> -->
         <span class="login" @click="confirmLogin()">登录留言？</span>
         <div class="emoji" v-if="emoji">
           <weibo-emoji
