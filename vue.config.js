@@ -1,9 +1,14 @@
 const path = require('path')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, './', dir)
 }
 
+// 是否使用gzip
+const productionGzip = true
+// 需要gzip压缩的文件后缀
+const productionGzipExtensions = ['js', 'css']
 module.exports = {
   // publicPath:"/",
   devServer: {
@@ -14,7 +19,7 @@ module.exports = {
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^api/*':'^api/*'
+          '^api/*': '^api/*'
         }
       }
     }
@@ -47,6 +52,24 @@ module.exports = {
     config.module
       .rule('images')
       .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-  }
-}
+  },
+  configureWebpack: config => {
+    const myConfig = {}
+    if (process.env.NODE_ENV === 'production') {
+      // 1. 生产环境npm包转CDN
+      // myConfig.externals = externals
 
+      myConfig.plugins = []
+      // 2. 构建时开启gzip，降低服务器压缩对CPU资源的占用，服务器也要相应开启gzip
+      productionGzip && myConfig.plugins.push(
+        new CompressionWebpackPlugin({
+          test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+          threshold: 8192,
+          minRatio: 0.8
+        })
+      )
+    }
+    return myConfig
+  }
+
+}

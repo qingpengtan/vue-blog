@@ -1,6 +1,7 @@
 const app = {
     state: {
-      requestLoading: 0
+      requestLoading: 0,
+      showAreaId:''
     },
     mutations: {
       SET_LOADING: (state, status) => {
@@ -10,12 +11,18 @@ const app = {
           return
         }
         state.requestLoading = status ? ++state.requestLoading : --state.requestLoading
+      },
+      SHOW_AREA_ID:(state, status) => {
+        state.showAreaId = status
       }
     },
     actions: {
       SetLoading ({ commit }, status) {
         commit('SET_LOADING', status)
-      }
+      },
+      ShowAreaId({ commit }, status) {
+        commit('SHOW_AREA_ID', status)
+      },
     }
   }
   

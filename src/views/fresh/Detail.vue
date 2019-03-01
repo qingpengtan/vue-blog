@@ -112,6 +112,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  // scroll-behavior: smooth;
   background: hsla(40, 33%, 60%, 0.3);
   .nav-menu {
     position: absolute;

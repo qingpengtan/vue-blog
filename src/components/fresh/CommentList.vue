@@ -24,7 +24,7 @@
         <div class="cm-content">{{item.comment}}</div>
         <div class="cm-footer">
           <span class="create_at">{{item.createTime | filterTime}}</span>
-          <span class="reply" v-if="item.roleId != 4" @click="showReply">
+          <span class="reply" v-if="item.roleId != 4" @click="showReply(item)">
             <span>回复</span>
           </span>
           <!-- <span class="like">
@@ -32,14 +32,12 @@
             <span>&nbsp;(0)</span>
           </span>-->
         </div>
-        <div class="reply-area" :data-id="item.comId" v-if="item.roleId != 4" ref="reply">
-          <textarea rows="1" placeholder="留下足迹，文明交流..." @focus="replyF"></textarea>
-          <div class="btn">
-            <span class="cancel" @click="cancel">取消</span>
-            <span class="confirm" @click="confirm">确认发送</span>
-          </div>
-          <div style="clear:both"></div>
-        </div>
+        <text-area
+          :item="item"
+          :articleId="articleId"
+          class="text-area"
+          v-if="showArea == item.comId"
+        ></text-area>
       </div>
     </li>
     <li class="comment-item zero-item" v-if="items == 0">孤独的只剩下沙发....</li>
@@ -48,6 +46,8 @@
 
 <script>
 import api from "@/api/article";
+import TextArea from "@/components/fresh/TextArea";
+import store from "@/store";
 export default {
   props: {
     items: {
@@ -59,43 +59,23 @@ export default {
       default: null
     }
   },
+  components: {
+    TextArea
+  },
   data() {
     return {
-      artId: ""
+      item: {}
     };
   },
+  computed: {
+    showArea() {
+      return this.$store.getters.showAreaId;
+    }
+  },
   methods: {
-    showReply(el) {
-      el.target.parentNode.parentNode.nextSibling.style.display = "block";
-    },
-    replyF(el) {
-      el.target.setAttribute("rows", 3);
-    },
-    cancel(el) {
-      let node = el.target.parentNode.parentNode;
-      node.style.display = "none";
-      node.firstChild.setAttribute("rows", 1);
-    },
-    confirm(el) {
-      let node = el.target.parentNode;
-      let sib = node.previousSibling;
-      if (sib.value == "") return;
-      node.parentNode.style.display = "none";
-      this.artId =
-        this.articleId == null ? this.$route.params.id : this.articleId;
-      // api
-      //   .pushComment({
-      //     parentId: node.parentNode.getAttribute("data-id"),
-      //     articleId: this.artId,
-      //     comment: sib.value
-      //   })
-      //   .then(() => {
-      sib.value = "";
-      node.parentNode.firstChild.setAttribute("rows", 1);
-      // api.getCommentList({ articleId: this.$route.params.id }).then(res => {
-      //   this.items = res.data;
-      // });
-      // });
+    showReply(data) {
+      this.item = data;
+      store.dispatch("ShowAreaId", data.comId);
     }
   }
 };
@@ -163,40 +143,13 @@ export default {
         cursor: pointer;
       }
     }
-    .reply-area {
-      margin-top: 10px;
-      display: none;
-      textarea {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #c1866a;
-        font-size: 14px;
-        color: #c1866a;
-        box-sizing: border-box;
-        border-radius: 5px;
-      }
-      .btn {
-        float: right;
-        font-size: 13px;
-        padding-top: 5px;
-        span {
-          margin-left: 10px;
-          cursor: pointer;
-          &.cancel {
-            color: #999;
-          }
-          &:hover {
-            color: #bd5625;
-          }
-        }
-      }
-    }
   }
 }
 .zero-item {
   text-align: center;
   padding: 32px 0;
 }
+
 @media only screen and (max-width: 481px) {
   .comment-item {
     .cm-body {
