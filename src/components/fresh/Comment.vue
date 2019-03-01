@@ -12,6 +12,14 @@
       </div>
       <button class="send" @click="sendComment">评论</button>
       <span class="login" @click="confirmLogin()">登录评论？</span>
+      <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
+      <div class="emoji" v-if="emoji">
+        <weibo-emoji
+          :weiboIcon="weiboIcon"
+          @changeEmoji="selsctEmoji = arguments[0].phrase"
+          ref="emoji"
+        ></weibo-emoji>
+      </div>
       <div style="clear:both"></div>
     </div>
   </div>
@@ -21,12 +29,16 @@
 import api from "@/api/article";
 import swal from "sweetalert";
 import CommentList from "@/components/fresh/CommentList.vue";
+import icon from "@/utils/icon";
 export default {
   props: ["id"],
   data() {
     return {
       items: [],
-      content: ""
+      weiboIcon: icon,
+      selsctEmoji: "",
+      content: "",
+      emoji: false
     };
   },
   components: {
@@ -36,6 +48,12 @@ export default {
     api.getCommentList({ articleId: this.$route.params.id }).then(res => {
       this.items = res.data;
     });
+  },
+  watch: {
+    selsctEmoji() {
+      this.content = this.content + this.selsctEmoji;
+      this.emoji = false;
+    }
   },
   methods: {
     sendComment() {
@@ -66,6 +84,9 @@ export default {
           window.location.href = "http://www.zhiroad.cn/blog/normal/";
         }
       });
+    },
+    showEmoji() {
+      this.emoji = !this.emoji;
     }
   }
 };
@@ -86,6 +107,7 @@ export default {
 
   .msg-edit {
     width: 100%;
+    position: relative;
     margin-top: 20px;
     .avter {
       width: 36px;
@@ -101,6 +123,15 @@ export default {
       color: #c1866a;
       box-sizing: border-box;
       border-radius: 5px;
+    }
+
+    .emoji-icon {
+      width: 25px;
+      height: 25px;
+      float: left;
+      margin: 6px;
+      margin-left: 48px;
+      cursor: pointer;
     }
     .login {
       width: 70px;
@@ -135,9 +166,35 @@ export default {
       font-size: 14px;
       cursor: pointer;
     }
+    .emoji {
+      position: absolute;
+      background: #fff;
+      left: 0;
+      top: -245px;
+      z-index: 10;
+      /deep/ .emoji_box {
+        box-shadow: 0 0 5px 0 #c1866a;
+        .ej {
+          height: 32px;
+        }
+      }
+    }
   }
 }
 
 @media only screen and (max-width: 481px) {
+  .blog-comment {
+    .msg-edit {
+      .emoji-icon {
+        margin-left: 45px;
+      }
+      .emoji {
+        top: -270px;
+        /deep/ .emoji_box {
+          width: 102%;
+        }
+      }
+    }
+  }
 }
 </style>

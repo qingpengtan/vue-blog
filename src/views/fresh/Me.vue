@@ -19,15 +19,15 @@
       <p>UI设计：借鉴他人
         <br>相关技术：Vue-Cli3 + Vue2.5 + Spring-Boot + Mysql
         <br>源码地址：
-        <!-- https://github.com/qingpengtan/vue-blog -->
-        <a href target="_blank">github</a>
+        <a href="https://github.com/qingpengtan/vue-blog" target="_blank">github</a>
       </p>
       <div class="divider">
         <span class="divider-inner-text">关于我</span>
       </div>
 
       <ul class="tecno">
-        <li>姓名：唐
+        <li>
+          姓名：唐
           <a href="http://www.zhiroad.cn/res/jianli" v-if="jianli">（简历）</a>
         </li>
         <li>学历：本科</li>
@@ -81,17 +81,18 @@
           <textarea rows="5" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
         </div>
         <button class="send" @click="send">留言</button>
+        <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
         <span class="login" @click="confirmLogin()">登录留言？</span>
-        <div class="comment-area">
-          <comment-list :items="items" :articleId='1'></comment-list>
+        <div class="emoji" v-if="emoji">
+          <weibo-emoji
+            :weiboIcon="weiboIcon"
+            @changeEmoji="selsctEmoji = arguments[0].phrase"
+            ref="emoji"
+          ></weibo-emoji>
         </div>
-      </div>
-      <div class="emoji">
-        <weibo-emoji
-          :weiboIcon="weiboIcon"
-          @changeEmoji="selsctEmoji = arguments[0].phrase"
-          ref="emoji"
-        ></weibo-emoji>
+        <div class="comment-area">
+          <comment-list :items="items" :articleId="'1'"></comment-list>
+        </div>
       </div>
     </div>
   </div>
@@ -112,7 +113,9 @@ export default {
       content: "",
       items: [],
       weiboIcon: icon,
-      jianli: false
+      jianli: false,
+      emoji:false,
+      selsctEmoji:''
     };
   },
   components: {
@@ -139,6 +142,12 @@ export default {
     api.getCommentList({ articleId: 1 }).then(res => {
       this.items = res.data;
     });
+  },
+  watch: {
+    selsctEmoji(){
+      this.content = this.content + this.selsctEmoji;
+      this.emoji = false;
+    }
   },
   methods: {
     send() {
@@ -170,7 +179,10 @@ export default {
           window.location.href = "http://www.zhiroad.cn/blog/normal/";
         }
       });
-    }
+    },
+    showEmoji(){
+      this.emoji = !this.emoji;
+    },
   }
 };
 </script>
@@ -309,6 +321,7 @@ export default {
     .msg-edit {
       width: 100%;
       margin-top: 20px;
+      position: relative;
       .avatar {
         width: 50px;
         height: 50px;
@@ -322,6 +335,14 @@ export default {
         color: #c1866a;
         box-sizing: border-box;
         border-radius: 5px;
+      }
+      .emoji-icon {
+        width: 27px;
+        height: 27px;
+        float: left;
+        margin: 8px;
+        margin-left: 60px;
+        cursor: pointer;
       }
       .login {
         width: 70px;
@@ -357,8 +378,18 @@ export default {
         cursor: pointer;
       }
     }
-    .emoji /deep/ .emoji_box .ej {
-      height: 32px;
+    .emoji {
+      position: absolute;
+      background: #fff;
+      margin-left: 95px;
+      margin-top: 8px;
+      z-index: 10;
+      /deep/ .emoji_box {
+        box-shadow: 0 0 5px 0 #c1866a;
+        .ej {
+          height: 32px;
+        }
+      }
     }
     .comment-area {
       margin: 0 50px;
@@ -393,10 +424,22 @@ export default {
       padding: 12px;
       width: 100%;
       border-radius: 0px;
-      .msg-edit .avatar {
-        margin-right: 4px;
-        width: 45px;
-        height: 45px;
+      .msg-edit {
+        .emoji-icon {
+          margin-left: 49px;
+        }
+        .emoji {
+          margin: 0;
+          margin-top: 50px;
+          /deep/ .emoji_box {
+            width: 100%;
+          }
+        }
+        .avatar {
+          margin-right: 4px;
+          width: 45px;
+          height: 45px;
+        }
       }
       .comment-area {
         margin: 0;
