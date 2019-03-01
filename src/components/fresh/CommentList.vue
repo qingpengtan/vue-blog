@@ -32,7 +32,7 @@
             <span>&nbsp;(0)</span>
           </span>-->
         </div>
-        <div class="reply-area">
+        <div class="reply-area" :data-id="item.comId" v-if="item.roleId != 4" ref="reply">
           <textarea rows="1" placeholder="留下足迹，文明交流..." @focus="replyF"></textarea>
           <div class="btn">
             <span class="cancel" @click="cancel">取消</span>
@@ -47,12 +47,22 @@
 </template>
 
 <script>
+import api from "@/api/article";
 export default {
   props: {
     items: {
       type: Array,
       default: []
+    },
+    articleId: {
+      type: String,
+      default: null
     }
+  },
+  data() {
+    return {
+      artId: ""
+    };
   },
   methods: {
     showReply(el) {
@@ -62,13 +72,30 @@ export default {
       el.target.setAttribute("rows", 3);
     },
     cancel(el) {
-      el.target.parentNode.parentNode.style.display = "none";
+      let node = el.target.parentNode.parentNode;
+      node.style.display = "none";
+      node.firstChild.setAttribute("rows", 1);
     },
     confirm(el) {
       let node = el.target.parentNode;
+      let sib = node.previousSibling;
+      if (sib.value == "") return;
       node.parentNode.style.display = "none";
-      alert(node.previousSibling.value);
-      node.previousSibling.value = "";
+      this.artId =
+        this.articleId == null ? this.$route.params.id : this.articleId;
+      // api
+      //   .pushComment({
+      //     parentId: node.parentNode.getAttribute("data-id"),
+      //     articleId: this.artId,
+      //     comment: sib.value
+      //   })
+      //   .then(() => {
+      sib.value = "";
+      node.parentNode.firstChild.setAttribute("rows", 1);
+      // api.getCommentList({ articleId: this.$route.params.id }).then(res => {
+      //   this.items = res.data;
+      // });
+      // });
     }
   }
 };

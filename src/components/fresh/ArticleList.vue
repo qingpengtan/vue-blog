@@ -18,7 +18,7 @@
           <div class="comment hover">
             <router-link
               tag="div"
-              :to="{ path: '/detail/'+item.articleId+'#aaa' }"
+              :to="{ path: '/detail/'+item.articleId+'#comment' }"
               class="bubble"
             >{{item.commentNum == null ? 0 : item.commentNum}}</router-link>
             <div class="reply">回复</div>

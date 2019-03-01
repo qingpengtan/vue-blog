@@ -25,7 +25,8 @@
                   id="content"
                   v-html="article.content"
                   v-highlight
-                  style="    line-height: 1.6;
+                  ref="content"
+                  style="line-height: 1.6;
     word-wrap: break-word;"
                 ></div>
               </div>
@@ -51,6 +52,7 @@ import Version from "@/components/fresh/Version.vue";
 import Footer from "@/components/fresh/Footer.vue";
 import BackTop from "@/components/fresh/BackTop.vue";
 import api from "@/api/article";
+import { setTimeout } from "timers";
 
 export default {
   name: "detail",
@@ -76,7 +78,14 @@ export default {
     api.getDetails({ articleId: this.$route.params.id }).then(res => {
       this.article = res.data;
       document.title = res.data.articleTitle;
-    })
+      let $html = this.$refs.home;
+      this.html = $html;
+      this.$nextTick(() => {
+        if (this.$route.fullPath.indexOf("#comment") != -1) {
+          this.html.scrollTop = this.$refs.content.clientHeight;
+        }
+      });
+    });
   },
   mounted() {
     this.fadeIn = true;

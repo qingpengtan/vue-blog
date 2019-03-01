@@ -5,7 +5,7 @@ import store from './store'
 import '@/icons'
 import './assets/styles/icon.css'
 import './assets/styles/global.scss'
-// import WeiboEmoji from 'weibo-emoji'
+import WeiboEmoji from 'weibo-emoji'
 
 import VueQuillEditor from 'vue-quill-editor'
 
@@ -22,7 +22,7 @@ import * as filters from './filter' // global filters
 Vue.use(VueQuillEditor, /* { default global options } */)
 
 Vue.config.productionTip = false
-// Vue.use(WeiboEmoji)
+Vue.use(WeiboEmoji)
 
 Vue.directive('highlight',function (el) {
   let blocks = el.querySelectorAll('pre');

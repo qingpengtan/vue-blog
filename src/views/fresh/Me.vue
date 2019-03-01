@@ -27,7 +27,9 @@
       </div>
 
       <ul class="tecno">
-        <li>姓名：唐<a href="http://www.zhiroad.cn/res/jianli" v-if="jianli">（简历）</a></li>
+        <li>姓名：唐
+          <a href="http://www.zhiroad.cn/res/jianli" v-if="jianli">（简历）</a>
+        </li>
         <li>学历：本科</li>
         <li>联系方式：tang1994year@163.com</li>
         <li>坐标：福建</li>
@@ -81,9 +83,15 @@
         <button class="send" @click="send">留言</button>
         <span class="login" @click="confirmLogin()">登录留言？</span>
         <div class="comment-area">
-          <comment-list :items="items"></comment-list>
+          <comment-list :items="items" :articleId='1'></comment-list>
         </div>
-
+      </div>
+      <div class="emoji">
+        <weibo-emoji
+          :weiboIcon="weiboIcon"
+          @changeEmoji="selsctEmoji = arguments[0].phrase"
+          ref="emoji"
+        ></weibo-emoji>
       </div>
     </div>
   </div>
@@ -96,13 +104,15 @@ import CommentList from "@/components/fresh/CommentList.vue";
 import swal from "sweetalert";
 import marked from "marked";
 import api from "@/api/article";
+import icon from "@/utils/icon";
 export default {
   name: "me",
   data() {
     return {
       content: "",
       items: [],
-      jianli:false
+      weiboIcon: icon,
+      jianli: false
     };
   },
   components: {
@@ -123,7 +133,7 @@ export default {
     });
   },
   created() {
-    if(this.$route.query.jianli != undefined){
+    if (this.$route.query.jianli != undefined) {
       this.jianli = true;
     }
     api.getCommentList({ articleId: 1 }).then(res => {
@@ -346,6 +356,9 @@ export default {
         font-size: 14px;
         cursor: pointer;
       }
+    }
+    .emoji /deep/ .emoji_box .ej {
+      height: 32px;
     }
     .comment-area {
       margin: 0 50px;
