@@ -16,7 +16,8 @@
       <div class="divider">
         <span class="divider-inner-text">博客简述</span>
       </div>
-      <p>UI设计：借鉴他人
+      <p>
+        UI设计：借鉴他人
         <br>相关技术：Vue-Cli3 + Vue2.5 + Spring-Boot + Mysql
         <br>源码地址：
         <a href="https://github.com/qingpengtan/vue-blog" target="_blank">github</a>
@@ -114,8 +115,8 @@ export default {
       items: [],
       weiboIcon: icon,
       jianli: false,
-      emoji:false,
-      selsctEmoji:''
+      emoji: false,
+      selsctEmoji: ""
     };
   },
   components: {
@@ -136,7 +137,7 @@ export default {
     });
   },
   created() {
-    document.title = '我的'
+    document.title = "我的";
     if (this.$route.query.jianli != undefined) {
       this.jianli = true;
     }
@@ -144,8 +145,11 @@ export default {
       this.items = res.data;
     });
   },
+  activated() {
+    document.title = "我的";
+  },
   watch: {
-    selsctEmoji(){
+    selsctEmoji() {
       this.content = this.content + this.selsctEmoji;
       this.emoji = false;
     }
@@ -181,9 +185,9 @@ export default {
         }
       });
     },
-    showEmoji(){
+    showEmoji() {
       this.emoji = !this.emoji;
-    },
+    }
   }
 };
 </script>

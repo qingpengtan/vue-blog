@@ -100,7 +100,7 @@ export default {
         // 联网请求
         api.getArticleList({ page: this.page }).then(res => {
           let arr = res.data.articleList;
-          this.end = (res.data.current >= res.data.totalPage) ? true : false;
+          this.end = res.data.current >= res.data.totalPage ? true : false;
           // 如果是第一页需手动制空列表
           if (this.page.num === 1) this.list = [];
           // 把请求到的数据添加到列表
@@ -123,11 +123,12 @@ export default {
     api.getArticleTag().then(res => {
       this.tags = res.data;
     });
-    document.title = "ZHIROAD之路";
+    document.title = "ZHIROAD";
   },
   activated() {
     let $html = this.$refs.home;
     $html.scrollTop = store.getters.indexScroll;
+    document.title = "ZHIROAD";
   },
   methods: {
     // mescroll组件初始化的回调,可获取到mescroll对象
