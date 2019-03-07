@@ -123,7 +123,7 @@ export default {
     display: none;
   }
   .layout {
-    width: 900px;
+    width: 960px;
     min-height: calc(100% - 66px);
     margin: 0 auto;
     #back {

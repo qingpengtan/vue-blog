@@ -14,7 +14,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import hljs from 'highlight.js/lib/highlight';
-import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/styles/atom-one-light.css';
 import 'highlight.js/lib';
 import 'animate.css'
 import * as filters from './filter' // global filters

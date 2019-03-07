@@ -12,7 +12,10 @@
       </div>
       <button class="send" @click="sendComment">评论</button>
       <span class="login" @click="confirmLogin()">登录评论？</span>
-      <!-- <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/> -->
+      <span class="login" style="margin-right:6px">
+        <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持Markdown语法
+      </span>
+      <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
       <div class="emoji" v-if="emoji">
         <weibo-emoji
           :weiboIcon="weiboIcon"
@@ -30,6 +33,7 @@ import api from "@/api/article";
 import swal from "sweetalert";
 import CommentList from "@/components/fresh/CommentList.vue";
 import icon from "@/utils/icon";
+import marked from "marked";
 export default {
   props: ["id"],
   data() {
@@ -49,6 +53,18 @@ export default {
       this.items = res.data;
     });
   },
+  mounted() {
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false
+    });
+  },
   watch: {
     selsctEmoji() {
       this.content = this.content + this.selsctEmoji;
@@ -63,7 +79,7 @@ export default {
       api
         .pushComment({
           articleId: this.$route.params.id,
-          comment: this.content
+          comment: marked(this.content, { sanitize: true })
         })
         .then(() => {
           this.content = "";
@@ -130,18 +146,17 @@ export default {
       height: 25px;
       float: left;
       margin: 6px;
+      margin-top: 10px;
       margin-left: 48px;
       cursor: pointer;
     }
     .login {
-      width: 70px;
       height: 30px;
       float: right;
       vertical-align: bottom;
       text-align: center;
       line-height: 48px;
-      font-size: 14px;
-      font-size: 14px;
+      font-size: 13px!important;
       &:hover {
         color: #c1866a;
         cursor: pointer;
@@ -186,7 +201,7 @@ export default {
   .blog-comment {
     .msg-edit {
       .emoji-icon {
-        margin-left: 45px;
+        margin-left: 25px;
       }
       .emoji {
         top: -270px;

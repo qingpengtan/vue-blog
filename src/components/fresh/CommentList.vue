@@ -21,7 +21,7 @@
           </span>-->
           <span class="flool">#{{items.length - key}}</span>
         </div>
-        <div class="cm-content">{{item.comment}}</div>
+        <div class="cm-content" v-html="$options.filters.emojiChange(item.comment)" v-highlight></div>
         <div class="cm-footer">
           <span class="create_at">{{item.createTime | filterTime}}</span>
           <span class="reply" v-if="item.roleId != 4" @click="showReply(item)">
@@ -132,6 +132,14 @@ export default {
       line-height: 2;
       margin: 7px 0;
       word-wrap: break-word;
+      /deep/.emoji-icon {
+        width: 16px;
+        margin: 0 2px;
+        height: 16px;
+        display: inline-block;
+        position: relative;
+        top: 3px;
+      }
     }
     .cm-footer {
       display: flex;

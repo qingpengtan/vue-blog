@@ -1,7 +1,7 @@
 <template>
   <div class="reply-area" :data-id="item.comId" v-if="item.roleId != 4" ref="reply">
     <textarea rows="1" placeholder="说点什么..." @focus="replyF" v-model="content"></textarea>
-    <!-- <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/> -->
+    <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
     <div class="emoji" v-if="emoji">
       <weibo-emoji
         :weiboIcon="weiboIcon"
@@ -20,6 +20,9 @@
 <script>
 import icon from "@/utils/icon";
 import store from "@/store";
+import marked from "marked";
+import api from "@/api/article";
+
 export default {
   props: {
     item: {
@@ -53,6 +56,18 @@ export default {
       this.emoji = false;
     }
   },
+  mounted() {
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false
+    });
+  },
   methods: {
     showEmoji() {
       this.emoji = !this.emoji;
@@ -63,7 +78,6 @@ export default {
     cancel(el) {
       let node = el.target.parentNode.parentNode;
       store.dispatch("ShowAreaId", "");
-
       node.firstChild.setAttribute("rows", 1);
     },
     confirm(el) {
@@ -72,19 +86,16 @@ export default {
       store.dispatch("ShowAreaId", "");
       this.artId =
         this.articleId == null ? this.$route.params.id : this.articleId;
-      // api
-      //   .pushComment({
-      //     parentId: item.comId,
-      //     articleId: this.artId,
-      //     comment: this.content
-      //   })
-      //   .then(() => {
-      this.content = "";
-      node.parentNode.firstChild.setAttribute("rows", 1);
-      // api.getCommentList({ articleId: this.$route.params.id }).then(res => {
-      //   this.items = res.data;
-      // });
-      // });
+      api
+        .pushComment({
+          parentId: this.item.comId,
+          articleId: this.artId,
+          comment: marked(this.content, { sanitize: true })
+        })
+        .then(() => {
+          this.content = "";
+          node.parentNode.firstChild.setAttribute("rows", 1);
+        });
     }
   }
 };

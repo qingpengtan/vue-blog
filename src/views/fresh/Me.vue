@@ -82,12 +82,15 @@
           <textarea rows="5" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
         </div>
         <button class="send" @click="send">留言</button>
-        <!-- <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/> -->
+        <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
         <span class="login" @click="confirmLogin()">登录留言？</span>
+        <span class="login" style="margin-right:15px">
+          <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持MarkDown语法
+        </span>
         <div class="emoji" v-if="emoji">
           <weibo-emoji
             :weiboIcon="weiboIcon"
-            @changeEmoji="selsctEmoji = arguments[0].url"
+            @changeEmoji="selsctEmoji = arguments[0].phrase"
             ref="emoji"
           ></weibo-emoji>
         </div>
@@ -159,11 +162,10 @@ export default {
       if (this.content.trim() == "") {
         return;
       }
-      console.log(marked(this.content, { sanitize: true }));
       api
         .pushComment({
           articleId: 1,
-          comment: this.content
+          comment: marked(this.content, { sanitize: true })
         })
         .then(() => {
           this.content = "";
@@ -212,7 +214,7 @@ export default {
     background-image: url("../../assets/about-bg.jpg");
     color: #fff;
     background-repeat: no-repeat;
-    background-position: 50%;
+    background-position: 82%;
     background-size: cover;
     position: fixed;
     .info {
@@ -346,18 +348,17 @@ export default {
         height: 27px;
         float: left;
         margin: 8px;
+        margin-top: 10px;
         margin-left: 60px;
         cursor: pointer;
       }
       .login {
-        width: 70px;
         height: 30px;
         float: right;
         vertical-align: bottom;
         text-align: center;
         line-height: 48px;
-        font-size: 14px;
-        font-size: 14px;
+        font-size: 13px!important;
         &:hover {
           color: #c1866a;
           cursor: pointer;
@@ -431,7 +432,7 @@ export default {
       border-radius: 0px;
       .msg-edit {
         .emoji-icon {
-          margin-left: 49px;
+          margin-left: 24px;
         }
         .emoji {
           margin: 0;
