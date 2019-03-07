@@ -79,14 +79,14 @@
       <div class="msg-edit">
         <div style="display:flex">
           <svg-icon class="avatar" icon-class="Gits"/>
-          <textarea rows="5" placeholder="留下足迹，文明交流..." v-model="content"></textarea>
+          <textarea rows="5" placeholder="说点什么...（支持Markdown语法）" v-model="content"></textarea>
         </div>
         <button class="send" @click="send">留言</button>
         <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
         <span class="login" @click="confirmLogin()">登录留言？</span>
-        <span class="login" style="margin-right:15px">
-          <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持MarkDown语法
-        </span>
+        <!-- <span class="login" style="margin-right:15px">
+          <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持Markdown
+        </span> -->
         <div class="emoji" v-if="emoji">
           <weibo-emoji
             :weiboIcon="weiboIcon"
@@ -432,7 +432,7 @@ export default {
       border-radius: 0px;
       .msg-edit {
         .emoji-icon {
-          margin-left: 24px;
+          margin-left: 49px;
         }
         .emoji {
           margin: 0;

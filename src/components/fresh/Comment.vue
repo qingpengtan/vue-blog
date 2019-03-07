@@ -8,13 +8,13 @@
     <div class="msg-edit">
       <div style="display:flex">
         <svg-icon class="avter" icon-class="Gits"/>
-        <textarea rows="3" placeholder="说点什么..." v-model="content"></textarea>
+        <textarea rows="3" placeholder="说点什么...（支持Markdown语法）" v-model="content"></textarea>
       </div>
       <button class="send" @click="sendComment">评论</button>
       <span class="login" @click="confirmLogin()">登录评论？</span>
-      <span class="login" style="margin-right:6px">
+      <!-- <span class="login" style="margin-right:6px">
         <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持Markdown语法
-      </span>
+      </span> -->
       <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
       <div class="emoji" v-if="emoji">
         <weibo-emoji
@@ -201,7 +201,7 @@ export default {
   .blog-comment {
     .msg-edit {
       .emoji-icon {
-        margin-left: 25px;
+        margin-left: 36px;
       }
       .emoji {
         top: -270px;

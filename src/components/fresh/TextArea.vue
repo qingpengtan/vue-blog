@@ -86,16 +86,16 @@ export default {
       store.dispatch("ShowAreaId", "");
       this.artId =
         this.articleId == null ? this.$route.params.id : this.articleId;
-      api
-        .pushComment({
-          parentId: this.item.comId,
-          articleId: this.artId,
-          comment: marked(this.content, { sanitize: true })
-        })
-        .then(() => {
+      // api
+      //   .pushComment({
+      //     parentId: this.item.comId,
+      //     articleId: this.artId,
+      //     comment: marked(this.content, { sanitize: true })
+      //   })
+      //   .then(() => {
           this.content = "";
           node.parentNode.firstChild.setAttribute("rows", 1);
-        });
+        // });
     }
   }
 };

@@ -24,9 +24,9 @@
         <div class="cm-content" v-html="$options.filters.emojiChange(item.comment)" v-highlight></div>
         <div class="cm-footer">
           <span class="create_at">{{item.createTime | filterTime}}</span>
-          <span class="reply" v-if="item.roleId != 4" @click="showReply(item)">
+          <!-- <span class="reply" v-if="item.roleId != 4" @click="showReply(item)">
             <span>回复</span>
-          </span>
+          </span> -->
           <!-- <span class="like">
             <span>顶</span>
             <span>&nbsp;(0)</span>
