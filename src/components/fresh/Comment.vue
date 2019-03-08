@@ -146,8 +146,8 @@ export default {
       height: 25px;
       float: left;
       margin: 6px;
-      margin-top: 10px;
-      margin-left: 48px;
+      margin-top: 8px;
+      margin-left: 42px;
       cursor: pointer;
     }
     .login {

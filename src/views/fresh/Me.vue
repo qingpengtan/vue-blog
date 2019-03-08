@@ -348,7 +348,6 @@ export default {
         height: 27px;
         float: left;
         margin: 8px;
-        margin-top: 10px;
         margin-left: 60px;
         cursor: pointer;
       }
@@ -432,7 +431,7 @@ export default {
       border-radius: 0px;
       .msg-edit {
         .emoji-icon {
-          margin-left: 49px;
+          margin-left: 45px;
         }
         .emoji {
           margin: 0;
