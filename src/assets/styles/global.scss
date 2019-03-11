@@ -18,6 +18,18 @@ $fontSize: 24px;
     border-radius: 0 !important;
 }
 
+.article-detail pre *{
+  font-family: Consolas,Inconsolata,Courier,monospace!important;
+}
+
+
+.article-detail a{
+  color: #116bde!important;
+  text-decoration: underline;
+}
+
+
+
 textarea::-webkit-input-placeholder {
     color: hsla(40, 33%, 60%, 0.5);
   }

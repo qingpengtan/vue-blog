@@ -21,7 +21,7 @@
           </span>-->
           <span class="flool">#{{items.length - key}}</span>
         </div>
-        <div class="cm-content" v-html="$options.filters.emojiChange(item.comment)" v-highlight></div>
+        <div class="cm-content article-detail" v-html="$options.filters.emojiChange(item.comment)" v-highlight></div>
         <div class="cm-footer">
           <span class="create_at">{{item.createTime | filterTime}}</span>
           <!-- <span class="reply" v-if="item.roleId != 4" @click="showReply(item)">

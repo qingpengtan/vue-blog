@@ -19,18 +19,19 @@
               <svg-icon style="width:100%;height:100%" icon-class="git"/>
             </a>
             <h1>{{article.articleTitle}}</h1>
-            <div class="ql-snow">
-              <div class="ql-editor" style="padding:0">
+            <!-- <div class="ql-snow">
+              <div class="ql-editor" style="padding:0"> -->
                 <div
                   id="content"
+                  class="article-detail"
                   v-html="article.content"
                   v-highlight
                   ref="content"
                   style="line-height: 1.6;
     word-wrap: break-word;"
                 ></div>
-              </div>
-            </div>
+              <!-- </div>
+            </div> -->
           </article>
         </div>
       </transition>
