@@ -27,7 +27,7 @@
                   v-html="article.content"
                   v-highlight
                   ref="content"
-                  style="line-height: 1.6;
+                  style="line-height: 1.8;
     word-wrap: break-word;"
                 ></div>
               <!-- </div>

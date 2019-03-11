@@ -298,6 +298,7 @@ export default {
           display: inline-block;
           width: 20px;
           height: 20px;
+          margin: 0 4px;
           cursor: pointer;
           background: url("../../assets/star.png") center top no-repeat;
         }

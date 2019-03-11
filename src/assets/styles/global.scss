@@ -21,11 +21,23 @@ $fontSize: 24px;
 .article-detail pre *{
   font-family: Consolas,Inconsolata,Courier,monospace!important;
 }
-
+.article-detail code{
+  color: #ff502c;
+  background: #fff5f5;
+  padding: 2px 5px;
+}
+.article-detail pre code{
+  color: inherit;
+  background: none;
+  padding: 0;
+}
 
 .article-detail a{
   color: #116bde!important;
   text-decoration: underline;
+}
+.article-detail img:not(.emoji-icon){
+  max-width: 100%!important;
 }
 
 

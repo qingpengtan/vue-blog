@@ -34,6 +34,8 @@ export default {
         return "rgb(120, 109, 93)";
       } else if (value == "杂谈笔录") {
         return "rgb(135, 180, 78)";
+      } else if (value == "精选知识") {
+        return "rgb(134, 137, 140)";
       } else {
         return "rgb(230, 188, 60)";
       }

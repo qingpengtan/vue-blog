@@ -10,16 +10,13 @@ import WeiboEmoji from 'weibo-emoji'
 import VueQuillEditor from 'vue-quill-editor'
 
 // require styles
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
 import hljs from 'highlight.js/lib/highlight';
-import 'highlight.js/styles/atelier-dune-light.css';
+// import 'highlight.js/styles/atelier-dune-light.css';
+import 'highlight.js/styles/atelier-estuary-light.css';
 import 'highlight.js/lib';
 import 'animate.css'
 import * as filters from './filter' // global filters
 
-Vue.use(VueQuillEditor, /* { default global options } */)
 
 Vue.config.productionTip = false
 Vue.use(WeiboEmoji)
