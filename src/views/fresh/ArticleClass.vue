@@ -200,6 +200,9 @@ export default {
         case "6":
           document.title = this.articleTag = "Python";
           break;
+        case "9":
+          document.title = this.articleTag = "精选知识";
+          break;
         default:
           document.title = this.articleTag = "其他";
           break;

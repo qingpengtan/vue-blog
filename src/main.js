@@ -7,8 +7,6 @@ import './assets/styles/icon.css'
 import './assets/styles/global.scss'
 import WeiboEmoji from 'weibo-emoji'
 
-import VueQuillEditor from 'vue-quill-editor'
-
 // require styles
 import hljs from 'highlight.js/lib/highlight';
 // import 'highlight.js/styles/atelier-dune-light.css';

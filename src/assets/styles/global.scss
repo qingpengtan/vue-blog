@@ -5,55 +5,67 @@
 $ratio:375 / 10;
 
 @function px2rem($px) {
-    @return $px/$ratio+rem;
+  @return $px/$ratio+rem;
 }
 
 $fontSize: 24px;
 
 @mixin color {
-    font-style: italic
+  font-style: italic
 }
 
 .mescroll-totop {
-    border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 
-.article-detail pre *{
-  font-family: Consolas,Inconsolata,Courier,monospace!important;
+.article-detail pre {
+  font-family: Consolas, Inconsolata, Courier, monospace !important;
 }
-.article-detail code{
+
+.article-detail code {
   color: #ff502c;
   background: #fff5f5;
   padding: 2px 5px;
+  font-family: Consolas, Inconsolata, Courier, monospace !important;
 }
-.article-detail pre code{
+
+.article-detail pre code {
   color: inherit;
   background: none;
   padding: 0;
+  font-family: Consolas, Inconsolata, Courier, monospace !important;
+}
+.article-detail{
+  font-size: 15px;
 }
 
-.article-detail a{
-  color: #116bde!important;
+.article-detail a {
+  color: #116bde !important;
   text-decoration: underline;
 }
-.article-detail img:not(.emoji-icon){
-  max-width: 100%!important;
+
+.article-detail img:not(.emoji-icon) {
+  max-width: 100% !important;
 }
 
 
 
 textarea::-webkit-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea:-webkit-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea::-moz-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea:-webkit-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
-  textarea:-ms-input-placeholder {
-    color: hsla(40, 33%, 60%, 0.5);
-  }
+  color: hsla(40, 33%, 60%, 0.5);
+}
+
+textarea:-webkit-input-placeholder {
+  color: hsla(40, 33%, 60%, 0.5);
+}
+
+textarea::-moz-input-placeholder {
+  color: hsla(40, 33%, 60%, 0.5);
+}
+
+textarea:-webkit-input-placeholder {
+  color: hsla(40, 33%, 60%, 0.5);
+}
+
+textarea:-ms-input-placeholder {
+  color: hsla(40, 33%, 60%, 0.5);
+}
