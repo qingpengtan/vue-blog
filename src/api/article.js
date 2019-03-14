@@ -62,4 +62,11 @@ export default {
       })
     },
 
+    getMusic () {
+      return request({
+        url: '/api/music',
+        method: 'post',
+      })
+    },
+
   }
