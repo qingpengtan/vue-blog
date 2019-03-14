@@ -57,6 +57,14 @@ export default new Router({
       component: () => import( /* webpackChunkName: "me" */ './views/fresh/Me.vue')
     },
     {
+      path: '/music',
+      name: 'me',
+      meta: {
+        keepAlive: true
+      },
+      component: () => import( /* webpackChunkName: "music" */ './views/fresh/Music.vue')
+    },
+    {
       path: '*',
       name: '404',
       meta: {

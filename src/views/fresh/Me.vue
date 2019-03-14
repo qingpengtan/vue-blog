@@ -7,8 +7,18 @@
         <img src="http://119.29.230.48/upload/image/youke.jpg" alt>
         <div style="margin:15px">作为菜鸟我也不知道该说些什么...</div>
         <div class="icon">
-          <svg-icon class="svg" icon-class="Gits"/>
-          <svg-icon class="juejin" icon-class="juejin"/>
+          <a href="https://github.com/qingpengtan" target="_blank" title="GitHub">
+            <svg-icon style="color:white;padding:0 6px" icon-class="Gits"/>
+          </a>
+          <a href="https://juejin.im/user/5bebe624e51d457d2969d9f6" target="_blank" title="juejin">
+            <svg-icon style="color:white;padding:0 6px" icon-class="juejin"/>
+          </a>
+          <a href="mailto:tang1994year@163.com"  title="email">
+            <svg-icon style="color:white;padding:0 6px" icon-class="email"/>
+          </a>
+          <a href="https://segmentfault.com/u/tangqp" target="_blank" title="segmentfault">
+            <svg-icon style="color:white;padding:0 6px" icon-class="sf"/>
+          </a>
         </div>
       </div>
     </div>
@@ -29,10 +39,15 @@
       <ul class="tecno">
         <li>
           姓名：唐
-          <a href="http://www.zhiroad.cn/res/jianli" v-if="jianli">（简历）</a>
+          <a href="http://www.zhiroad.cn/detail/137" v-if="jianli">（简历）</a>
         </li>
         <li>学历：本科</li>
-        <li>联系方式：tang1994year@163.com</li>
+        <li>
+          联系方式：
+          <a href="mailto:tang1994year@163.com">
+            <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="email"/>tang1994year@163.com
+          </a>
+        </li>
         <li>坐标：福建</li>
         <li>技能：</li>
         <li>
@@ -83,10 +98,10 @@
         </div>
         <button class="send" @click="send">留言</button>
         <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
-        <span class="login" @click="confirmLogin()">登录留言？</span>
+        <span class="login" v-if="!isLogin" @click="confirmLogin()">登录留言？</span>
         <!-- <span class="login" style="margin-right:15px">
           <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持Markdown
-        </span> -->
+        </span>-->
         <div class="emoji" v-if="emoji">
           <weibo-emoji
             :weiboIcon="weiboIcon"
@@ -118,6 +133,7 @@ export default {
       items: [],
       weiboIcon: icon,
       jianli: false,
+      isLogin: localStorage.getItem("x_token"),
       emoji: false,
       selsctEmoji: ""
     };
@@ -358,7 +374,7 @@ export default {
         vertical-align: bottom;
         text-align: center;
         line-height: 48px;
-        font-size: 13px!important;
+        font-size: 13px !important;
         &:hover {
           color: #c1866a;
           cursor: pointer;

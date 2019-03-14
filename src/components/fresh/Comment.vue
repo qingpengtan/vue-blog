@@ -11,7 +11,7 @@
         <textarea rows="3" placeholder="说点什么...（支持Markdown语法）" v-model="content"></textarea>
       </div>
       <button class="send" @click="sendComment">评论</button>
-      <span class="login" @click="confirmLogin()">登录评论？</span>
+      <span class="login" @click="confirmLogin()" v-if="!isLogin">登录评论？</span>
       <!-- <span class="login" style="margin-right:6px">
         <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持Markdown语法
       </span> -->
@@ -60,6 +60,7 @@ export default {
       tables: true,
       breaks: false,
       pedantic: false,
+      isLogin:localStorage.getItem('x_token'),
       sanitize: false,
       smartLists: true,
       smartypants: false

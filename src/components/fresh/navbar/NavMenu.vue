@@ -17,16 +17,11 @@
               />
             </div>Blog
           </router-link>
-          <li
-            :class="{ active: isActive}"
-            title="Music"
-            class="disab"
-            v-on:click.stop.prevent="tip"
-          >
+          <router-link tag="li" to="/music" :class="{ active: isActive}" title="Music">
             <div class="menu-icon">
               <svg-icon class="svg-icons" icon-class="Music" style="width:35%;height:80px"/>
             </div>Music
-          </li>
+          </router-link>
           <li
             :class="{ active: isActive}"
             title="Message"
@@ -62,25 +57,19 @@
               <svg-icon class="svg-icons" icon-class="example" style="width:35%;height:80px"/>
             </div>Example
           </li>
-          <li
-            :class="{ active: isActive}"
-            title="Github"
-            class="disab"
-            v-on:click.stop.prevent="tip"
-          >
-            <div class="menu-icon">
-              <svg-icon class="svg-icons" icon-class="Gits" style="width:35%;height:80px"/>
-            </div>Github
+          <li :class="{ active: isActive}" title="Github">
+            <a href="https://github.com/qingpengtan" target="_blank" style="color:#cdcdcd">
+              <div class="menu-icon">
+                <svg-icon class="svg-icons" icon-class="Gits" style="width:35%;height:80px"/>
+              </div>Github
+            </a>
           </li>
-          <li
-            :class="{ active: isActive}"
-            title="Juejin"
-            class="disab"
-            v-on:click.stop.prevent="tip"
-          >
-            <div class="menu-icon">
-              <svg-icon class="svg-icons" icon-class="juejin" style="width:35%;height:80px"/>
-            </div>Juejin
+          <li :class="{ active: isActive}" title="Juejin">
+            <a href="https://juejin.im/user/5bebe624e51d457d2969d9f6" target="_blank" style="color:#cdcdcd">
+              <div class="menu-icon">
+                <svg-icon class="svg-icons" icon-class="juejin" style="width:35%;height:80px"/>
+              </div>Juejin
+            </a>
           </li>
         </ul>
       </div>
@@ -103,7 +92,7 @@ export default {
       store.dispatch("IsActive", !this.$store.getters.isActive);
     },
     tip() {
-      swal('别着急，正在努力开发中...', {
+      swal("别着急，正在努力开发中...", {
         buttons: false,
         timer: 2000,
         icon: "warning"
@@ -146,8 +135,9 @@ export default {
       &.disab {
         color: #999;
       }
-      &:hover {
-        color: #ab9e9e;
+      &:hover,
+      a:hover {
+        color: #ab9e9e !important;
       }
       &.active {
         width: 120px;
