@@ -7,7 +7,7 @@
         ref="player"
         :autoplay="true"
         :listFolded="true"
-        :music="audio[0]"
+        :music="firstMusic"
         :theme="'#c1866a'"
         :controls="true"
         :preload="'auto'"
@@ -66,14 +66,19 @@ export default {
       duration: {
         duration: "00 : 00",
         current: "00 : 00"
-      }
+      },
+      firstMusic: {},
+      index: "0",
+      isPaused: false
     };
   },
   activated() {
     document.title = "Music ~ " + this.title;
+    this.index = window.location.href.split("#")[1];
   },
   mounted() {
     document.title = "Music ~ " + this.title;
+    this.index = window.location.href.split("#")[1];
     this.$refs.circle.style.animationPlayState = "paused";
     api
       .getMusic()
@@ -91,6 +96,17 @@ export default {
           tempMusic["lrc"] = "[00:00.00]暂无歌词";
           this.audio.push(tempMusic);
         }
+        if (
+          isNaN(parseInt(this.index)) ||
+          this.audio.length <= parseInt(this.index)
+        ) {
+          this.firstMusic = this.audio[
+            parseInt(Math.random() * this.audio.length)
+          ];
+        } else {
+          this.firstMusic = this.audio[parseInt(this.index)];
+        }
+
         this.flag = true;
       })
       .then(() => {
@@ -99,19 +115,25 @@ export default {
         let audioP = this.aplayers.audio;
         audioP.addEventListener("play", () => {
           console.log("开始播放");
+          window.location.hash = this.aplayers.playIndex;
           this.isPlay = true;
           this.title = this.aplayers.currentMusic.title;
           document.title = "Music ~ " + this.title;
-          this.$refs.circle.style.animationPlayState = "running";
+          if (this.isPaused) {
+            this.$refs.circle.style.animationPlayState = "running";
+            this.isPaused = false;
+          }
           this.intervalTime();
         });
         audioP.addEventListener("pause", () => {
           this.isPlay = false;
+          this.isPaused = true;
           this.$refs.circle.style.animationPlayState = "paused";
         });
         audioP.oncanplay = () => {
           console.log("可以播放");
           let time = moment.duration(audioP.duration, "seconds");
+          this.$refs.circle.style.animationPlayState = "running";
           this.duration.duration =
             "0" +
             Math.floor(
@@ -122,6 +144,10 @@ export default {
           this.intervalTime();
         };
         audioP.addEventListener("ended", () => {
+          if (this.aplayers.playIndex == 0) {
+            this.aplayers.onSelectSong(this.audio[0]);
+          }
+          this.isPaused = false;
           console.log("结束播放");
         });
       });
