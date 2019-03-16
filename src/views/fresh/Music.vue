@@ -24,12 +24,12 @@
       </div>
       <div class="center">
         <div class="title">
-          {{title}}
+          {{currentMusic.title}}
           <br>
           <br>
           {{duration.current}} / {{duration.duration}}
         </div>
-        <div class="circle" ref="circle">
+        <div class="circle" ref="circle" :style="'background:url('+currentMusic.pic+')'">
           <div class="daughter"></div>
         </div>
         <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="play"/>
@@ -62,22 +62,25 @@ export default {
       flag: false,
       isPlay: false,
       aplayers: "",
-      title: "聆听美好音乐~",
       duration: {
         duration: "00 : 00",
         current: "00 : 00"
       },
       firstMusic: {},
       index: "0",
-      isPaused: false
+      isPaused: false,
+      currentMusic: {
+        title: "聆听美好音乐~",
+        pic: "http://119.29.230.48/upload/image/youke.jpg"
+      }
     };
   },
   activated() {
-    document.title = "Music ~ " + this.title;
+    document.title = "Music ~ " + this.currentMusic.title;
     this.index = window.location.href.split("#")[1];
   },
   mounted() {
-    document.title = "Music ~ " + this.title;
+    document.title = "Music ~ " + this.currentMusic.title;
     this.index = window.location.href.split("#")[1];
     this.$refs.circle.style.animationPlayState = "paused";
     api
@@ -85,10 +88,14 @@ export default {
       .then(res => {
         for (let music of res.data) {
           let tempMusic = {};
-          tempMusic["title"] = music.musicName.substring(
-            0,
-            music.musicName.length - 4
-          );
+          if (music.musicName.indexOf(".mp3") == -1) {
+            tempMusic["title"] = music.musicName;
+          } else {
+            tempMusic["title"] = music.musicName.substring(
+              0,
+              music.musicName.length - 4
+            );
+          }
           tempMusic["artist"] = " ";
           tempMusic["src"] = music.musicUrl;
           tempMusic["pic"] =
@@ -117,8 +124,8 @@ export default {
           console.log("开始播放");
           window.location.hash = this.aplayers.playIndex;
           this.isPlay = true;
-          this.title = this.aplayers.currentMusic.title;
-          document.title = "Music ~ " + this.title;
+          this.currentMusic = this.aplayers.currentMusic;
+          document.title = "Music ~ " + this.currentMusic.title;
           if (this.isPaused) {
             this.$refs.circle.style.animationPlayState = "running";
             this.isPaused = false;
@@ -133,7 +140,9 @@ export default {
         audioP.oncanplay = () => {
           console.log("可以播放");
           let time = moment.duration(audioP.duration, "seconds");
-          this.$refs.circle.style.animationPlayState = "running";
+          if (this.isPlay) {
+            this.$refs.circle.style.animationPlayState = "running";
+          }
           this.duration.duration =
             "0" +
             Math.floor(
@@ -248,8 +257,7 @@ export default {
         width: 60%;
         top: 50%;
         left: 50%;
-        background: url("http://119.29.230.48/upload/image/youke.jpg");
-        background-size: 100%;
+        background-size: 100% !important;
         animation: rotate 7s linear infinite;
         border-radius: 50%;
         .daughter {

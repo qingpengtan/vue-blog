@@ -7,15 +7,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <!-- 使用CDN加速的CSS文件，配置在vue.config.js下 -->
-  <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
+  <!-- <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
   <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="preload" as="style">
   <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet">
-  <% } %>
+  <% } %> -->
 
   <!-- 使用CDN加速的JS文件，配置在vue.config.js下 -->
-  <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+  <!-- <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
   <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
-  <% } %>
+  <% } %> -->
 
 
   <title>ZHIROAD</title>
@@ -252,8 +252,8 @@
 </body>
 <!-- <script src="https://cdn.jsdelivr.net/npm/colorthief@2.0.2/src/color-thief.js"></script> -->
 <!-- 使用CDN加速的JS文件，配置在vue.config.js下 -->
-<% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+<!-- <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
 <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
-<% } %>
+<% } %> -->
 
 </html>
