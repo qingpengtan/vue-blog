@@ -35,9 +35,15 @@ $fontSize: 24px;
   padding: 0;
   font-family: Consolas, Inconsolata, Courier, monospace !important;
 }
-.article-detail{
+
+.article-detail {
   font-size: 15px;
 }
+
+// .article-detail ol,
+// .article-detail ul {
+//   // list-style: inherit!important;
+// }
 
 .article-detail a {
   color: #116bde !important;

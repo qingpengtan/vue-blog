@@ -5,6 +5,47 @@ function resolve(dir) {
   return path.join(__dirname, './', dir)
 }
 
+
+// cdn预加载使用
+// const externals = {
+//   'vue': 'Vue',
+//   'vue-router': 'VueRouter',
+//   'vuex': 'Vuex',
+//   'axios': 'axios',
+//   'animate': 'animate.min',
+//   'vue-aplayer':'Aplayer',
+//   'qs':'qs',
+//   'marked':'marked',
+//   'moment':'moment',
+// }
+
+// const cdn = {
+//   // 开发环境
+//   dev: {
+//     css: [],
+//     js: []
+//   },
+//   // 生产环境
+//   build: {
+//     css: [
+//       'https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css',
+//       'https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css',
+//     ],
+//     js: [
+//       'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js',
+//       'https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js',
+//       'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
+//       'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
+//       'https://cdn.jsdelivr.net/npm/vue-aplayer',
+//       'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js',
+//       'https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.js',
+//       'https://cdnjs.cloudflare.com/ajax/libs/marked/0.6.1/marked.js',
+//       'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js',
+//     ]
+//   }
+// }
+
+
 // 是否使用gzip
 const productionGzip = true
 // 需要gzip压缩的文件后缀
@@ -33,6 +74,19 @@ module.exports = {
       args[0]['process.env'].BASE_API = '"/"'
       return args
     })
+
+        /**
+     * 添加CDN参数到htmlWebpackPlugin配置中， 详见public/index.html 修改
+     */
+    // config.plugin('html').tap(args => {
+    //   if (process.env.NODE_ENV === 'production') {
+    //     args[0].cdn = cdn.build
+    //   }
+    //   if (process.env.NODE_ENV === 'development') {
+    //     args[0].cdn = cdn.dev
+    //   }
+    //   return args
+    // })
 
     // svg loader
     const svgRule = config.module.rule('svg') // 找到svg-loader
@@ -65,7 +119,9 @@ module.exports = {
         new CompressionWebpackPlugin({
           test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
           threshold: 8192,
-          minRatio: 0.8
+          minRatio: 0.8,
+          algorithm: 'gzip',
+          cache: true
         })
       )
     }

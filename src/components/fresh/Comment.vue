@@ -14,7 +14,7 @@
       <span class="login" @click="confirmLogin()" v-if="!isLogin">登录评论？</span>
       <!-- <span class="login" style="margin-right:6px">
         <svg-icon style="width:20px;height:20px;position:relative;top:3px" icon-class="tip"/>支持Markdown语法
-      </span> -->
+      </span>-->
       <svg-icon class="emoji-icon" icon-class="emoji" @click.native="showEmoji"/>
       <div class="emoji" v-if="emoji">
         <weibo-emoji
@@ -42,6 +42,7 @@ export default {
       weiboIcon: icon,
       selsctEmoji: "",
       content: "",
+      isLogin: localStorage.getItem("x_token"),
       emoji: false
     };
   },
@@ -60,7 +61,6 @@ export default {
       tables: true,
       breaks: false,
       pedantic: false,
-      isLogin:localStorage.getItem('x_token'),
       sanitize: false,
       smartLists: true,
       smartypants: false
@@ -157,7 +157,7 @@ export default {
       vertical-align: bottom;
       text-align: center;
       line-height: 48px;
-      font-size: 13px!important;
+      font-size: 13px !important;
       &:hover {
         color: #c1866a;
         cursor: pointer;

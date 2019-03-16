@@ -14,7 +14,7 @@
         :list="audio"
         :showLrc="true"
         v-if="flag"
-        :volume="0.2"
+        :volume="0.6"
         listMaxHeight="300px"
       />
     </div>
@@ -69,11 +69,11 @@ export default {
       }
     };
   },
-  activated(){
-    document.title='Music ~ ' + this.title;
+  activated() {
+    document.title = "Music ~ " + this.title;
   },
   mounted() {
-    document.title='Music ~ ' + this.title;
+    document.title = "Music ~ " + this.title;
     this.$refs.circle.style.animationPlayState = "paused";
     api
       .getMusic()
@@ -95,8 +95,10 @@ export default {
       })
       .then(() => {
         this.aplayers = this.$refs.player;
+        // console.log(this.aplayers)
         let audioP = this.aplayers.audio;
         audioP.addEventListener("play", () => {
+          console.log("开始播放");
           this.isPlay = true;
           this.title = this.aplayers.currentMusic.title;
           document.title = "Music ~ " + this.title;
@@ -108,12 +110,20 @@ export default {
           this.$refs.circle.style.animationPlayState = "paused";
         });
         audioP.oncanplay = () => {
+          console.log("可以播放");
           let time = moment.duration(audioP.duration, "seconds");
-          this.duration.duration = moment(time.asMilliseconds()).format(
-            "MM : ss"
-          );
+          this.duration.duration =
+            "0" +
+            Math.floor(
+              moment.duration(time.asMilliseconds(), "milliseconds").asMinutes()
+            ) +
+            " : " +
+            moment(time.asMilliseconds()).format("ss");
           this.intervalTime();
         };
+        audioP.addEventListener("ended", () => {
+          console.log("结束播放");
+        });
       });
   },
   methods: {
@@ -144,12 +154,13 @@ export default {
           window.clearInterval(timer);
         }
         let t = moment.duration(audioP.currentTime, "seconds");
-        if (t.asMilliseconds() < 60000) {
-          this.duration.current =
-            "00 : " + moment(t.asMilliseconds()).format("ss");
-        } else {
-          this.duration.current = moment(t.asMilliseconds()).format("MM : ss");
-        }
+        this.duration.current =
+          "0" +
+          Math.floor(
+            moment.duration(t.asMilliseconds(), "milliseconds").asMinutes()
+          ) +
+          " : " +
+          moment(t.asMilliseconds()).format("ss");
       }, 1000);
     }
   }
