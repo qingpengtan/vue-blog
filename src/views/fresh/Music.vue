@@ -126,6 +126,7 @@ export default {
           this.isPlay = true;
           this.currentMusic = this.aplayers.currentMusic;
           document.title = "Music ~ " + this.currentMusic.title;
+          this.$refs.circle.style.animationPlayState = "paused";//上下一首音乐的时候先暂停动画
           if (this.isPaused) {
             this.$refs.circle.style.animationPlayState = "running";
             this.isPaused = false;
