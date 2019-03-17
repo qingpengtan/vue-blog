@@ -100,7 +100,7 @@ export default {
           tempMusic["artist"] = " ";
           tempMusic["src"] = music.musicUrl;
           tempMusic["pic"] =
-            music.musicPic || "http://119.29.230.48/upload/image/youke.jpg";
+            music.musicPic || "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg";
           tempMusic["lrc"] = "[00:00.00]暂无歌词";
           this.audio.push(tempMusic);
         }

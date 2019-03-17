@@ -13,10 +13,13 @@ const externals = {
   'vuex': 'Vuex',
   'axios': 'axios',
   'animate': 'animate.min',
-  // 'qs':'qs',
+  'Qs':'qs',
   'marked':'marked',
   'moment':'moment',
   'sweetalert':'swal',
+  'VueAPlayer':'Aplayer',
+  'mescroll':'MeScroll',
+  'highlight':'hljs',
 }
 
 const cdn = {
@@ -35,10 +38,13 @@ const cdn = {
       'https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js',
       'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
       'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
-      // 'https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.js',
       'https://cdnjs.cloudflare.com/ajax/libs/marked/0.6.1/marked.js',
       'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js',
       'https://unpkg.com/sweetalert/dist/sweetalert.min.js',
+      'https://cdn.jsdelivr.net/npm/vue-aplayer',
+      'https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js',
     ]
   }
 }
