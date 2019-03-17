@@ -80,6 +80,7 @@ export default {
     this.index = window.location.href.split("#")[1];
   },
   mounted() {
+    Aplayer.disableVersionBadge = true;
     document.title = "Music ~ " + this.currentMusic.title;
     this.index = window.location.href.split("#")[1];
     this.$refs.circle.style.animationPlayState = "paused";
@@ -118,7 +119,6 @@ export default {
       })
       .then(() => {
         this.aplayers = this.$refs.player;
-        // console.log(this.aplayers)
         let audioP = this.aplayers.audio;
         audioP.addEventListener("play", () => {
           console.log("开始播放");
@@ -126,11 +126,12 @@ export default {
           this.isPlay = true;
           this.currentMusic = this.aplayers.currentMusic;
           document.title = "Music ~ " + this.currentMusic.title;
-          this.$refs.circle.style.animationPlayState = "paused";//上下一首音乐的时候先暂停动画
+          this.$refs.circle.style.animationPlayState = "paused"; //上下一首音乐的时候先暂停动画
           if (this.isPaused) {
             this.$refs.circle.style.animationPlayState = "running";
             this.isPaused = false;
           }
+          // console.log(this.aplayers);
           this.intervalTime();
         });
         audioP.addEventListener("pause", () => {
@@ -154,8 +155,18 @@ export default {
           this.intervalTime();
         };
         audioP.addEventListener("ended", () => {
-          if (this.aplayers.playIndex == 0) {
-            this.aplayers.onSelectSong(this.audio[0]);
+          // this.$refs.circle.style.transform = "rotate(0deg)";
+          if (this.aplayers.repeatMode != "no-repeat") {
+            this.aplayers.shouldShuffle = false;
+          }
+          if (this.aplayers.shouldShuffle) {
+            this.aplayers.onSelectSong(
+              this.audio[parseInt(Math.random() * this.audio.length)]
+            );
+          } else {
+            if (this.aplayers.playIndex == 0) {
+              this.aplayers.onSelectSong(this.audio[0]);
+            }
           }
           this.isPaused = false;
           console.log("结束播放");
@@ -164,17 +175,29 @@ export default {
   },
   methods: {
     left() {
-      if (this.aplayers.playIndex == 0) {
-        this.aplayers.onSelectSong(this.audio[this.audio.length - 1]);
+      if (this.aplayers.shouldShuffle) {
+        this.aplayers.onSelectSong(
+          this.audio[parseInt(Math.random() * this.audio.length)]
+        );
       } else {
-        this.aplayers.onSelectSong(this.audio[this.aplayers.playIndex - 1]);
+        if (this.aplayers.playIndex == 0) {
+          this.aplayers.onSelectSong(this.audio[this.audio.length - 1]);
+        } else {
+          this.aplayers.onSelectSong(this.audio[this.aplayers.playIndex - 1]);
+        }
       }
     },
     right() {
-      if (this.aplayers.playIndex + 1 == this.audio.length) {
-        this.aplayers.onSelectSong(this.audio[0]);
+      if (this.aplayers.shouldShuffle) {
+        this.aplayers.onSelectSong(
+          this.audio[parseInt(Math.random() * this.audio.length)]
+        );
       } else {
-        this.aplayers.onSelectSong(this.audio[this.aplayers.playIndex + 1]);
+        if (this.aplayers.playIndex + 1 == this.audio.length) {
+          this.aplayers.onSelectSong(this.audio[0]);
+        } else {
+          this.aplayers.onSelectSong(this.audio[this.aplayers.playIndex + 1]);
+        }
       }
     },
     play() {
