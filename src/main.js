@@ -12,7 +12,7 @@ import hljs from 'highlight.js/lib/highlight';
 // import 'highlight.js/styles/atelier-dune-light.css';
 import 'highlight.js/styles/atelier-estuary-light.css';
 import 'highlight.js/lib';
-import 'animate.css'
+// import 'animate.css'
 import * as filters from './filter' // global filters
 
 

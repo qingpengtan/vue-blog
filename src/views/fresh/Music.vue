@@ -20,7 +20,7 @@
     </div>
     <div class="player-cicrle">
       <div class="left">
-        <svg-icon class="icon" icon-class="left" @click.native="left"/>
+        <svg-icon class="icon" icon-class="left" @click.native="leftMusic()"/>
       </div>
       <div class="center">
         <div class="title">
@@ -32,11 +32,11 @@
         <div class="circle" ref="circle" :style="'background:url('+currentMusic.pic+')'">
           <div class="daughter"></div>
         </div>
-        <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="play"/>
-        <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="play"/>
+        <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
+        <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
       </div>
       <div class="right">
-        <svg-icon class="icon" icon-class="right" @click.native="right"/>
+        <svg-icon class="icon" icon-class="right" @click.native="rightMusic()"/>
       </div>
     </div>
   </div>
@@ -71,7 +71,8 @@ export default {
       isPaused: false,
       currentMusic: {
         title: "聆听美好音乐~",
-        pic: "http://119.29.230.48/upload/image/youke.jpg"
+        pic:
+          "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg"
       }
     };
   },
@@ -100,8 +101,9 @@ export default {
           tempMusic["artist"] = " ";
           tempMusic["src"] = music.musicUrl;
           tempMusic["pic"] =
-            music.musicPic || "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg";
-          tempMusic["lrc"] = "[00:00.00]暂无歌词";
+            music.musicPic ||
+            "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg";
+          tempMusic["lrc"] = music.musicLrc || "[00:00.00]暂无歌词";
           this.audio.push(tempMusic);
         }
         if (
@@ -155,7 +157,7 @@ export default {
           this.intervalTime();
         };
         audioP.addEventListener("ended", () => {
-          // this.$refs.circle.style.transform = "rotate(0deg)";
+          // this.$refs.circle.style.animationFillMode = "rotate(0deg)";
           if (this.aplayers.repeatMode != "no-repeat") {
             this.aplayers.shouldShuffle = false;
           }
@@ -174,7 +176,7 @@ export default {
       });
   },
   methods: {
-    left() {
+    leftMusic() {
       if (this.aplayers.shouldShuffle) {
         this.aplayers.onSelectSong(
           this.audio[parseInt(Math.random() * this.audio.length)]
@@ -187,7 +189,7 @@ export default {
         }
       }
     },
-    right() {
+    rightMusic() {
       if (this.aplayers.shouldShuffle) {
         this.aplayers.onSelectSong(
           this.audio[parseInt(Math.random() * this.audio.length)]
@@ -200,7 +202,7 @@ export default {
         }
       }
     },
-    play() {
+    playMusic() {
       this.isPlay = !this.isPlay;
       this.isPlay ? this.aplayers.play() : this.aplayers.pause();
     },

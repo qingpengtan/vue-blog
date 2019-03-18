@@ -8,16 +8,16 @@ function resolve(dir) {
 
 // cdn预加载使用
 const externals = {
-  'vue': 'Vue',
+  // 'vue': 'Vue',
   'vue-router': 'VueRouter',
   'vuex': 'Vuex',
   'axios': 'axios',
-  'animate': 'animate.min',
+  // 'animate.css': 'animate',
   'Qs':'qs',
   'marked':'marked',
   'moment':'moment',
   'sweetalert':'swal',
-  'VueAPlayer':'Aplayer',
+  // 'vue-aplayer':'Aplayer',
   'mescroll':'MeScroll',
   'highlight':'hljs',
 }
@@ -31,18 +31,19 @@ const cdn = {
   // 生产环境
   build: {
     css: [
-      'https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css',
+      // 'https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css',
+      'https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.css',
     ],
     js: [
-      'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js',
-      'https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js',
-      'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
-      'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
+      // 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.12/vue.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.0/vuex.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.js',
       'https://cdnjs.cloudflare.com/ajax/libs/marked/0.6.1/marked.js',
       'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js',
       'https://unpkg.com/sweetalert/dist/sweetalert.min.js',
-      'https://cdn.jsdelivr.net/npm/vue-aplayer',
+      // 'https://cdn.jsdelivr.net/npm/vue-aplayer',
       'https://cdn.jsdelivr.net/npm/mescroll.js@1.4.1/mescroll.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js',
     ]

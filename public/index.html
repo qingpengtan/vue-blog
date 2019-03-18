@@ -10,6 +10,7 @@
   <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="preload" as="style">
   <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet">
   <% } %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
 
   <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
   <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
@@ -247,4 +248,6 @@
     </div> -->
   </div>
 </body>
+<!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script> -->
 </html>
