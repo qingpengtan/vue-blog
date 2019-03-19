@@ -114,6 +114,7 @@
         </div>
       </div>
     </div>
+    <Footer style="display:none"></Footer>
   </div>
 </template>
 
@@ -121,6 +122,7 @@
 import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import CommentList from "@/components/fresh/CommentList.vue";
+import Footer from "@/components/fresh/Footer.vue";
 import swal from "sweetalert";
 import marked from "marked";
 import api from "@/api/article";
@@ -141,7 +143,8 @@ export default {
   components: {
     NavBtn,
     NavMenu,
-    CommentList
+    CommentList,
+    Footer
   },
   mounted() {
     marked.setOptions({

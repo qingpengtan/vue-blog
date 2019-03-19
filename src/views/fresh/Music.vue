@@ -34,11 +34,13 @@
         </div>
         <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
         <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
+        <div class="lrc-text">{{lrc}}</div>
       </div>
       <div class="right">
         <svg-icon class="icon" icon-class="right" @click.native="rightMusic()"/>
       </div>
     </div>
+    <Footer style="display:none"></Footer>
   </div>
 </template>
 
@@ -48,13 +50,16 @@ import moment from "moment";
 import Aplayer from "vue-aplayer";
 import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
+import Footer from "@/components/fresh/Footer.vue";
 import { clearInterval } from "timers";
 import { debug } from "util";
 export default {
+  name:'music',
   components: {
     NavBtn,
     NavMenu,
-    Aplayer
+    Aplayer,
+    Footer
   },
   data() {
     return {
@@ -66,6 +71,7 @@ export default {
         duration: "00 : 00",
         current: "00 : 00"
       },
+      lrc: "",
       firstMusic: {},
       index: "0",
       isPaused: false,
@@ -222,6 +228,10 @@ export default {
           ) +
           " : " +
           moment(t.asMilliseconds()).format("ss");
+        let lrcText = document.querySelector(".aplayer-lrc-current").innerText;
+        if(lrcText){
+          this.lrc = lrcText;
+        }
       }, 1000);
     }
   }
@@ -292,6 +302,17 @@ export default {
           padding-top: 100%;
         }
       }
+      .lrc-text {
+        position: absolute;
+        width: 100%;
+        left: 50%;
+        top: 80%;
+        transform: translate(-50%, 50%);
+        color: #c1866a;
+        text-align: center;
+        font-size: 24px;
+        line-height: 1.5;
+      }
       .icon {
         position: absolute;
         left: 50%;
@@ -334,6 +355,10 @@ export default {
         .circle {
           width: 80%;
           animation: rotate2 7s linear infinite;
+        }
+        .lrc-text {
+          top: 70%;
+          font-size: 16px;
         }
       }
     }

@@ -22,16 +22,11 @@
               <svg-icon class="svg-icons" icon-class="Music" style="width:35%;height:80px"/>
             </div>Music
           </router-link>
-          <li
-            :class="{ active: isActive}"
-            title="Message"
-            class="disab"
-            v-on:click.stop.prevent="tip"
-          >
+          <router-link tag="li" to="/archiving" :class="{ active: isActive}" title="Archiving">
             <div class="menu-icon">
-              <svg-icon class="svg-icons" icon-class="message" style="width:35%;height:80px"/>
-            </div>Message
-          </li>
+              <svg-icon class="svg-icons" icon-class="Archiving" style="width:35%;height:80px"/>
+            </div>Archiving
+          </router-link>
           <li
             :class="{ active: isActive}"
             title="Resource"
@@ -65,7 +60,11 @@
             </a>
           </li>
           <li :class="{ active: isActive}" title="Juejin">
-            <a href="https://juejin.im/user/5bebe624e51d457d2969d9f6" target="_blank" style="color:#cdcdcd">
+            <a
+              href="https://juejin.im/user/5bebe624e51d457d2969d9f6"
+              target="_blank"
+              style="color:#cdcdcd"
+            >
               <div class="menu-icon">
                 <svg-icon class="svg-icons" icon-class="juejin" style="width:35%;height:80px"/>
               </div>Juejin
