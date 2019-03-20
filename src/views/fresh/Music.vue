@@ -29,7 +29,7 @@
           <br>
           {{duration.current}} / {{duration.duration}}
         </div>
-        <div class="circle" ref="circle" :style="'background:url('+currentMusic.pic+')'">
+        <div class="circle" ref="circle" :style="'background-image:url('+currentMusic.pic+')'">
           <div class="daughter"></div>
         </div>
         <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
@@ -296,6 +296,7 @@ export default {
         background-size: 100% !important;
         animation: rotate 7s linear infinite;
         border-radius: 50%;
+        background-color: hsla(40, 33%, 60%, 0.3);
         .daughter {
           width: 100%;
           height: 0;

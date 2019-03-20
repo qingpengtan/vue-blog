@@ -56,22 +56,22 @@ $fontSize: 24px;
 
 
 
-textarea::-webkit-input-placeholder {
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
   color: hsla(40, 33%, 60%, 0.5);
 }
 
-textarea:-webkit-input-placeholder {
+input:-webkit-input-placeholder ,textarea:-webkit-input-placeholder {
   color: hsla(40, 33%, 60%, 0.5);
 }
 
-textarea::-moz-input-placeholder {
+input::-moz-input-placeholder ,textarea::-moz-input-placeholder {
   color: hsla(40, 33%, 60%, 0.5);
 }
 
-textarea:-webkit-input-placeholder {
+input:-webkit-input-placeholder,textarea:-webkit-input-placeholder {
   color: hsla(40, 33%, 60%, 0.5);
 }
 
-textarea:-ms-input-placeholder {
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {
   color: hsla(40, 33%, 60%, 0.5);
 }
