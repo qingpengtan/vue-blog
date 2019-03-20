@@ -5,53 +5,55 @@
     <div class="layout">
       <div class="title">文章归档</div>
       <div class="search">
-        <input type="text" placeholder="搜索你想要的文章">
-        <button>search</button>
+        <input type="text" placeholder="搜索你想要的文章" v-model="title" @keyup.enter="search">
+        <button @click="search">search</button>
       </div>
       <div class="list-item">
-        <div class="month-timeline">
-          <time id="2018-5" class="timeline-t">2018-5</time>
+        <div class="month-timeline" v-for="data in listItem" :key="data.time">
+          <time id="2018-5" class="timeline-t">{{data.time}}</time>
           <ul class="time-line-items">
-            <li class="timeline-item df-sb">
-              <div class="timeline-text">
-                <tags class="tags" :tags="[{articleTagId:1,articleTag:'精选知识'}]"></tags>
-                <div class="text-title">判断3个数组的方法，请分别介绍它们之间的区别和优劣</div>
-              </div>
-              <div class="timeline-day">13</div>
-            </li>
+            <transition-group enter-active-class="animated zoomIn">
+              <router-link
+                tag="li"
+                :to="{ path: '/detail/'+item.articleId}"
+                class="timeline-item df-sb"
+                v-for="item in data.data"
+                :key="item.articleId"
+              >
+                <div class="timeline-text">
+                  <tags
+                    class="tags"
+                    :tags="[{articleTag:item.articleTagName,articleTagId:item.articleTag}]"
+                  ></tags>
+                  <div class="text-title">{{item.articleTitle}}</div>
+                </div>
+                <div class="timeline-day">{{item.createTime}}</div>
+              </router-link>
+            </transition-group>
 
-            <li class="timeline-item df-sb">
+            <li class="timeline-item df-sb" v-if="listItem.length == 0">
               <div class="timeline-text">
-                <tags class="tags" :tags="[{articleTagId:1,articleTag:'精选知识'}]"></tags>
-                <div class="text-title">判断3个数组的方法，请分别介绍它们之间的区别和优劣</div>
+                <div class="text-title">找不到相关文章啦 ︿(￣︶￣)︿</div>
               </div>
-              <div class="timeline-day">13</div>
+              <div class="timeline-day">00</div>
             </li>
           </ul>
         </div>
 
-        <div class="month-timeline">
-          <time id="2018-5" class="timeline-t">2018-5</time>
+        <div class="month-timeline"  v-if="listItem.length == 0">
           <ul class="time-line-items">
             <li class="timeline-item df-sb">
               <div class="timeline-text">
-                <tags class="tags" :tags="[{articleTagId:1,articleTag:'精选知识'}]"></tags>
-                <div class="text-title">判断3个数组的方法，请分别介绍它们之间的区别和优劣</div>
+                <div class="text-title">找不到相关文章啦 ︿(￣︶￣)︿</div>
               </div>
-              <div class="timeline-day">13</div>
-            </li>
-
-            <li class="timeline-item df-sb">
-              <div class="timeline-text">
-                <tags class="tags" :tags="[{articleTagId:1,articleTag:'精选知识'}]"></tags>
-                <div class="text-title">判断3个数组的方法，请分别介绍它们之间的区别和优劣</div>
-              </div>
-              <div class="timeline-day">13</div>
+              <div class="timeline-day">00</div>
             </li>
           </ul>
         </div>
       </div>
     </div>
+    <version class="version"></version>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
@@ -59,12 +61,64 @@
 import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import Tags from "@/components/fresh/Tags.vue";
+import Version from "@/components/fresh/Version.vue";
+import Footer from "@/components/fresh/Footer.vue";
+import api from "@/api/article";
+import { exists } from "fs";
+
 export default {
   name: "archiving",
+  data() {
+    return {
+      listItem: [],
+      title: ""
+    };
+  },
   components: {
     NavBtn,
     NavMenu,
-    Tags
+    Tags,
+    Version,
+    Footer
+  },
+  created() {
+    document.title = "文章归档";
+    this.archieveArticle({});
+  },
+  activated() {
+    document.title = "文章归档";
+  },
+  methods: {
+    search() {
+      if(this.title.trim() == '' && this.listItem.length) return;
+      this.listItem = [];
+      this.archieveArticle({ articleTitle: this.title });
+    },
+    archieveArticle(data) {
+      api.archieveArticle(data).then(res => {
+        res.data.map(data => {
+          let existFlag = false;
+          let existIndex = 0;
+          for (let i = 0; i < this.listItem.length; i++) {
+            if (data.createTime.indexOf(this.listItem[i].time) != -1) {
+              existFlag = true;
+              existIndex = i;
+            }
+          }
+          if (existFlag) {
+            data.createTime = data.createTime.substr(8, 2);
+            this.listItem[existIndex]["data"].push(data);
+          } else {
+            let obj = [];
+            obj["time"] = data.createTime.substr(0, 7);
+            obj["data"] = [];
+            data.createTime = data.createTime.substr(8, 2);
+            obj["data"].push(data);
+            this.listItem.push(obj);
+          }
+        });
+      });
+    }
   }
 };
 </script>
@@ -82,7 +136,7 @@ export default {
   }
   .layout {
     width: 800px;
-    min-height: calc(100% - 56px);
+    min-height: calc(100% - 70px);
     margin: 0 auto;
     // display: flex;
     .title {
@@ -114,6 +168,7 @@ export default {
         color: #c1866a;
         position: relative;
         left: -5px;
+        top: 1px;
         cursor: pointer;
       }
     }
@@ -130,7 +185,7 @@ export default {
         }
         .timeline-item {
           width: 80%;
-          margin: 15px auto;
+          margin: 20px auto;
           min-height: 40px;
           color: hsla(40, 33%, 60%, 1);
           background-color: #fff;
@@ -160,9 +215,27 @@ export default {
             right: 10px;
             bottom: 10px;
           }
+          &:hover {
+            box-shadow: 10px 20px 35px 10px rgba(0, 0, 0, 0.15);
+          }
         }
       }
     }
+  }
+  .version {
+    position: absolute;
+    top: 5px;
+    right: 150px;
+    color: #c1866a;
+  }
+  .footer {
+    width: 800px;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #c1866a;
+    font-size: 15px;
+    margin-bottom: 5px;
   }
 }
 @media only screen and (max-width: 481px) {
@@ -174,7 +247,7 @@ export default {
     }
     .layout {
       width: 100%;
-      min-height: 100%;
+          min-height: calc(100% - 100px);
       .title {
         padding-top: 60px;
         font-size: 27px;
@@ -202,6 +275,13 @@ export default {
           }
         }
       }
+    }
+    .version {
+      right: 10px;
+      display: none;
+    }
+    .footer {
+      width: 100%;
     }
   }
 }

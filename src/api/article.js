@@ -51,6 +51,14 @@ export default {
       })
     },
 
+    archieveArticle (data) {
+      return request({
+        url: '/api/archieveArticle',
+        method: 'post',
+        data:qs.stringify(data)
+      })
+    },
+
     pushComment (data) {
       return request({
         url: '/api/comment',

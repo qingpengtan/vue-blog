@@ -83,7 +83,7 @@ export default {
     }
     .footer {
       position: absolute;
-      bottom: 60px;
+      bottom: 70px;
       padding: 0 10px;
       text-align: left;
       margin: 0 auto;

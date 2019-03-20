@@ -71,7 +71,7 @@ export default {
         duration: "00 : 00",
         current: "00 : 00"
       },
-      lrc: "",
+      lrc: "聆听美好音乐~",
       firstMusic: {},
       index: "0",
       isPaused: false,
