@@ -113,6 +113,7 @@ export default {
             music.musicPic ||
             "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg";
           tempMusic["lrc"] = music.musicLrc || "[00:00.00]暂无歌词";
+          tempMusic['theme'] = 'pic';
           this.audio.unshift(tempMusic);
         }
         if (
