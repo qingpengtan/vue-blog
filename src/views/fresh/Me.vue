@@ -13,7 +13,7 @@
           <a href="https://juejin.im/user/5bebe624e51d457d2969d9f6" target="_blank" title="juejin">
             <svg-icon style="color:white;padding:0 6px" icon-class="juejin"/>
           </a>
-          <a href="mailto:tang1994year@163.com"  title="email">
+          <a href="mailto:tang1994year@163.com" title="email">
             <svg-icon style="color:white;padding:0 6px" icon-class="email"/>
           </a>
           <a href="https://segmentfault.com/u/tangqp" target="_blank" title="segmentfault">
@@ -55,12 +55,11 @@
             <li>
               JavaScript
               <span class="star">
-                <input type="radio" name="item01" id="item01" disabled checked>
-                <!--这里设置checked初始状态-->
+                <input type="radio" name="item01" id="item01" disabled>
                 <label class="star-item" for="item01"></label>
                 <input type="radio" name="item01" id="item02" disabled>
                 <label class="star-item" for="item02"></label>
-                <input type="radio" name="item01" id="item03" disabled>
+                <input type="radio" name="item01" id="item03" disabled checked>
                 <label class="star-item" for="item03"></label>
                 <input type="radio" name="item01" id="item04" disabled>
                 <label class="star-item" for="item04"></label>
@@ -69,7 +68,7 @@
               </span>
             </li>
             <li>
-              JavaScript
+              Vue
               <span class="star">
                 <input type="radio" name="item02" id="item01" disabled>
                 <!--这里设置checked初始状态-->
@@ -81,6 +80,38 @@
                 <input type="radio" name="item02" id="item04" disabled>
                 <label class="star-item" for="item04"></label>
                 <input type="radio" name="item02" id="item05" disabled>
+                <label class="star-item" for="item05"></label>
+              </span>
+            </li>
+            <li>
+              SQL
+              <span class="star">
+                <input type="radio" name="item03" id="item01" disabled>
+                <!--这里设置checked初始状态-->
+                <label class="star-item" for="item01"></label>
+                <input type="radio" name="item03" id="item02" disabled checked>
+                <label class="star-item" for="item02"></label>
+                <input type="radio" name="item03" id="item03" disabled>
+                <label class="star-item" for="item03"></label>
+                <input type="radio" name="item03" id="item04" disabled>
+                <label class="star-item" for="item04"></label>
+                <input type="radio" name="item03" id="item05" disabled>
+                <label class="star-item" for="item05"></label>
+              </span>
+            </li>
+            <li>
+              Java
+              <span class="star">
+                <input type="radio" name="item04" id="item01" disabled>
+                <!--这里设置checked初始状态-->
+                <label class="star-item" for="item01"></label>
+                <input type="radio" name="item04" id="item02" disabled checked>
+                <label class="star-item" for="item02"></label>
+                <input type="radio" name="item04" id="item03" disabled>
+                <label class="star-item" for="item03"></label>
+                <input type="radio" name="item04" id="item04" disabled>
+                <label class="star-item" for="item04"></label>
+                <input type="radio" name="item04" id="item05" disabled>
                 <label class="star-item" for="item05"></label>
               </span>
             </li>

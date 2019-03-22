@@ -110,7 +110,7 @@ export default {
             music.musicPic ||
             "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg";
           tempMusic["lrc"] = music.musicLrc || "[00:00.00]暂无歌词";
-          this.audio.push(tempMusic);
+          this.audio.unshift(tempMusic);
         }
         if (
           isNaN(parseInt(this.index)) ||
@@ -129,7 +129,7 @@ export default {
         this.aplayers = this.$refs.player;
         let audioP = this.aplayers.audio;
         audioP.addEventListener("play", () => {
-          console.log("开始播放");
+          // console.log("开始播放");
           window.location.hash = this.aplayers.playIndex;
           this.isPlay = true;
           this.currentMusic = this.aplayers.currentMusic;
@@ -148,7 +148,7 @@ export default {
           this.$refs.circle.style.animationPlayState = "paused";
         });
         audioP.oncanplay = () => {
-          console.log("可以播放");
+          // console.log("可以播放");
           let time = moment.duration(audioP.duration, "seconds");
           if (this.isPlay) {
             this.$refs.circle.style.animationPlayState = "running";
@@ -177,7 +177,7 @@ export default {
             }
           }
           this.isPaused = false;
-          console.log("结束播放");
+          // console.log("结束播放");
         });
       });
   },
