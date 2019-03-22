@@ -1,46 +1,49 @@
 <template>
-  <div class="home">
-    <NavBtn class="menu"></NavBtn>
-    <NavMenu></NavMenu>
-    <div class="player">
-      <aplayer
-        ref="player"
-        :autoplay="true"
-        :listFolded="true"
-        :music="firstMusic"
-        :theme="'#c1866a'"
-        :controls="true"
-        :preload="'auto'"
-        :list="audio"
-        :showLrc="true"
-        v-if="flag"
-        :volume="0.6"
-        listMaxHeight="300px"
-      />
-    </div>
-    <div class="player-cicrle">
-      <div class="left">
-        <svg-icon class="icon" icon-class="left" @click.native="leftMusic()"/>
+  <div>
+    <div class="bg" :style="'background-image:url('+currentMusic.pic+');'"></div>
+    <div class="home">
+      <NavBtn class="menu"></NavBtn>
+      <NavMenu></NavMenu>
+      <div class="player">
+        <aplayer
+          ref="player"
+          :autoplay="true"
+          :listFolded="true"
+          :music="firstMusic"
+          :theme="'#c1866a'"
+          :controls="true"
+          :preload="'auto'"
+          :list="audio"
+          :showLrc="true"
+          v-if="flag"
+          :volume="0.6"
+          listMaxHeight="300px"
+        />
       </div>
-      <div class="center">
-        <div class="title">
-          {{currentMusic.title}}
-          <br>
-          <br>
-          {{duration.current}} / {{duration.duration}}
+      <div class="player-cicrle">
+        <div class="left">
+          <svg-icon class="icon" icon-class="left" @click.native="leftMusic()"/>
         </div>
-        <div class="circle" ref="circle" :style="'background-image:url('+currentMusic.pic+')'">
-          <div class="daughter"></div>
+        <div class="center">
+          <div class="title">
+            {{currentMusic.title}}
+            <br>
+            <br>
+            {{duration.current}} / {{duration.duration}}
+          </div>
+          <div class="circle" ref="circle" :style="'background-image:url('+currentMusic.pic+')'">
+            <div class="daughter"></div>
+          </div>
+          <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
+          <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
+          <div class="lrc-text">{{lrc}}</div>
         </div>
-        <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
-        <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
-        <div class="lrc-text">{{lrc}}</div>
+        <div class="right">
+          <svg-icon class="icon" icon-class="right" @click.native="rightMusic()"/>
+        </div>
       </div>
-      <div class="right">
-        <svg-icon class="icon" icon-class="right" @click.native="rightMusic()"/>
-      </div>
+      <Footer style="display:none"></Footer>
     </div>
-    <Footer style="display:none"></Footer>
   </div>
 </template>
 
@@ -54,7 +57,7 @@ import Footer from "@/components/fresh/Footer.vue";
 import { clearInterval } from "timers";
 import { debug } from "util";
 export default {
-  name:'music',
+  name: "music",
   components: {
     NavBtn,
     NavMenu,
@@ -229,7 +232,7 @@ export default {
           " : " +
           moment(t.asMilliseconds()).format("ss");
         let lrcText = document.querySelector(".aplayer-lrc-current").innerText;
-        if(lrcText){
+        if (lrcText) {
           this.lrc = lrcText;
         }
       }, 1000);
@@ -239,11 +242,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bg {
+  position: absolute;
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  -webkit-filter: blur(15px);
+  -moz-filter: blur(15px);
+  -o-filter: blur(15px);
+  -ms-filter: blur(15px);
+  filter: blur(15px);
+}
 .home {
   width: 100%;
   height: 100%;
-  background: hsla(40, 33%, 60%, 0.3);
-  color: hsla(40, 33%, 60%, 0.3);
+  background: hsla(0, 3%, 0%, 0.3);
+  color: rgba(250, 250, 250, 0.3);
   .menu {
     position: absolute;
     z-index: 100;
@@ -296,7 +311,8 @@ export default {
         background-size: 100% !important;
         animation: rotate 7s linear infinite;
         border-radius: 50%;
-        background-color: hsla(40, 33%, 60%, 0.3);
+        background-color: rgba(250, 250, 250, 0.3);
+        box-shadow: 0 0 10px 0px #fff;
         .daughter {
           width: 100%;
           height: 0;
