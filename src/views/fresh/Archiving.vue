@@ -179,7 +179,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  background: hsla(40, 33%, 60%, 0.3);
+  background: #eae4d6;
   .menu {
     position: absolute;
     left: 30px;

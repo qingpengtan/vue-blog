@@ -1,7 +1,7 @@
 <template>
-  <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+  <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" :duration='500'>
     <div class="tag-mask" v-show="isTagActive" @click="navTagClk">
-      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" >
         <div id="sidebar" class="sidebar" v-show="isTagActive">
           <div class="tags-title border-1px-b">Tags</div>
           <Tags :tags="tags" style="margin-top:10px"></Tags>
