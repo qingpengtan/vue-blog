@@ -54,6 +54,7 @@
     </div>
     <version class="version"></version>
     <Footer class="footer"></Footer>
+    <back-top v-if="toTop" :html="html"></back-top>
   </div>
 </template>
 
@@ -63,6 +64,7 @@ import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import Tags from "@/components/fresh/Tags.vue";
 import Version from "@/components/fresh/Version.vue";
 import Footer from "@/components/fresh/Footer.vue";
+import BackTop from "@/components/fresh/BackTop.vue";
 import api from "@/api/article";
 import { exists } from "fs";
 
@@ -72,7 +74,9 @@ export default {
     return {
       listItem: [],
       title: "",
-      zero: false
+      zero: false,
+      toTop: false,
+      html: ""
     };
   },
   components: {
@@ -80,7 +84,8 @@ export default {
     NavMenu,
     Tags,
     Version,
-    Footer
+    Footer,
+    BackTop
   },
   created() {
     document.title = "文章归档";
@@ -92,11 +97,17 @@ export default {
 
   mounted() {
     let $html = this.$refs.home;
+    this.html = $html;
     let $title = this.$refs.title;
     let $search = this.$refs.search;
     let $list = this.$refs.list;
     this.html = $html;
     $html.addEventListener("scroll", () => {
+      if ($html.scrollTop > 1000) {
+        this.toTop = true;
+      } else {
+        this.toTop = false;
+      }
       if ($html.clientWidth > 481) {
         return;
       }
@@ -327,6 +338,10 @@ export default {
     }
     .footer {
       width: 100%;
+    }
+    /deep/ .to-top {
+      display: inline !important;
+      right: 15px !important;
     }
   }
 }
