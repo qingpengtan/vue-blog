@@ -34,8 +34,12 @@
           <div class="circle" ref="circle" :style="'background-image:url('+currentMusic.pic+')'">
             <div class="daughter"></div>
           </div>
-          <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
-          <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
+          <transition name="slide-fade">
+            <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
+          </transition>
+          <transition name="slide-fade">
+            <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
+          </transition>
           <div class="lrc-text">{{lrc}}</div>
         </div>
         <div class="right">
@@ -86,12 +90,12 @@ export default {
     };
   },
   activated() {
-    document.title = "Music ~ " + this.currentMusic.title;
+    document.title = this.currentMusic.title;
     this.index = window.location.href.split("#")[1];
   },
   mounted() {
     Aplayer.disableVersionBadge = true;
-    document.title = "Music ~ " + this.currentMusic.title;
+    document.title = this.currentMusic.title;
     this.index = window.location.href.split("#")[1];
     this.$refs.circle.style.animationPlayState = "paused";
     api
@@ -113,7 +117,7 @@ export default {
             music.musicPic ||
             "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg";
           tempMusic["lrc"] = music.musicLrc || "[00:00.00]暂无歌词";
-          tempMusic['theme'] = 'pic';
+          tempMusic["theme"] = "pic";
           this.audio.unshift(tempMusic);
         }
         if (
@@ -137,7 +141,7 @@ export default {
           window.location.hash = this.aplayers.playIndex;
           this.isPlay = true;
           this.currentMusic = this.aplayers.currentMusic;
-          document.title = "Music ~ " + this.currentMusic.title;
+          document.title = this.currentMusic.title;
           this.$refs.circle.style.animationPlayState = "paused"; //上下一首音乐的时候先暂停动画
           if (this.isPaused) {
             this.$refs.circle.style.animationPlayState = "running";
@@ -260,11 +264,23 @@ export default {
   height: 100%;
   background: hsla(0, 3%, 0%, 0.3);
   color: rgba(250, 250, 250, 0.3);
+  right: 15px !important;
+  cursor: url(http://119.29.230.48/upload/image/2019325&e06f16495fe346c69885fd0973cf4e11.png)
+      5 5,
+    default;
   .menu {
     position: absolute;
     z-index: 100;
     left: 30px;
     top: 30px;
+    /deep/ ul {
+      cursor: url(http://119.29.230.48/upload/image/2019325&e06f16495fe346c69885fd0973cf4e11.png)
+          5 5,
+        pointer;
+      li {
+        background: rgba(250, 250, 250, 1);
+      }
+    }
   }
   .player {
     width: 360px;
@@ -272,6 +288,11 @@ export default {
     bottom: 10px;
     left: 5px;
     z-index: 100;
+    /deep/ .aplayer-list li {
+      cursor: url(http://119.29.230.48/upload/image/2019325&8de5d67bad2c46029338487e202c4db0.png)
+          5 5,
+        pointer;
+    }
   }
   .player-cicrle {
     width: 60%;
@@ -289,9 +310,10 @@ export default {
         top: 50%;
         transform: translate(-50%, -50%);
         cursor: pointer;
-        width: 80px;
+        width: 40px;
+        transition: width 0.5s;
         &:hover {
-          color: hsla(19, 41%, 77%, 0.61);
+          width: 50px;
         }
       }
     }
@@ -302,7 +324,6 @@ export default {
         width: 100%;
         text-align: center;
         margin-top: 80px;
-        color: #c1866a;
       }
       .circle {
         position: absolute;
@@ -326,7 +347,6 @@ export default {
         left: 50%;
         top: 80%;
         transform: translate(-50%, 50%);
-        color: #c1866a;
         text-align: center;
         font-size: 24px;
         line-height: 1.5;
@@ -337,10 +357,11 @@ export default {
         top: 50%;
         transform: translate(-50%, -50%);
         cursor: pointer;
-        width: 80px;
-        &:hover {
-          color: hsla(19, 41%, 77%, 0.61);
-        }
+        width: 40px;
+        // transition: width 0.5s;
+        // &:hover {
+        //   width: 50px;
+        // }
       }
     }
   }
@@ -398,5 +419,23 @@ export default {
   to {
     transform: translate(-50%, -90%) rotate(359deg);
   }
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  margin-top: -100px;
+  opacity: 0;
+}
+
+.slide-fade-enter-to,
+.slide-fade-leave {
+  margin-top: 0;
+  opacity: 1;
 }
 </style>
