@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bg" :style="'background-image:url('+currentMusic.pic+');'"></div>
-    <div class="home">
+    <div class="home" @click="cursorClick" ref="home">
       <NavBtn class="menu"></NavBtn>
       <NavMenu></NavMenu>
       <div class="player">
@@ -35,10 +35,20 @@
             <div class="daughter"></div>
           </div>
           <transition name="slide-fade">
-            <svg-icon class="icon" icon-class="start" v-show="!isPlay" @click.native="playMusic()"/>
+            <svg-icon
+              class="icon"
+              icon-class="start"
+              v-show="!isPlay"
+              @click.native.stop="playMusic()"
+            />
           </transition>
           <transition name="slide-fade">
-            <svg-icon class="icon" icon-class="pause" v-show="isPlay" @click.native="playMusic()"/>
+            <svg-icon
+              class="icon"
+              icon-class="pause"
+              v-show="isPlay"
+              @click.native.stop="playMusic()"
+            />
           </transition>
           <div class="lrc-text">{{lrc}}</div>
         </div>
@@ -47,6 +57,7 @@
         </div>
       </div>
       <Footer style="display:none"></Footer>
+      <span ref="cursor"></span>
     </div>
   </div>
 </template>
@@ -58,7 +69,7 @@ import Aplayer from "vue-aplayer";
 import NavBtn from "@/components/fresh/navbar/NavBtn.vue";
 import NavMenu from "@/components/fresh/navbar/NavMenu.vue";
 import Footer from "@/components/fresh/Footer.vue";
-import { clearInterval } from "timers";
+import { clearInterval, setTimeout } from "timers";
 import { debug } from "util";
 export default {
   name: "music",
@@ -82,11 +93,27 @@ export default {
       firstMusic: {},
       index: "0",
       isPaused: false,
+      tip: [
+        "富强",
+        "民主",
+        "文明",
+        "和谐",
+        "自由",
+        "平等",
+        "公正",
+        "法治",
+        "爱国",
+        "敬业",
+        "诚信",
+        "友善"
+      ],
+      count: 0,
       currentMusic: {
         title: "聆听美好音乐~",
         pic:
           "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg"
-      }
+      },
+      cursorSpan: ""
     };
   },
   activated() {
@@ -236,11 +263,48 @@ export default {
           ) +
           " : " +
           moment(t.asMilliseconds()).format("ss");
-        let lrcText = document.querySelector(".aplayer-lrc-current").innerText;
-        if (lrcText) {
-          this.lrc = lrcText;
+        if (document.querySelector(".aplayer-lrc-current")) {
+          let lrcText = document.querySelector(".aplayer-lrc-current")
+            .innerText;
+          if (lrcText) {
+            this.lrc = lrcText;
+          }
         }
       }, 1000);
+    },
+    cursorClick(ev) {
+      if (!this.cursorSpan) {
+        this.cursorSpan = this.$refs.cursor;
+      }
+      this.cursorSpan.style.transition = "none";
+      this.cursorSpan.style.opacity = 1;
+      this.cursorSpan.style.marginTop = "0px";
+      this.cursorSpan.style.position = "absolute";
+      this.cursorSpan.style.top = ev.clientY + "px";
+      this.cursorSpan.style.left = ev.clientX + "px";
+      this.cursorSpan.style.fontSize = "18px";
+      this.cursorSpan.style.color = this.getColor();
+      this.cursorSpan.innerText = this.tip[this.count];
+      this.cursorSpan.style.fontWeight = "600";
+      this.count++;
+      if (this.count >= 12) {
+        this.count = 0;
+      }
+      setTimeout(() => {
+        this.cursorSpan.style.transition = "all .5s";
+        this.cursorSpan.style.marginTop = "-100px";
+      }, 100);
+      setTimeout(() => {
+        this.cursorSpan.style.opacity = 0;
+      }, 500);
+    },
+    getColor() {
+      let str = "0123456789abcdef";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += str[parseInt(Math.random() * str.length)];
+      }
+      return color;
     }
   }
 };
@@ -382,13 +446,11 @@ export default {
       .left,
       .right {
         .icon {
-          width: 50px;
           transform: translate(-50%, -130%);
         }
       }
       .center {
         .icon {
-          width: 50px;
           transform: translate(-50%, -130%);
         }
         .circle {
