@@ -13,6 +13,9 @@
           <div class="article-nums">
             <span>文章阅读量:</span>
             <span>{{article.viewNum}}</span>
+            <span style="float:right">
+              全文共约 {{totalNum}} 字 
+            </span>
           </div>
           <article class="article-content cf">
             <a href="#" target="_blank" aria-label="Github" class="github-corner github">
@@ -72,7 +75,8 @@ export default {
       article: {},
       fadeIn: false,
       toTop: false,
-      html: ""
+      html: "",
+      totalNum:0
     };
   },
   created() {
@@ -82,6 +86,7 @@ export default {
       let $html = this.$refs.home;
       this.html = $html;
       this.$nextTick(() => {
+        this.totalNum = this.$refs.content.innerText.length;
         if (this.$route.fullPath.indexOf("#comment") != -1) {
           this.html.scrollTop = this.$refs.content.clientHeight;
         }

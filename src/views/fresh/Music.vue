@@ -57,7 +57,10 @@
         </div>
       </div>
       <Footer style="display:none"></Footer>
-      <span ref="cursor"></span>
+      <span ref="cursor">
+        <span ref="curtxt"></span>
+        <svg-icon style="width:18px;height:18px;margin-left:5px;" icon-class="musict"/>
+      </span>
     </div>
   </div>
 </template>
@@ -113,7 +116,8 @@ export default {
         pic:
           "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg"
       },
-      cursorSpan: ""
+      cursorSpan: "",
+      curtxt: ""
     };
   },
   activated() {
@@ -163,6 +167,7 @@ export default {
       .then(() => {
         this.aplayers = this.$refs.player;
         let audioP = this.aplayers.audio;
+        this.aplayers.shouldShuffle = true;
         audioP.addEventListener("play", () => {
           // console.log("开始播放");
           window.location.hash = this.aplayers.playIndex;
@@ -218,6 +223,9 @@ export default {
   },
   methods: {
     leftMusic() {
+      if (this.aplayers.repeatMode != "no-repeat") {
+        this.aplayers.shouldShuffle = false;
+      }
       if (this.aplayers.shouldShuffle) {
         this.aplayers.onSelectSong(
           this.audio[parseInt(Math.random() * this.audio.length)]
@@ -231,6 +239,9 @@ export default {
       }
     },
     rightMusic() {
+      if (this.aplayers.repeatMode != "no-repeat") {
+        this.aplayers.shouldShuffle = false;
+      }
       if (this.aplayers.shouldShuffle) {
         this.aplayers.onSelectSong(
           this.audio[parseInt(Math.random() * this.audio.length)]
@@ -275,6 +286,7 @@ export default {
     cursorClick(ev) {
       if (!this.cursorSpan) {
         this.cursorSpan = this.$refs.cursor;
+        this.curtxt = this.$refs.curtxt;
       }
       this.cursorSpan.style.transition = "none";
       this.cursorSpan.style.opacity = 1;
@@ -284,7 +296,7 @@ export default {
       this.cursorSpan.style.left = ev.clientX + "px";
       this.cursorSpan.style.fontSize = "18px";
       this.cursorSpan.style.color = this.getColor();
-      this.cursorSpan.innerText = this.tip[this.count];
+      this.curtxt.innerText = this.tip[this.count];
       this.cursorSpan.style.fontWeight = "600";
       this.count++;
       if (this.count >= 12) {
@@ -329,7 +341,7 @@ export default {
   background: hsla(0, 3%, 0%, 0.3);
   color: rgba(250, 250, 250, 0.3);
   right: 15px !important;
-  cursor: url(http://119.29.230.48/upload/image/2019325&e06f16495fe346c69885fd0973cf4e11.png)
+  cursor: url(http://119.29.230.48/upload/image/2019328&0bd3ca9b5c624b92aa82f647b0d0ef56.png)
       5 5,
     default;
   .menu {
@@ -338,9 +350,6 @@ export default {
     left: 30px;
     top: 30px;
     /deep/ ul {
-      cursor: url(http://119.29.230.48/upload/image/2019325&e06f16495fe346c69885fd0973cf4e11.png)
-          5 5,
-        pointer;
       li {
         background: rgba(250, 250, 250, 1);
       }
