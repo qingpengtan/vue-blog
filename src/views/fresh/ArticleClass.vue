@@ -180,7 +180,7 @@ export default {
     getTag(id) {
       switch (id) {
         case "1":
-          document.title = this.articleTag = "杂谈笔录";
+          document.title = this.articleTag = "随谈语录";
           break;
         case "2":
           document.title = this.articleTag = "Java";

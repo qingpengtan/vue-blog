@@ -32,7 +32,7 @@ export default {
         return "rgb(76, 174, 76)";
       } else if (value == "Python") {
         return "rgb(120, 109, 93)";
-      } else if (value == "杂谈笔录") {
+      } else if (value == "随谈语录") {
         return "rgb(135, 180, 78)";
       } else if (value == "精选知识") {
         return "rgb(134, 137, 140)";

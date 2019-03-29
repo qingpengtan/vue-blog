@@ -59,7 +59,7 @@
       <Footer style="display:none"></Footer>
       <span ref="cursor">
         <span ref="curtxt"></span>
-        <svg-icon style="width:18px;height:18px;margin-left:5px;" icon-class="musict"/>
+        <!-- <svg-icon style="width:18px;height:18px;margin-left:5px;" icon-class="musict"/> -->
       </span>
     </div>
   </div>
@@ -431,10 +431,10 @@ export default {
         transform: translate(-50%, -50%);
         cursor: pointer;
         width: 40px;
-        // transition: width 0.5s;
-        // &:hover {
-        //   width: 50px;
-        // }
+        transition: width 0.5s;
+        &:hover {
+          width: 50px;
+        }
       }
     }
   }
@@ -493,10 +493,10 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
 }
 .slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1) !important;
 }
 .slide-fade-enter,
 .slide-fade-leave-to {

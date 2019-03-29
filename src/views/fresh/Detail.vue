@@ -86,7 +86,7 @@ export default {
       let $html = this.$refs.home;
       this.html = $html;
       this.$nextTick(() => {
-        this.totalNum = this.$refs.content.innerText.length;
+        this.totalNum = this.$refs.content.innerText.replace(/\s+/g, "").length;
         if (this.$route.fullPath.indexOf("#comment") != -1) {
           this.html.scrollTop = this.$refs.content.clientHeight;
         }
