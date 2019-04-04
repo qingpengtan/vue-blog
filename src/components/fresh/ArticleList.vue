@@ -12,8 +12,9 @@
           </h2>
           <time class="time">{{item.createTime | filterTime}}</time>
           <div class="desc">
-            <span class="test">{{item.articleBrief}}</span>
-            <!-- <span class="look-more hover" @click="details(item.articleId)">查看更多</span> -->
+            <span class="test">{{item.articleBrief}}
+              <span class="look-more hover" @click="details(item.articleId)">查看更多</span>
+            </span>
           </div>
           <div class="comment hover">
             <router-link

@@ -96,25 +96,13 @@ export default {
       firstMusic: {},
       index: "0",
       isPaused: false,
-      tip: [
-        "富强",
-        "民主",
-        "文明",
-        "和谐",
-        "自由",
-        "平等",
-        "公正",
-        "法治",
-        "爱国",
-        "敬业",
-        "诚信",
-        "友善"
-      ],
+      tip: "",
       count: 0,
       currentMusic: {
         title: "聆听美好音乐~",
         pic:
-          "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg"
+          "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg",
+        src: ""
       },
       cursorSpan: "",
       curtxt: ""
@@ -125,6 +113,7 @@ export default {
     this.index = window.location.href.split("#")[1];
   },
   mounted() {
+    this.tip = this.currentMusic.title;
     Aplayer.disableVersionBadge = true;
     document.title = this.currentMusic.title;
     this.index = window.location.href.split("#")[1];
@@ -173,6 +162,8 @@ export default {
           window.location.hash = this.aplayers.playIndex;
           this.isPlay = true;
           this.currentMusic = this.aplayers.currentMusic;
+          this.tip = this.currentMusic.title;
+          this.count = 0;
           document.title = this.currentMusic.title;
           this.$refs.circle.style.animationPlayState = "paused"; //上下一首音乐的时候先暂停动画
           if (this.isPaused) {
@@ -299,7 +290,8 @@ export default {
       this.curtxt.innerText = this.tip[this.count];
       this.cursorSpan.style.fontWeight = "600";
       this.count++;
-      if (this.count >= 12) {
+      this.isEmpty(this.tip[this.count]);
+      if (this.count >= this.tip.length) {
         this.count = 0;
       }
       setTimeout(() => {
@@ -317,6 +309,12 @@ export default {
         color += str[parseInt(Math.random() * str.length)];
       }
       return color;
+    },
+    isEmpty(param) {
+      if (this.count != this.tip.length && param.trim() == '' ) {
+        this.count++;
+        this.isEmpty(this.tip[this.count]);
+      }
     }
   }
 };
