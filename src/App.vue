@@ -9,14 +9,17 @@
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"></router-view>
     <request-loding></request-loding>
+    <Notification></Notification>
   </div>
 </template>
 
 <script>
 import RequestLoding from "@/components/RequestLoading.vue";
+import Notification from "@/components/fresh/Notification.vue";
 export default {
   components: {
-    RequestLoding
+    RequestLoding,
+    Notification
   }
 };
 </script>

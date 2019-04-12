@@ -18,7 +18,7 @@
             </span>
           </div>
           <article class="article-content cf">
-            <a href="#" target="_blank" aria-label="Github" class="github-corner github">
+            <a :href="'http://www.zhiroad.cn/blog/normal/#/edit-text?articleId='+article.articleId"  aria-label="Github" class="github-corner github">
               <svg-icon style="width:100%;height:100%" icon-class="git"/>
             </a>
             <h1>{{article.articleTitle}}</h1>

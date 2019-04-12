@@ -1,6 +1,6 @@
 <template>
   <ul class="version">
-    <li>欢迎您，{{user}}大牛，今天是{{time}}</li>
+    <li class="wel">欢迎您，{{user}}大牛，今天是{{time}}</li>
     <li>
       <a href="http://www.zhiroad.cn/blog/normal/" target='_blank' title="普通版">普通版</a>
     </li>
@@ -11,6 +11,7 @@
 
 <script>
 import api from "@/api/article";
+import showCal from "@/utils/navCal";
 import swal from 'sweetalert';
 import moment from 'moment';
 
@@ -23,9 +24,8 @@ export default {
     };
   },
   created() {
-    moment.locale('zh-cn');
-
-    this.time = moment().format('YYYY年MM月DD日  dddd');
+    // moment.locale('zh-cn');
+    this.time = showCal();
     api.getUserInfo().then(res => {
       this.user = res.data;
     });
@@ -57,9 +57,15 @@ export default {
     color: rgb(185, 69, 14);
   }
 }
+.wel{
+  display: none;
+}
 .version {
   z-index: 999;
 }
 @media only screen and (max-width: 481px) {
+  .wel{
+    display: block;
+  }
 }
 </style>
