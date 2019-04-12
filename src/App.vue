@@ -9,7 +9,7 @@
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
     <request-loding></request-loding>
-    <Notification></Notification>
+    <Notification @closeAnim="closeAnim"></Notification>
     <canvas style="position:absolute;z-index:-1;left:0;top:0"></canvas>
   </div>
 </template>
@@ -77,7 +77,8 @@ export default {
         y: undefined
       },
       c: "",
-      colorArray: ["355,85,80", "9,80,100", "343,81,45"]
+      colorArray: ["355,85,80", "9,80,100", "343,81,45"],
+      closeFlag: false
     };
   },
   components: {
@@ -129,6 +130,7 @@ export default {
     },
 
     drawCircles() {
+      if (this.closeFlag) return;
       for (let i = 0; i < 6; i++) {
         let radius = Math.floor(Math.random() * 4) + 2;
         let vx = Math.random() * 2 - 1;
@@ -161,6 +163,9 @@ export default {
       for (let i = 0; i < circleArray.length; i++) {
         circleArray[i].update();
       }
+    },
+    closeAnim(flag) {
+      this.closeFlag = flag;
     }
   }
 };
