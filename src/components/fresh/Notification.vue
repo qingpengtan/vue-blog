@@ -1,17 +1,36 @@
 <template>
-  <div class="home" v-if="show">
-    <div style="position:relative;width:100%;height:20px">
-      <svg-icon
-        @click.native="close"
-        style="width:20px;height:16px;position:absolute;right:0;cursor:pointer"
-        icon-class="close"
-      />
-    </div>
-    <div style="width:94%">欢迎您，{{user}}大牛，今天是{{time}}</div>
-    <div style="font-size:13px;color:#c1866a">
-      是否关闭鼠标跟随动画？
-      <button class="send" @click="send">{{btnTxt}}</button>
-    </div>
+  <div>
+    <transition
+      enter-active-class="animated fadeInRight"
+      leave-active-class="animated fadeOutRight"
+    >
+      <div class="side-btn" v-if="!show">
+        <svg-icon
+          @click.native="close"
+          style="width:30px;height:50px;cursor:pointer"
+          icon-class="side"
+        />
+      </div>
+    </transition>
+    <transition
+      enter-active-class="animated fadeInRight"
+      leave-active-class="animated fadeOutRight"
+    >
+      <div class="home" v-if="show">
+        <div style="position:relative;width:100%;height:20px">
+          <svg-icon
+            @click.native="close"
+            style="width:20px;height:16px;position:absolute;right:0;cursor:pointer"
+            icon-class="close"
+          />
+        </div>
+        <div style="width:94%">欢迎您，{{user}}大牛，今天是{{time}}</div>
+        <div style="font-size:13px;color:#c1866a">
+          是否{{btnTxt}}鼠标跟随动画？
+          <button class="send" @click="send">{{btnTxt}}</button>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -38,7 +57,7 @@ export default {
   },
   methods: {
     close() {
-      this.show = false;
+      this.show = !this.show;
     },
     send() {
       this.closeFlag = !this.closeFlag;
@@ -53,15 +72,17 @@ export default {
 .home {
   width: 240px;
   padding: 5px 5px 5px 10px;
-  background: hsla(40, 33%, 60%, 0.3);
+  // background: hsla(40, 33%, 60%, 0.3);
+  background: white;
   line-height: 1.5;
-  color: #e18255;
+  color: #b04512;
   font-size: 13px;
   letter-spacing: 1px;
-  box-shadow: 0 0 5px 0;
+  box-shadow: 0 0 5px 0 #999;
   position: fixed;
   right: 25px;
   bottom: 180px;
+  display: block;
 }
 .send {
   width: 50px;
@@ -79,8 +100,19 @@ export default {
   font-size: 13px;
   cursor: pointer;
 }
+.side-btn {
+  position: fixed;
+  right: 25px;
+  bottom: 195px;
+  background: #fff;
+  color: #c1866a;
+  padding: 5px;
+  box-shadow: 0 0 5px 0 #999;
+  display: block;
+}
 @media only screen and (max-width: 481px) {
-  .home {
+  .home,
+  .side-btn {
     display: none;
   }
 }

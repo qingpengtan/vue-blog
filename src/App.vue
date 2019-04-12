@@ -92,8 +92,8 @@ export default {
     this.c = canvas.getContext("2d");
 
     window.addEventListener("resize", () => {
-      canvas.height = window.innerHeight;
-      canvas.width = window.innerWidth;
+      canvas.height = document.body.clientHeight;
+      canvas.width = document.body.clientWidth;
 
       this.initCanvas();
     });
