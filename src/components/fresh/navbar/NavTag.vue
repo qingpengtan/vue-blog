@@ -77,14 +77,17 @@ export default {
 
     .vers {
       position: absolute;
-      bottom: 10px;
+      // bottom: 10px;
+      bottom: 70px;
       line-height: 1.5;
       color: #c1866a;
     }
     .footer {
       position: absolute;
-      bottom: 85px;
-      padding: 0 10px;
+      // bottom: 85px;
+      // bottom: 70px;
+      bottom: 10px;
+      // padding: 0 10px;
       text-align: left;
       margin: 0 auto;
       line-height: 1.5;

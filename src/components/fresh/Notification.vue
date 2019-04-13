@@ -71,7 +71,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   width: 240px;
-  padding: 5px 5px 5px 10px;
+  padding: 5px 5px 10px 15px;
   // background: hsla(40, 33%, 60%, 0.3);
   background: white;
   line-height: 1.5;

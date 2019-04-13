@@ -40,7 +40,7 @@
       </transition>
       <Comment :id.sync="article.articleId"></Comment>
     </div>
-    <version class="version"></version>
+    <!-- <version class="version"></version> -->
     <Footer class="footer"></Footer>
     <back-top v-if="toTop" :html="html"></back-top>
   </div>

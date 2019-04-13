@@ -131,6 +131,6 @@ var ss = parseInt(D.getTime() / 1000);
 if (yy < 100) yy = "19" + yy;
 
 function showCal() {
-    return yy +"年"+mm+"月"+dd+"日 "+GetLunarDay(yy, mm, dd) +" "+ weekDay[ww];
+    return yy +"年"+mm+"月"+dd+"日 农历"+GetLunarDay(yy, mm, dd) +" "+ weekDay[ww];
 }
 export default showCal
