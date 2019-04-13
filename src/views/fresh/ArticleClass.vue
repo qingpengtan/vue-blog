@@ -80,9 +80,9 @@ export default {
     };
   },
   created() {
-    api.getArticleTag().then(res => {
-      this.tags = res.data;
-    });
+    // api.getArticleTag().then(res => {
+    //   this.tags = res.data;
+    // });
     this.getTag(this.$route.params.id);
   },
   mounted() {
@@ -177,35 +177,20 @@ export default {
           }
         });
     },
-    getTag(id) {
-      switch (id) {
-        case "1":
-          document.title = this.articleTag = "随谈语录";
-          break;
-        case "2":
-          document.title = this.articleTag = "Java";
-          break;
-        case "3":
-          document.title = this.articleTag = "Web开发";
-          break;
-        case "8":
-          document.title = this.articleTag = "NodeJS";
-          break;
-        case "4":
-          document.title = this.articleTag = "Go语言";
-          break;
-        case "5":
-          document.title = this.articleTag = "大数据";
-          break;
-        case "6":
-          document.title = this.articleTag = "Python";
-          break;
-        case "9":
-          document.title = this.articleTag = "精选知识";
-          break;
-        default:
-          document.title = this.articleTag = "其他";
-          break;
+    async getTag(id) {
+      let tags = localStorage.getItem("navTag");
+      let tagArr;
+      if (tags == "null" || tags == "" || tags == undefined || tags == null) {
+        let res = await api.getArticleTag();
+        tagArr = res.data;
+        localStorage.setItem("navTag", JSON.stringify(tagArr));
+      } else {
+        tagArr = JSON.parse(tags);
+      }
+      for (let item of tagArr) {
+        if (id == item["articleTagId"]) {
+          document.title = this.articleTag = item["articleTag"];
+        }
       }
     }
   },

@@ -120,9 +120,9 @@ export default {
     // api.getArticleList().then(res => {
     //   this.list = res.data.articleList;
     // });
-    api.getArticleTag().then(res => {
-      this.tags = res.data;
-    });
+    // api.getArticleTag().then(res => {
+    //   this.tags = res.data;
+    // });
     document.title = "ZHIROAD";
   },
   activated() {

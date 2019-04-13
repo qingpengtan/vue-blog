@@ -4,7 +4,7 @@
       tag="div"
       :to="{path:'/tags/'+item.articleTagId}"
       class="tag-box"
-      v-for="(item,key) in tags"
+      v-for="(item,key) in tagsObj"
       :key="key"
       :title="item.articleTag"
       :style="'background:'+getColor(item.articleTag) "
@@ -16,8 +16,28 @@
 </template>
 
 <script>
+import api from "@/api/article";
+
 export default {
   props: ["tags"],
+  data(){
+    return{
+      tagsObj:this.tags
+    }
+  },
+  mounted(){
+      if (this.tags.length == 0) {
+        let tags = localStorage.getItem("navTag");
+        if (tags == "null" || tags == "" || tags == undefined || tags == null) {
+          api.getArticleTag().then(res => {
+            localStorage.setItem("navTag", JSON.stringify(res.data));
+            this.tagsObj = res.data;
+          });
+        } else {
+          this.tagsObj =  JSON.parse(tags);
+        }
+      }
+  },
   methods: {
     getColor(value) {
       if (value == "Java") {
@@ -36,6 +56,8 @@ export default {
         return "rgb(135, 180, 78)";
       } else if (value == "精选知识") {
         return "rgb(134, 137, 140)";
+      } else if (value == "Flutter") {
+        return "rgb(210,180,140)";
       } else {
         return "rgb(230, 188, 60)";
       }

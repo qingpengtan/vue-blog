@@ -42,7 +42,7 @@
     </div>
     <div class="zero" v-if="zero">
       <svg-icon style="width:80px" icon-class="zero"/>
-      <div style="padding:20px">没有更多文章啦 ︿(￣︶￣)︿</div>
+      <div style="padding:20px">暂无收录相关文章 ︿(￣︶￣)︿</div>
     </div>
   </div>
 </template>

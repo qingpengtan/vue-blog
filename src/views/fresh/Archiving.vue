@@ -12,6 +12,7 @@
         <transition-group enter-active-class="animated zoomIn">
           <div class="month-timeline" v-for="data in listItem" :key="data.time">
             <time id="2018-5" class="timeline-t">{{data.time}}</time>
+            <span style="color:#dcab93;">（ {{data.data.length}} ）</span>
             <ul class="time-line-items">
               <transition-group enter-active-class="animated slideInLeft">
                 <router-link
@@ -167,6 +168,7 @@ export default {
             this.listItem.push(obj);
           }
         });
+        console.log(this.listItem);
         this.zero = !this.listItem.length;
       });
     }
