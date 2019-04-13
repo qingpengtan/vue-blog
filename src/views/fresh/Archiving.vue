@@ -197,14 +197,12 @@ export default {
       letter-spacing: 5px;
       padding-top: 80px;
       color: #c1866a;
-      background: #eae4d6;
       z-index: 50;
     }
     .search {
       text-align: center;
       padding: 35px 0;
       z-index: 40;
-      background: #eae4d6;
       input {
         height: 30px;
         background: hsla(40, 33%, 60%, 0.3);
@@ -231,7 +229,7 @@ export default {
       width: 100%;
       .month-timeline {
         width: 70%;
-        margin: 0 auto;
+        margin: 20px auto;
         .timeline-t {
           font-family: Georgia;
           color: #c1866a;
@@ -306,9 +304,11 @@ export default {
       .title {
         padding-top: 60px;
         font-size: 27px;
+        background: #eae4d6;
       }
       .search {
         width: 100%;
+        background: #eae4d6;
         input {
           height: 24px;
           width: 65%;

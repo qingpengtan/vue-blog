@@ -20,7 +20,7 @@
           listMaxHeight="300px"
         />
       </div>
-      <div class="player-cicrle">
+      <div class="player-cicrle" v-show="!lrcShow">
         <div class="left">
           <svg-icon class="icon" icon-class="left" @click.native="leftMusic()"/>
         </div>
@@ -56,6 +56,7 @@
           <svg-icon class="icon" icon-class="right" @click.native="rightMusic()"/>
         </div>
       </div>
+      <div class="music-lrc" v-show="lrcShow">{{currentMusic.lrc}}</div>
       <Footer style="display:none"></Footer>
       <span ref="cursor">
         <span ref="curtxt"></span>
@@ -102,10 +103,12 @@ export default {
         title: "聆听美好音乐~",
         pic:
           "http://119.29.230.48/upload/image/2019317&6a9db24551fe4b70b7e286b5fc45d2ae.jpg",
-        src: ""
+        src: "",
+        lrc:"[00:00.00]暂无歌词"
       },
       cursorSpan: "",
-      curtxt: ""
+      curtxt: "",
+      lrcShow:false,
     };
   },
   activated() {
@@ -311,7 +314,7 @@ export default {
       return color;
     },
     isEmpty(param) {
-      if (this.count != this.tip.length && param.trim() == '' ) {
+      if (this.count != this.tip.length && param.trim() == "") {
         this.count++;
         this.isEmpty(this.tip[this.count]);
       }
@@ -435,6 +438,12 @@ export default {
         }
       }
     }
+  }
+  .music-lrc {
+    width: 60%;
+    min-width: 800px;
+    height: 100vh;
+    margin: 0 auto;
   }
 }
 @media only screen and (max-width: 481px) {
