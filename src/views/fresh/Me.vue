@@ -292,7 +292,7 @@ export default {
   .content {
     position: relative;
     left: 350px;
-    background: white;
+    background: rgba(255,255,255,0.75);
     margin-top: 20px;
     padding: 30px 20px;
     width: 830px;
