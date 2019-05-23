@@ -22,6 +22,11 @@
               <svg-icon style="width:100%;height:100%" icon-class="git"/>
             </a>
             <h1>{{article.articleTitle}}</h1>
+
+            <div class="middle-area" >
+              <div>作者：{{article.userName}}</div>
+              <div>类型：{{article.articleTagName}}</div>
+            </div>
             <!-- <div class="ql-snow">
               <div class="ql-editor" style="padding:0"> -->
                 <div
@@ -35,6 +40,7 @@
                 ></div>
               <!-- </div>
             </div> -->
+             <div style="margin-top:40px;text-align:right">------------发布时间：{{article.createTime}}</div>
           </article>
         </div>
       </transition>
@@ -170,6 +176,16 @@ export default {
         h1 {
           font-weight: 600;
           text-align: center;
+        }
+        .middle-area{
+          display: flex;
+          text-align: center;
+          color: #999;
+          padding:10px 0 30px 0;
+          font-size: 13px;
+          div{
+            flex: 1;
+          }
         }
       }
     }

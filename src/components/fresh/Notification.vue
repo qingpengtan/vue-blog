@@ -24,7 +24,12 @@
             icon-class="close"
           />
         </div>
-        <div style="width:94%">欢迎您，{{user}}大牛，今天是{{time}}</div>
+        <div style="width:94%">欢迎{{user}}访问，今天是{{time}} 第{{weekDays}}周</div>
+        <div class="progress-wrap">
+          <div ref="progress" class="progress-deg"></div>
+          <div class="progress-marsk"></div>
+          <div class="progress-text">{{currentYear}}年已过去: {{progress}}%</div>
+        </div>
         <div style="font-size:13px;color:#c1866a">
           是否{{btnTxt}}鼠标跟随动画？
           <button class="send" @click="send">{{btnTxt}}</button>
@@ -37,16 +42,21 @@
 <script>
 import showCal from "@/utils/navCal";
 import api from "@/api/article";
+import moment from "moment";
+import { close } from "fs";
 
 export default {
   name: "notifiication",
   data() {
     return {
-      show: true,
+      show: false,
       user: "",
       time: "",
-      closeFlag: false,
-      btnTxt: "关闭"
+      closeFlag: true,
+      weekDays: 0,
+      btnTxt: "开启",
+      currentYear: "",
+      progress: "0"
     };
   },
   created() {
@@ -55,9 +65,32 @@ export default {
       this.user = res.data;
     });
   },
+  mounted() {
+    let year = moment().format("YYYY");
+    let weekYear = year;
+    this.currentYear = year;
+    let startYear = year + "0101";
+    let endYear = year + "1231";
+    let totalTime = moment(endYear, "YYYYMMDD") - moment(startYear, "YYYYMMDD");
+    let currentTime = moment() - moment(startYear, "YYYYMMDD");
+    this.progress = parseInt((currentTime / totalTime) * 100);
+    let count = -1;
+    while (year == weekYear) {
+      weekYear = moment()
+        .weekday(-(count * 7))
+        .format("YYYY");
+      count++;
+    }
+    this.weekDays = count;
+  },
   methods: {
     close() {
       this.show = !this.show;
+      if (this.show) {
+        this.$nextTick(() => {
+          this.$refs.progress.style.width = this.progress + "%";
+        });
+      }
     },
     send() {
       this.closeFlag = !this.closeFlag;
@@ -83,6 +116,40 @@ export default {
   right: 25px;
   bottom: 180px;
   display: block;
+  .progress-wrap {
+    height: 24px;
+    border: 1px solid rgb(187, 164, 119);
+    margin: 10px 10px 10px 0;
+    padding: 2px;
+    position: relative;
+    .progress-deg {
+      height: 100%;
+      background: rgb(187, 164, 119);
+    }
+    .progress-marsk {
+      position: absolute;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      left: 0;
+      top: 0;
+      margin: 2px;
+      z-index: -1;
+      background: #c1c1c1a3;
+    }
+    .progress-text {
+      position: absolute;
+      width: 100%;
+      color: white;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 1000;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 .send {
   width: 50px;

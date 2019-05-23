@@ -10,7 +10,7 @@
           <a href="https://github.com/qingpengtan" target="_blank" title="GitHub">
             <svg-icon style="color:white;padding:0 6px" icon-class="Gits"/>
           </a>
-          <a href="https://juejin.im/user/5bebe624e51d457d2969d9f6" target="_blank" title="juejin">
+          <a href="https://juejin.im/user/5b441dbbe51d45194908fa94" target="_blank" title="juejin">
             <svg-icon style="color:white;padding:0 6px" icon-class="juejin"/>
           </a>
           <a href="mailto:tang1994year@163.com" title="email">

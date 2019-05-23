@@ -96,7 +96,7 @@ export default {
         "255,99,71",
         "255,127,80",
       ],
-      closeFlag: false
+      closeFlag: true
     };
   },
   components: {

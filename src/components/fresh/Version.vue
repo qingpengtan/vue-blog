@@ -1,26 +1,30 @@
 <template>
   <ul class="version">
-    <li class="wel">欢迎您，{{user}}大牛，今天是{{time}}</li>
+    <li class="wel">欢迎{{user}}访问，今天是{{time}} 第{{weekDays}}周</li>
+    <li class="progress-text">{{currentYear}}年已过去: {{progress}}%</li>
     <!-- <li>
       <a href="http://www.zhiroad.cn/blog/normal/" target='_blank' title="普通版">普通版</a>
     </li>
     <li style="color: rgb(185,69,14);" title="清新版">清新版</li>
-    <li @click="tip" title="炫酷版">炫酷版</li> -->
+    <li @click="tip" title="炫酷版">炫酷版</li>-->
   </ul>
 </template>
 
 <script>
 import api from "@/api/article";
 import showCal from "@/utils/navCal";
-import swal from 'sweetalert';
-import moment from 'moment';
+import swal from "sweetalert";
+import moment from "moment";
 
 export default {
   props: ["select"],
   data() {
     return {
       user: "",
-      time:""
+      time: "",
+      weekDays: 0,
+      currentYear: "",
+      progress: "0"
     };
   },
   created() {
@@ -30,11 +34,29 @@ export default {
       this.user = res.data;
     });
   },
-  methods: {
-    tip(){
-      swal("正在努力开发中...")
+  mounted() {
+    let year = moment().format("YYYY");
+    let weekYear = year;
+    this.currentYear = year;
+    let startYear = year + "0101";
+    let endYear = year + "1231";
+    let totalTime = moment(endYear, "YYYYMMDD") - moment(startYear, "YYYYMMDD");
+    let currentTime = moment() - moment(startYear, "YYYYMMDD");
+    this.progress = parseInt((currentTime / totalTime) * 100);
+    let count = -1;
+    while (year == weekYear) {
+      weekYear = moment()
+        .weekday(-(count * 7))
+        .format("YYYY");
+      count++;
     }
+    this.weekDays = count;
   },
+  methods: {
+    tip() {
+      swal("正在努力开发中...");
+    }
+  }
 };
 </script>
 
@@ -57,14 +79,14 @@ export default {
     color: rgb(185, 69, 14);
   }
 }
-.wel{
+.wel {
   display: none;
 }
 .version {
   z-index: 999;
 }
 @media only screen and (max-width: 481px) {
-  .wel{
+  .wel {
     display: block;
   }
 }

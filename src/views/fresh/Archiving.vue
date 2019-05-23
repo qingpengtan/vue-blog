@@ -168,7 +168,6 @@ export default {
             this.listItem.push(obj);
           }
         });
-        console.log(this.listItem);
         this.zero = !this.listItem.length;
       });
     }

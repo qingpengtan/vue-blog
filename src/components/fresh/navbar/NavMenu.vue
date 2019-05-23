@@ -61,7 +61,7 @@
           </li>
           <li :class="{ active: isActive}" title="Juejin">
             <a
-              href="https://juejin.im/user/5bebe624e51d457d2969d9f6"
+              href="https://juejin.im/user/5b441dbbe51d45194908fa94"
               target="_blank"
               style="color:#cdcdcd"
             >
