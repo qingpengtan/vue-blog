@@ -96,7 +96,7 @@ export default {
         "255,99,71",
         "255,127,80",
       ],
-      closeFlag: true
+      closeFlag: false
     };
   },
   components: {
@@ -132,15 +132,15 @@ export default {
     var that = this;
 
     // This is just for demo purposes :
-    for (let i = 1; i < 110; i++) {
-      (function(index) {
-        setTimeout(function() {
-          that.mouse.x = 100 + i * 10;
-          that.mouse.y = 100;
-          that.drawCircles();
-        }, i * 10);
-      })(i);
-    }
+    // for (let i = 1; i < 110; i++) {
+    //   (function(index) {
+    //     setTimeout(function() {
+    //       that.mouse.x = 100 + i * 10;
+    //       that.mouse.y = 100;
+    //       that.drawCircles();
+    //     }, i * 10);
+    //   })(i);
+    // }
   },
   methods: {
     initCanvas() {

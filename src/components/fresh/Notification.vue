@@ -28,7 +28,7 @@
         <div class="progress-wrap">
           <div ref="progress" class="progress-deg"></div>
           <div class="progress-marsk"></div>
-          <div class="progress-text">{{currentYear}}年已过去: {{progress}}%</div>
+          <div class="progress-text">{{currentYear}}年已过去: {{progress}}% {{currentDay}}/{{totalDay}}</div>
         </div>
         <div style="font-size:13px;color:#c1866a">
           是否{{btnTxt}}鼠标跟随动画？
@@ -52,11 +52,13 @@ export default {
       show: false,
       user: "",
       time: "",
-      closeFlag: true,
+      closeFlag: false,
       weekDays: 0,
-      btnTxt: "开启",
+      btnTxt: "关闭",
       currentYear: "",
-      progress: "0"
+      progress: "0",
+      currentDay:0,
+      totalDay:365
     };
   },
   created() {
@@ -71,9 +73,11 @@ export default {
     this.currentYear = year;
     let startYear = year + "0101";
     let endYear = year + "1231";
-    let totalTime = moment(endYear, "YYYYMMDD") - moment(startYear, "YYYYMMDD");
+    let totalTime = moment(endYear, "YYYYMMDD") - moment(startYear, "YYYYMMDD")+(24*3600*1000);
     let currentTime = moment() - moment(startYear, "YYYYMMDD");
     this.progress = parseInt((currentTime / totalTime) * 100);
+    this.currentDay = Math.ceil(currentTime/(24*3600*1000 ));
+    this.totalDay = Math.ceil(totalTime/(24*3600*1000));
     let count = -1;
     while (year == weekYear) {
       weekYear = moment()

@@ -1,7 +1,7 @@
 <template>
   <ul class="version">
     <li class="wel">欢迎{{user}}访问，今天是{{time}} 第{{weekDays}}周</li>
-    <li class="progress-text">{{currentYear}}年已过去: {{progress}}%</li>
+    <li class="progress-text">{{currentYear}}年已过去: {{progress}}% {{currentDay}}/{{totalDay}}</li>
     <!-- <li>
       <a href="http://www.zhiroad.cn/blog/normal/" target='_blank' title="普通版">普通版</a>
     </li>
@@ -24,7 +24,9 @@ export default {
       time: "",
       weekDays: 0,
       currentYear: "",
-      progress: "0"
+      progress: "0",
+      currentDay: 0,
+      totalDay: 365
     };
   },
   created() {
@@ -40,9 +42,14 @@ export default {
     this.currentYear = year;
     let startYear = year + "0101";
     let endYear = year + "1231";
-    let totalTime = moment(endYear, "YYYYMMDD") - moment(startYear, "YYYYMMDD");
+    let totalTime =
+      moment(endYear, "YYYYMMDD") -
+      moment(startYear, "YYYYMMDD") +
+      24 * 3600 * 1000;
     let currentTime = moment() - moment(startYear, "YYYYMMDD");
     this.progress = parseInt((currentTime / totalTime) * 100);
+    this.currentDay = Math.ceil(currentTime / (24 * 3600 * 1000));
+    this.totalDay = Math.ceil(totalTime / (24 * 3600 * 1000));
     let count = -1;
     while (year == weekYear) {
       weekYear = moment()
